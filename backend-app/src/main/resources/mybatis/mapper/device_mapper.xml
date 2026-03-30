@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wifi32767.infra.dao.DeviceDao">
+
+    <resultMap id="dataMap" type="com.wifi32767.infra.dao.po.Device">
+
+        <id column="device_id" property="deviceId"/>
+        <result column="device_name" property="deviceName"/>
+        <result column="device_class_id" property="deviceClassId"/>
+        <result column="device_type_id" property="deviceTypeId"/>
+        <result column="device_use_year" property="deviceUseYear"/>
+        <result column="device_price" property="devicePrice"/>
+        <result column="device_using_unit" property="deviceUsingUnit"/>
+        <result column="device_country_id" property="deviceCountryId"/>
+        <result column="device_location" property="deviceLocation"/>
+        <result column="device_longitude" property="deviceLongitude"/>
+        <result column="device_latitude" property="deviceLatitude"/>
+        <result column="device_img" property="deviceImg"/>
+        <result column="device_video" property="deviceVideo"/>
+        <result column="device_introduce" property="deviceIntroduce"/>
+        <result column="device_news_link" property="deviceNewsLink"/>
+        <result column="device_news_title" property="deviceNewsTitle"/>
+        <result column="device_news_time" property="deviceNewsTime"/>
+        <result column="device_insql_time" property="deviceInsqlTime"/>
+        <result column="device_changesql_time" property="deviceChangesqlTime"/>
+        <result column="audit_flag" property="auditFlag"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+
+    <select id="queryAllCount" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT COUNT(*)
+            FROM device
+            WHERE (deleted IS NULL OR deleted = 0)
+        ]]>
+    </select>
+
+    <select id="queryCountByDate" parameterType="java.time.LocalDate" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT COUNT(*)
+            FROM device
+            WHERE (deleted IS NULL OR deleted = 0)
+              AND DATE(device_insql_time) = #{localdate}
+        ]]>
+    </select>
+
+        <select id="queryCorrectionCountByDate" parameterType="java.time.LocalDate" resultMap="dataMap">
+        <![CDATA[
+            SELECT COUNT(*)
+            FROM device
+            WHERE (deleted IS NULL OR deleted = 0)
+              AND DATE(device_insql_time) < #{localdate}
+              AND DATE(device_changesql_time) = #{localdate}
+            ]]>
+    </select>
+
+        <select id="queryLatestNews" parameterType="java.lang.Integer" resultMap="dataMap">
+            <![CDATA[
+        SELECT *
+        FROM device
+        WHERE (deleted IS NULL OR deleted = 0)
+            AND device_name IS NULL
+            AND device_news_time IS NOT NULL
+        ORDER BY device_news_time DESC
+        ]]>
+            <if test="limit != null and limit >= 0">
+                <![CDATA[
+            LIMIT #{limit}
+            ]]>
+            </if>
+        </select>
+
+        <select id="queryLatestDevices" parameterType="java.lang.Integer" resultMap="dataMap">
+            <![CDATA[
+        SELECT *
+        FROM device
+        WHERE (deleted IS NULL OR deleted = 0)
+            AND device_name IS NOT NULL
+        ORDER BY device_insql_time DESC
+        ]]>
+            <if test="limit != null and limit >= 0">
+                <![CDATA[
+            LIMIT #{limit}
+            ]]>
+            </if>
+        </select>
+
+        <select id="queryRandomDevices" parameterType="java.lang.Integer" resultMap="dataMap">
+            <![CDATA[
+        SELECT *
+        FROM device
+        WHERE (deleted IS NULL OR deleted = 0)
+            AND device_name IS NOT NULL
+        ORDER BY RAND()
+        ]]>
+            <if test="limit != null and limit >= 0">
+                <![CDATA[
+            LIMIT #{limit}
+            ]]>
+            </if>
+        </select>
+
+        <select id="queryDevicesByText" parameterType="java.lang.String" resultMap="dataMap">
+        <![CDATA[
+            SELECT *
+            FROM device
+            WHERE (deleted IS NULL OR deleted = 0)
+              AND device_introduce LIKE CONCAT('%', #{keyword}, '%')
+            ]]>
+    </select>
+
+        <select id="queryDevicesByTitle" parameterType="java.lang.String" resultMap="dataMap">
+        <![CDATA[
+            SELECT *
+            FROM device
+            WHERE (deleted IS NULL OR deleted = 0)
+              AND device_name LIKE CONCAT('%', #{keyword}, '%')
+            ]]>
+    </select>
+
+        <select id="queryDevicesByType" parameterType="java.lang.Integer" resultMap="dataMap">
+        <![CDATA[
+            SELECT *
+            FROM device
+            WHERE (deleted IS NULL OR deleted = 0)
+              AND device_type_id = #{id}
+            ]]>
+    </select>
+
+        <select id="queryDevicesByStyle" parameterType="java.lang.Integer" resultMap="dataMap">
+        <![CDATA[
+            SELECT *
+            FROM device
+            WHERE (deleted IS NULL OR deleted = 0)
+              AND device_style_id = #{id}
+            ]]>
+    </select>
+
+        <select id="queryDevicesByClass" parameterType="java.lang.Integer" resultMap="dataMap">
+        <![CDATA[
+            SELECT *
+            FROM device
+            WHERE (deleted IS NULL OR deleted = 0)
+              AND device_class_id = #{id}
+            ]]>
+    </select>
+
+        <select id="queryDevicesByCountry" parameterType="java.lang.Integer" resultMap="dataMap">
+        <![CDATA[
+            SELECT *
+            FROM device
+            WHERE (deleted IS NULL OR deleted = 0)
+              AND device_country_id = #{id}
+            ]]>
+    </select>
+
+    </mapper>
