@@ -5,12 +5,13 @@ import com.wifi32767.domain.portal.model.DeviceVO;
 import com.wifi32767.domain.portal.model.NewsVO;
 import com.wifi32767.domain.portal.model.StatsBoardVO;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class PortalServiceImp implements PortalService{
+public class PortalServiceImp implements PortalService {
     @Resource
     private PortalRepository repository;
 

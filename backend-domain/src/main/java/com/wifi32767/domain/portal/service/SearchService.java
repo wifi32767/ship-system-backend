@@ -9,6 +9,8 @@ import java.util.Map;
 
 public interface SearchService {
     List<DeviceVO> searchDevice(SearchParamsVO params);
+
     List<NewsVO> searchNews(SearchParamsVO params);
+
     Map<String, Integer> getClassStats(SearchParamsVO params);
 }

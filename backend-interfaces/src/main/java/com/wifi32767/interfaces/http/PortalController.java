@@ -15,6 +15,7 @@ public interface PortalController {
      * @return 收录统计板响应 DTO {@link com.wifi32767.domain.portal.model.StatsBoardVO}
      */
     Response<StatsBoardVO> getStatsBoard();
+
     /**
      * 最新新闻：返回最新10条新闻信息。
      * 数据格式：JSON
@@ -22,6 +23,7 @@ public interface PortalController {
      * @return 最新新闻列表 {@code List<com.wifi32767.domain.portal.model.NewsVO>}
      */
     Response<List<NewsVO>> getLatestNews();
+
     /**
      * 最新收录相关信息：返回最多30条最新收录信息。
      * 数据格式：JSON

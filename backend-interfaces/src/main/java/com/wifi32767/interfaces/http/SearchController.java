@@ -3,7 +3,6 @@ package com.wifi32767.interfaces.http;
 import com.wifi32767.domain.portal.model.DeviceVO;
 import com.wifi32767.domain.portal.model.SearchParamsVO;
 import com.wifi32767.interfaces.response.Response;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -26,4 +25,5 @@ public interface SearchController {
      * @param req 查询请求 DTO {@link SearchParamsVO}
      * @return 类别统计 Map
      */
-    Response<Map<String,Integer>> getClassStats(SearchParamsVO req);
+    Response<Map<String, Integer>> getClassStats(SearchParamsVO req);
+}

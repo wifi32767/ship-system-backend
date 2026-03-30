@@ -13,6 +13,7 @@ import java.time.LocalDate;
 public class DeviceDaoTest {
     @Autowired
     private DeviceDao deviceDao;
+
     @Test
     public void queryAllCountTest() {
         log.info("测试开始");

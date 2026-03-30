@@ -6,7 +6,6 @@ import com.wifi32767.domain.portal.model.NewsVO;
 import com.wifi32767.infra.adapter.converter.DeviceConverter;
 import com.wifi32767.infra.dao.CountryDao;
 import com.wifi32767.infra.dao.DeviceDao;
-import com.wifi32767.infra.dao.po.Device;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -59,22 +58,27 @@ public class SearchRepositoryImp implements SearchRepository {
     public List<NewsVO> searchNewsByText(String param) {
         return DeviceConverter.LDevice2LNewsVO(deviceDao.queryDevicesByText(param));
     }
+
     @Override
     public List<NewsVO> searchNewsByTitle(String param) {
         return DeviceConverter.LDevice2LNewsVO(deviceDao.queryDevicesByTitle(param));
     }
+
     @Override
     public List<NewsVO> searchNewsByType(int param) {
-            return DeviceConverter.LDevice2LNewsVO(deviceDao.queryDevicesByType(param));
-        }
+        return DeviceConverter.LDevice2LNewsVO(deviceDao.queryDevicesByType(param));
+    }
+
     @Override
     public List<NewsVO> searchNewsByStyle(int param) {
         return DeviceConverter.LDevice2LNewsVO(deviceDao.queryDevicesByStyle(param));
     }
+
     @Override
     public List<NewsVO> searchNewsByClass(int param) {
         return DeviceConverter.LDevice2LNewsVO(deviceDao.queryDevicesByClass(param));
     }
+
     @Override
     public List<NewsVO> searchNewsByCountry(String param) {
         int countryId = countryDao.queryCountryIdByName(param);

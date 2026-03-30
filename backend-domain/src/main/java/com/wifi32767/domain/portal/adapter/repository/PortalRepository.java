@@ -8,9 +8,14 @@ import java.util.List;
 
 public interface PortalRepository {
     int queryDeviceCount();
+
     int queryDeviceCountByDate(LocalDate date);
+
     int queryDeviceCorrectionCountByDate(LocalDate date);
+
     List<NewsVO> queryLatestNews(int limit);
+
     List<DeviceVO> queryLatestDevices(int limit);
+
     List<DeviceVO> queryRandomDevices(int limit);
 }

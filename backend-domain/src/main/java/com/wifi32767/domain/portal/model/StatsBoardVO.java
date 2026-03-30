@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StatsBoardVO {
-private long totalIndexed; // 收录总量
+    private long totalIndexed; // 收录总量
     private long todayIndexed; // 今日收录量
     private long todayCorrected; // 今日校错量
     private long indexdDiff; // 与昨日对比的收录量

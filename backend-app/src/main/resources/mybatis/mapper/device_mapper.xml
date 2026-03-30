@@ -29,33 +29,34 @@
 
     <select id="queryAllCount" resultType="java.lang.Integer">
         <![CDATA[
-            SELECT COUNT(*)
-            FROM device
-            WHERE (deleted IS NULL OR deleted = 0)
+        SELECT COUNT(*)
+        FROM device
+        WHERE (deleted IS NULL OR deleted = 0)
         ]]>
     </select>
 
     <select id="queryCountByDate" parameterType="java.time.LocalDate" resultType="java.lang.Integer">
         <![CDATA[
-            SELECT COUNT(*)
-            FROM device
-            WHERE (deleted IS NULL OR deleted = 0)
-              AND DATE(device_insql_time) = #{localdate}
+        SELECT COUNT(*)
+        FROM device
+        WHERE (deleted IS NULL OR deleted = 0)
+          AND DATE (device_insql_time) = #{localdate}
         ]]>
     </select>
 
-        <select id="queryCorrectionCountByDate" parameterType="java.time.LocalDate" resultMap="dataMap">
+    <select id="queryCorrectionCountByDate" parameterType="java.time.LocalDate" resultMap="dataMap">
         <![CDATA[
-            SELECT COUNT(*)
-            FROM device
-            WHERE (deleted IS NULL OR deleted = 0)
-              AND DATE(device_insql_time) < #{localdate}
-              AND DATE(device_changesql_time) = #{localdate}
-            ]]>
+        SELECT COUNT(*)
+        FROM device
+        WHERE (deleted IS NULL OR deleted = 0)
+          AND DATE (device_insql_time)
+            < #{localdate}
+          AND DATE (device_changesql_time) = #{localdate}
+        ]]>
     </select>
 
-        <select id="queryLatestNews" parameterType="java.lang.Integer" resultMap="dataMap">
-            <![CDATA[
+    <select id="queryLatestNews" parameterType="java.lang.Integer" resultMap="dataMap">
+        <![CDATA[
         SELECT *
         FROM device
         WHERE (deleted IS NULL OR deleted = 0)
@@ -63,95 +64,95 @@
             AND device_news_time IS NOT NULL
         ORDER BY device_news_time DESC
         ]]>
-            <if test="limit != null and limit >= 0">
-                <![CDATA[
+        <if test="limit != null and limit >= 0">
+            <![CDATA[
             LIMIT #{limit}
             ]]>
-            </if>
-        </select>
+        </if>
+    </select>
 
-        <select id="queryLatestDevices" parameterType="java.lang.Integer" resultMap="dataMap">
-            <![CDATA[
+    <select id="queryLatestDevices" parameterType="java.lang.Integer" resultMap="dataMap">
+        <![CDATA[
         SELECT *
         FROM device
         WHERE (deleted IS NULL OR deleted = 0)
             AND device_name IS NOT NULL
         ORDER BY device_insql_time DESC
         ]]>
-            <if test="limit != null and limit >= 0">
-                <![CDATA[
+        <if test="limit != null and limit >= 0">
+            <![CDATA[
             LIMIT #{limit}
             ]]>
-            </if>
-        </select>
+        </if>
+    </select>
 
-        <select id="queryRandomDevices" parameterType="java.lang.Integer" resultMap="dataMap">
-            <![CDATA[
+    <select id="queryRandomDevices" parameterType="java.lang.Integer" resultMap="dataMap">
+        <![CDATA[
         SELECT *
         FROM device
         WHERE (deleted IS NULL OR deleted = 0)
             AND device_name IS NOT NULL
         ORDER BY RAND()
         ]]>
-            <if test="limit != null and limit >= 0">
-                <![CDATA[
+        <if test="limit != null and limit >= 0">
+            <![CDATA[
             LIMIT #{limit}
             ]]>
-            </if>
-        </select>
-
-        <select id="queryDevicesByText" parameterType="java.lang.String" resultMap="dataMap">
-        <![CDATA[
-            SELECT *
-            FROM device
-            WHERE (deleted IS NULL OR deleted = 0)
-              AND device_introduce LIKE CONCAT('%', #{keyword}, '%')
-            ]]>
+        </if>
     </select>
 
-        <select id="queryDevicesByTitle" parameterType="java.lang.String" resultMap="dataMap">
+    <select id="queryDevicesByText" parameterType="java.lang.String" resultMap="dataMap">
         <![CDATA[
-            SELECT *
-            FROM device
-            WHERE (deleted IS NULL OR deleted = 0)
-              AND device_name LIKE CONCAT('%', #{keyword}, '%')
-            ]]>
+        SELECT *
+        FROM device
+        WHERE (deleted IS NULL OR deleted = 0)
+          AND device_introduce LIKE CONCAT('%', #{keyword}, '%')
+        ]]>
     </select>
 
-        <select id="queryDevicesByType" parameterType="java.lang.Integer" resultMap="dataMap">
+    <select id="queryDevicesByTitle" parameterType="java.lang.String" resultMap="dataMap">
         <![CDATA[
-            SELECT *
-            FROM device
-            WHERE (deleted IS NULL OR deleted = 0)
-              AND device_type_id = #{id}
-            ]]>
+        SELECT *
+        FROM device
+        WHERE (deleted IS NULL OR deleted = 0)
+          AND device_name LIKE CONCAT('%', #{keyword}, '%')
+        ]]>
     </select>
 
-        <select id="queryDevicesByStyle" parameterType="java.lang.Integer" resultMap="dataMap">
+    <select id="queryDevicesByType" parameterType="java.lang.Integer" resultMap="dataMap">
         <![CDATA[
-            SELECT *
-            FROM device
-            WHERE (deleted IS NULL OR deleted = 0)
-              AND device_style_id = #{id}
-            ]]>
+        SELECT *
+        FROM device
+        WHERE (deleted IS NULL OR deleted = 0)
+          AND device_type_id = #{id}
+        ]]>
     </select>
 
-        <select id="queryDevicesByClass" parameterType="java.lang.Integer" resultMap="dataMap">
+    <select id="queryDevicesByStyle" parameterType="java.lang.Integer" resultMap="dataMap">
         <![CDATA[
-            SELECT *
-            FROM device
-            WHERE (deleted IS NULL OR deleted = 0)
-              AND device_class_id = #{id}
-            ]]>
+        SELECT *
+        FROM device
+        WHERE (deleted IS NULL OR deleted = 0)
+          AND device_style_id = #{id}
+        ]]>
     </select>
 
-        <select id="queryDevicesByCountry" parameterType="java.lang.Integer" resultMap="dataMap">
+    <select id="queryDevicesByClass" parameterType="java.lang.Integer" resultMap="dataMap">
         <![CDATA[
-            SELECT *
-            FROM device
-            WHERE (deleted IS NULL OR deleted = 0)
-              AND device_country_id = #{id}
-            ]]>
+        SELECT *
+        FROM device
+        WHERE (deleted IS NULL OR deleted = 0)
+          AND device_class_id = #{id}
+        ]]>
     </select>
 
-    </mapper>
+    <select id="queryDevicesByCountry" parameterType="java.lang.Integer" resultMap="dataMap">
+        <![CDATA[
+        SELECT *
+        FROM device
+        WHERE (deleted IS NULL OR deleted = 0)
+          AND device_country_id = #{id}
+        ]]>
+    </select>
+
+</mapper>

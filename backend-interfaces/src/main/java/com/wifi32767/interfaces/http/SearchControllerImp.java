@@ -1,8 +1,8 @@
 package com.wifi32767.interfaces.http;
 
 import com.wifi32767.domain.portal.model.DeviceVO;
-import com.wifi32767.domain.portal.service.SearchService;
 import com.wifi32767.domain.portal.model.SearchParamsVO;
+import com.wifi32767.domain.portal.service.SearchService;
 import com.wifi32767.interfaces.response.Response;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +36,7 @@ public class SearchControllerImp implements SearchController {
     @Override
     @RequestMapping(value = "/api/user/class-stats", method = RequestMethod.GET)
     // 考虑把这个接口改成返回List<DTO>
-    public Response<Map<String,Integer>> getClassStats(SearchParamsVO req) {
+    public Response<Map<String, Integer>> getClassStats(SearchParamsVO req) {
         try {
             return new Response<>(searchService.getClassStats(req));
         } catch (Exception e) {

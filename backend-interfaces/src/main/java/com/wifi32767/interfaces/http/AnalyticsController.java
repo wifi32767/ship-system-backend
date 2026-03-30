@@ -1,10 +1,5 @@
 package com.wifi32767.interfaces.http;
 
-import com.wifi32767.domain.portal.model.SearchParamsVO;
-import org.springframework.http.ResponseEntity;
-
-import java.util.Map;
-
 public interface AnalyticsController {
 
 //    /**

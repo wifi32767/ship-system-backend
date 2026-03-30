@@ -14,10 +14,16 @@ import lombok.NoArgsConstructor;
  */
 public class Country {
 
-    /** 国家ID */
+    /**
+     * 国家ID
+     */
     private Integer countryId;
-    /** 国家名称 */
+    /**
+     * 国家名称
+     */
     private String countryName;
-    /** 英文名称 */
+    /**
+     * 英文名称
+     */
     private String englishName;
 }

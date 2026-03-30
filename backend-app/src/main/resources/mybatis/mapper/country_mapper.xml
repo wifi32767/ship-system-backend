@@ -10,11 +10,11 @@
 
     <select id="queryCountryIdByName" parameterType="java.lang.String" resultType="java.lang.Integer">
         <![CDATA[
-            SELECT country_id
-            FROM country
-            WHERE country_name = #{countryName}
-                OR english_name = #{countryName}
-       ]]>
+        SELECT country_id
+        FROM country
+        WHERE country_name = #{countryName}
+           OR english_name = #{countryName}
+        ]]>
     </select>
 
 </mapper>

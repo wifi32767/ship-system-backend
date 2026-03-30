@@ -1,8 +1,7 @@
 package com.wifi32767.interfaces.http;
 
-import com.wifi32767.domain.portal.model.SearchParamsVO;
-
 import com.wifi32767.domain.portal.model.DeviceVO;
+import com.wifi32767.domain.portal.model.SearchParamsVO;
 import com.wifi32767.interfaces.response.Response;
 
 import java.util.List;
