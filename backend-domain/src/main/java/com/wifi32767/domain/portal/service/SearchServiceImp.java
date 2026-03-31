@@ -1,6 +1,7 @@
 package com.wifi32767.domain.portal.service;
 
 import com.wifi32767.domain.portal.adapter.repository.ClassRepository;
+import com.wifi32767.domain.portal.adapter.repository.CountryRepository;
 import com.wifi32767.domain.portal.adapter.repository.SearchRepository;
 import com.wifi32767.domain.portal.model.DeviceVO;
 import com.wifi32767.domain.portal.model.NewsVO;
@@ -20,6 +21,9 @@ public class SearchServiceImp implements SearchService {
 
     @Resource
     private ClassRepository classRepository;
+
+    @Resource
+    private CountryRepository countryRepository;
 
     @Resource
     private PortalService portalService;
@@ -117,6 +121,41 @@ public class SearchServiceImp implements SearchService {
             // 可以优化
             String className = classRepository.getClassNameById(classId);
             stats.put(className, stats.getOrDefault(className, 0) + 1);
+        }
+        return stats;
+    }
+
+    @Override
+    public Map<String, Integer> getCountryStats(SearchParamsVO params) {
+        List<DeviceVO> devices = searchDevice(params);
+        Map<String, Integer> stats = new HashMap<>();
+        for (DeviceVO device : devices) {
+            int countryId = device.getDeviceCountryId();
+            // 可以优化
+            String country = countryRepository.getCountryNameById(countryId);
+            stats.put(country, stats.getOrDefault(country, 0) + 1);
+        }
+        return stats;
+    }
+
+    @Override
+    public Map<Integer, Integer> getYearStats(SearchParamsVO params) {
+        List<DeviceVO> devices = searchDevice(params);
+        Map<Integer, Integer> stats = new HashMap<>();
+        for (DeviceVO device : devices) {
+            Integer year = device.getDeviceUseYear();
+            stats.put(year, stats.getOrDefault(year, 0) + 1);
+        }
+        return stats;
+    }
+
+    @Override
+    public Map<String, Integer> getCompanyRelationStats(SearchParamsVO params) {
+        List<DeviceVO> devices = searchDevice(params);
+        Map<String, Integer> stats = new HashMap<>();
+        for (DeviceVO device : devices) {
+            String companyRelation = device.getDeviceUsingUnit();
+            stats.put(companyRelation, stats.getOrDefault(companyRelation, 0) + 1);
         }
         return stats;
     }

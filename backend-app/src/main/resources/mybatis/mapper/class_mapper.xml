@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wifi32767.infra.dao.ClassDao">
+    <resultMap id="dataMap" type="com.wifi32767.infra.dao.po.DeviceClass">
+        <id column="device_class_id" property="deviceClassId"/>
+        <result column="device_class_name" property="deviceClassName"/>
+        <result column="device_class_describe" property="deviceClassDescribe"/>
+        <result column="device_class_insql_time" property="deviceClassInsqlTime"/>
+        <result column="device_class_changesql_time" property="deviceClassChangesqlTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+
+    <select id="queryClassNameById" parameterType="java.lang.String" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT device_class_id
+        FROM device_class
+        WHERE (deleted = NULL OR deleted = 0) device_class_id = #{deviceClassId}
+        ]]>
+    </select>
+
+</mapper>

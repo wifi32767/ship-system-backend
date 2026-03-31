@@ -17,4 +17,12 @@
         ]]>
     </select>
 
+    <select id="queryCountryNameById" parameterType="java.lang.Integer" resultType="java.lang.String">
+        <![CDATA[
+        SELECT country_name
+        FROM country
+        WHERE country_id = #{countryId}
+        ]]>
+    </select>
+
 </mapper>

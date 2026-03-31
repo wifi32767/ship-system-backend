@@ -5,13 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 国家地区表
+ */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-/**
- * 国家地区表
- */
+
 public class Country {
 
     /**

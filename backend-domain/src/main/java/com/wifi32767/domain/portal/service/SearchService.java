@@ -13,4 +13,10 @@ public interface SearchService {
     List<NewsVO> searchNews(SearchParamsVO params);
 
     Map<String, Integer> getClassStats(SearchParamsVO params);
+
+    Map<String, Integer> getCountryStats(SearchParamsVO params);
+
+    Map<Integer, Integer> getYearStats(SearchParamsVO params);
+
+    Map<String, Integer> getCompanyRelationStats(SearchParamsVO params);
 }
