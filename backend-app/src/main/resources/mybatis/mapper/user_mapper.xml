@@ -16,14 +16,14 @@
 
     <insert id="insert" parameterType="com.wifi32767.infra.dao.po.User">
         <![CDATA[
-        INSERT INTO user (user_id, user_role, user_name, nick_name, email, sex, avatar_address, password, remark,
+        INSERT INTO user (user_role, user_name, nick_name, email, sex, avatar_address, password, remark,
                           phonenumber)
-        VALUES (#{userId}, #{userRole}, #{userName}, #{nickName}, #{email}, #{sex}, #{avatarAddress}, #{password},
+        VALUES (#{userRole}, #{userName}, #{nickName}, #{email}, #{sex}, #{avatarAddress}, #{password},
                 #{remark}, #{phoneNumber})
         ]]>
     </insert>
 
-    <select id="queryByUsername" parameterType="java.lang.String" resultType="com.wifi32767.infra.dao.po.User">
+    <select id="queryByUsername" parameterType="java.lang.String" resultMap="dataMap">
         <![CDATA[
         SELECT *
         FROM user

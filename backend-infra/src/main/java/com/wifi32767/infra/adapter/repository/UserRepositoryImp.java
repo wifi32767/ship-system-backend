@@ -5,6 +5,7 @@ import com.wifi32767.domain.user.model.SimpleUserVO;
 import com.wifi32767.domain.user.model.UserVO;
 import com.wifi32767.infra.dao.UserDao;
 import com.wifi32767.infra.dao.po.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
@@ -13,6 +14,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.util.List;
 
+@Slf4j
 @Repository
 public class UserRepositoryImp implements UserRepository {
     /**
