@@ -4,6 +4,8 @@ import com.wifi32767.domain.user.model.SimpleUserVO;
 import com.wifi32767.domain.user.model.UserVO;
 import com.wifi32767.domain.user.service.UserService;
 import com.wifi32767.interfaces.response.Response;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,6 +19,7 @@ import java.util.List;
 @RestController()
 @CrossOrigin("*")
 @RequestMapping("/api/user")
+@Tag(name = "用户管理", description = "提供用户账号相关操作")
 public class UserControllerImp implements UserController {
 
     @Resource
@@ -24,6 +27,7 @@ public class UserControllerImp implements UserController {
 
     @Override
     @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @Operation(summary = "用户登录", description = "使用用户名和密码进行登录，成功后返回一个token")
     public Response<String> login(String username, String password) {
         try {
             String token = userService.login(username, password);
@@ -37,6 +41,7 @@ public class UserControllerImp implements UserController {
 
     @Override
     @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @Operation(summary = "用户注册", description = "使用用户信息进行注册，成功后返回新用户的ID")
     public Response<Integer> register(UserVO user) {
         try {
             return new Response<>(userService.register(user));
@@ -48,6 +53,7 @@ public class UserControllerImp implements UserController {
 
     @Override
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    @Operation(summary = "用户登出", description = "用户登出，删除对应的token")
     public Response<String> logout() {
         // TODO: 删除redis token
         return new Response<>(null);
@@ -55,6 +61,7 @@ public class UserControllerImp implements UserController {
 
     @Override
     @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @Operation(summary = "获取所有用户信息", description = "返回系统中所有用户的基本信息列表")
     public Response<List<SimpleUserVO>> getAllUsersInfo() {
         try {
             return new Response<>(userService.getAllUsersInfo());
@@ -66,6 +73,7 @@ public class UserControllerImp implements UserController {
 
     @Override
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+//    @Operation(summary = "删除用户", description = "根据用户名删除用户账号")
     public Response<String> deleteUser(String username) {
         try {
             userService.delete(username);

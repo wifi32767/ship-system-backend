@@ -7,6 +7,8 @@ import com.wifi32767.interfaces.dto.ClassStatsDTO;
 import com.wifi32767.interfaces.dto.CountryStatsDTO;
 import com.wifi32767.interfaces.dto.EchartsOptionDTO;
 import com.wifi32767.interfaces.response.Response;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,6 +24,7 @@ import java.util.Map;
 @RestController()
 @CrossOrigin("*")
 @RequestMapping("/api/search")
+@Tag(name = "事件查询", description = "提供事件查询和统计分析相关的接口")
 public class SearchControllerImp implements SearchController {
 
     @Resource
@@ -29,6 +32,7 @@ public class SearchControllerImp implements SearchController {
 
     @Override
     @RequestMapping(value = "search", method = RequestMethod.GET)
+    @Operation(summary = "查询接口", description = "支持全文检索、标题联想检索、类别检索、所属国家检索。检索内容为空时为全库查询，返回所有新闻信息。")
     public Response<List<DeviceVO>> search(SearchParamsVO req) {
         try {
             return new Response<>(searchService.searchDevice(req));
@@ -40,6 +44,7 @@ public class SearchControllerImp implements SearchController {
 
     @Override
     @RequestMapping(value = "class-stats", method = RequestMethod.GET)
+    @Operation(summary = "类别统计接口", description = "根据查询条件统计各类别的事件数量，返回类别名称和对应的事件数量。")
     public Response<List<ClassStatsDTO>> getClassStats(SearchParamsVO req) {
         try {
             Map<String, Integer> stats = searchService.getClassStats(req);
@@ -55,6 +60,7 @@ public class SearchControllerImp implements SearchController {
 
     @Override
     @RequestMapping(value = "class-analysis", method = RequestMethod.GET)
+    @Operation(summary = "类别分析接口", description = "根据查询条件统计各类别的事件数量，并返回适合前端Echarts展示的数据格式。")
     public Response<EchartsOptionDTO> getClassAnalysis(SearchParamsVO req) {
         try {
             Map<String, Integer> stats = searchService.getClassStats(req);
@@ -74,6 +80,7 @@ public class SearchControllerImp implements SearchController {
 
     @Override
     @RequestMapping(value = "country-stats", method = RequestMethod.GET)
+    @Operation(summary = "国家统计接口", description = "根据查询条件统计各国家的事件数量，返回国家名称和对应的事件数量。")
     public Response<List<CountryStatsDTO>> getCountryStats(SearchParamsVO req) {
         try {
             Map<String, Integer> stats = searchService.getCountryStats(req);
@@ -89,6 +96,7 @@ public class SearchControllerImp implements SearchController {
 
     @Override
     @RequestMapping(value = "country-analysis", method = RequestMethod.GET)
+    @Operation(summary = "国家分析接口", description = "根据查询条件统计各国家的事件数量，并返回适合前端Echarts展示的数据格式。")
     public Response<EchartsOptionDTO> getCountryAnalysis(SearchParamsVO req) {
         try {
             Map<String, Integer> stats = searchService.getCountryStats(req);
@@ -109,6 +117,7 @@ public class SearchControllerImp implements SearchController {
 
     @Override
     @RequestMapping(value = "year-analysis", method = RequestMethod.GET)
+    @Operation(summary = "投产年份分析接口", description = "根据查询条件统计各投产年份的事件数量，并返回适合前端Echarts展示的数据格式。")
     public Response<EchartsOptionDTO> getYearAnalysis(SearchParamsVO req) {
         try {
             Map<Integer, Integer> stats = searchService.getYearStats(req);
@@ -131,6 +140,7 @@ public class SearchControllerImp implements SearchController {
 
     @Override
     @RequestMapping(value = "company-relation-analysis", method = RequestMethod.GET)
+    @Operation(summary = "企业关系分析接口", description = "根据查询条件统计各企业的事件数量，并返回适合前端Echarts展示的数据格式。")
     public Response<EchartsOptionDTO> getCompanyRelationAnalysis(SearchParamsVO req) {
         try {
             Map<String, Integer> stats = searchService.getCompanyRelationStats(req);

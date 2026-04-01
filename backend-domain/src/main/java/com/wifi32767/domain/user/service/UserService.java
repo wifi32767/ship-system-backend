@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface UserService {
 
-    int register(UserVO user);
+    int register(UserVO user) throws Exception;
 
-    String login(String username, String password);
+    String login(String username, String password) throws Exception;
 
     void delete(String username);
 

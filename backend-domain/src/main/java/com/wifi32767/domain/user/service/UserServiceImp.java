@@ -15,12 +15,12 @@ public class UserServiceImp implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public int register(UserVO user) {
+    public int register(UserVO user) throws Exception {
         return userRepository.register(user);
     }
 
     @Override
-    public String login(String username, String password) {
+    public String login(String username, String password) throws Exception {
         int userId = userRepository.login(username, password);
         if (userId == 0) {
             return null;
