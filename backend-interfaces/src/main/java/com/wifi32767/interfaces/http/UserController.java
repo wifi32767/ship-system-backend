@@ -30,9 +30,10 @@ public interface UserController {
      * 登出接口：使指定的登录令牌失效。
      * 数据格式：JSON
      *
+     * @param token 用户登录令牌
      * @return 登出操作结果消息 {@code String}
      */
-    Response<String> logout();
+    Response<String> logout(String token);
 
     /**
      * 获取用户信息：返回用户信息列表（表示所有用户）。

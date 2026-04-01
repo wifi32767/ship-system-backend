@@ -33,3 +33,17 @@ springdoc:
     disable-swagger-default-url: true
     display-request-duration: true # 显示请求持续时间
   packages-to-scan: com.wifi32767.interfaces.http # 指定要扫描的包
+
+redis:
+  sdk:
+    config:
+      host: localhost
+      port: 6379
+      pool-size: 10
+      min-idle-size: 5
+      idle-timeout: 30000
+      connect-timeout: 5000
+      retry-attempts: 3
+      retry-interval: 1000
+      ping-interval: 60000
+      keep-alive: true

@@ -119,7 +119,6 @@ public class SearchServiceImp implements SearchService {
         Map<String, Integer> stats = new HashMap<>();
         for (DeviceVO device : devices) {
             int classId = device.getDeviceClassId();
-            // 可以优化
             String className = classRepository.getClassNameById(classId);
             stats.put(className, stats.getOrDefault(className, 0) + 1);
         }
@@ -132,7 +131,6 @@ public class SearchServiceImp implements SearchService {
         Map<String, Integer> stats = new HashMap<>();
         for (DeviceVO device : devices) {
             int countryId = device.getDeviceCountryId();
-            // 可以优化
             String country = countryRepository.getCountryNameById(countryId);
             stats.put(country, stats.getOrDefault(country, 0) + 1);
         }

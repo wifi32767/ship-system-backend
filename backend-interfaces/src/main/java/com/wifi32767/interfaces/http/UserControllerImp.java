@@ -3,15 +3,13 @@ package com.wifi32767.interfaces.http;
 import com.wifi32767.domain.user.model.SimpleUserVO;
 import com.wifi32767.domain.user.model.UserVO;
 import com.wifi32767.domain.user.service.UserService;
+import com.wifi32767.infra.redis.RedisService;
 import com.wifi32767.interfaces.response.Response;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,13 +23,18 @@ public class UserControllerImp implements UserController {
     @Resource
     private UserService userService;
 
+    @Resource
+    private RedisService redisService;
+
     @Override
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @Operation(summary = "用户登录", description = "使用用户名和密码进行登录，成功后返回一个token")
     public Response<String> login(String username, String password) {
         try {
             String token = userService.login(username, password);
-            // TODO: 将token存入redis，设置过期时间
+            // 最好用事务来保证原子性，但这里简化处理
+            redisService.addToSet("user:" + username, token);
+            redisService.setValue("token:" + token, username, 3600 * 72);
             return new Response<>(token);
         } catch (Exception e) {
             log.error("Error during login: ", e);
@@ -54,8 +57,8 @@ public class UserControllerImp implements UserController {
     @Override
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     @Operation(summary = "用户登出", description = "用户登出，删除对应的token")
-    public Response<String> logout() {
-        // TODO: 删除redis token
+    public Response<String> logout(@CookieValue(value = "token", required = false) String token) {
+        redisService.remove(token);
         return new Response<>(null);
     }
 
@@ -73,7 +76,7 @@ public class UserControllerImp implements UserController {
 
     @Override
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-//    @Operation(summary = "删除用户", description = "根据用户名删除用户账号")
+    @Operation(summary = "删除用户", description = "根据用户名删除用户账号")
     public Response<String> deleteUser(String username) {
         try {
             userService.delete(username);
