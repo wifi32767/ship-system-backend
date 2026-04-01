@@ -1,4 +1,4 @@
-package com.wifi32767.domain.portal.adapter.repository;
+package com.wifi32767.domain.search.adapter.repository;
 
 import com.wifi32767.domain.portal.model.DeviceVO;
 import com.wifi32767.domain.portal.model.NewsVO;

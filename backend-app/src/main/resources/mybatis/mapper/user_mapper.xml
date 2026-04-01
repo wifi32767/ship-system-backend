@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wifi32767.infra.dao.UserDao">
+    <resultMap id="dataMap" type="com.wifi32767.infra.dao.po.User">
+        <id column="user_id" property="userId"/>
+        <result column="user_role" property="userRole"/>
+        <result column="user_name" property="userName"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="email" property="email"/>
+        <result column="sex" property="sex"/>
+        <result column="avatar_address" property="avatarAddress"/>
+        <result column="password" property="password"/>
+        <result column="remark" property="remark"/>
+        <result column="phonenumber" property="phoneNumber"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.wifi32767.infra.dao.po.User">
+        <![CDATA[
+        INSERT INTO user (user_id, user_role, user_name, nick_name, email, sex, avatar_address, password, remark,
+                          phonenumber)
+        VALUES (#{userId}, #{userRole}, #{userName}, #{nickName}, #{email}, #{sex}, #{avatarAddress}, #{password},
+                #{remark}, #{phoneNumber})
+        ]]>
+    </insert>
+
+    <select id="queryByUsername" parameterType="java.lang.String" resultType="com.wifi32767.infra.dao.po.User">
+        <![CDATA[
+        SELECT *
+        FROM user
+        WHERE user_name = #{username}
+        ]]>
+    </select>
+
+    <select id="queryAll" resultMap="dataMap">
+        <![CDATA[
+        SELECT *
+        FROM user
+        ]]>
+    </select>
+
+    <delete id="deleteByUsername" parameterType="java.lang.String">
+        <![CDATA[
+        DELETE
+        FROM user
+        WHERE user_name = #{username}
+        ]]>
+    </delete>
+
+    <select id="queryRoleIdByRoleName" parameterType="java.lang.String">
+        <![CDATA[
+        SELECT user_role_id
+        FROM user_role
+        WHERE user_role_name = #{roleName}
+        ]]>
+    </select>
+
+    <select id="queryRoleNameByRoleId" parameterType="java.lang.Integer">
+        <![CDATA[
+        SELECT user_role_name
+        FROM user_role
+        WHERE user_role_id = #{roleId}
+        ]]>
+    </select>
+</mapper>

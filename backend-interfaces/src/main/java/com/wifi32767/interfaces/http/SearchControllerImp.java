@@ -1,8 +1,8 @@
 package com.wifi32767.interfaces.http;
 
 import com.wifi32767.domain.portal.model.DeviceVO;
-import com.wifi32767.domain.portal.model.SearchParamsVO;
-import com.wifi32767.domain.portal.service.SearchService;
+import com.wifi32767.domain.search.model.SearchParamsVO;
+import com.wifi32767.domain.search.service.SearchService;
 import com.wifi32767.interfaces.dto.ClassStatsDTO;
 import com.wifi32767.interfaces.dto.CountryStatsDTO;
 import com.wifi32767.interfaces.dto.EchartsOptionDTO;
@@ -21,13 +21,14 @@ import java.util.Map;
 @Slf4j
 @RestController()
 @CrossOrigin("*")
+@RequestMapping("/api/search")
 public class SearchControllerImp implements SearchController {
 
     @Resource
     private SearchService searchService;
 
     @Override
-    @RequestMapping(value = "/api/user/search", method = RequestMethod.GET)
+    @RequestMapping(value = "search", method = RequestMethod.GET)
     public Response<List<DeviceVO>> search(SearchParamsVO req) {
         try {
             return new Response<>(searchService.searchDevice(req));
@@ -38,7 +39,7 @@ public class SearchControllerImp implements SearchController {
     }
 
     @Override
-    @RequestMapping(value = "/api/user/class-stats", method = RequestMethod.GET)
+    @RequestMapping(value = "class-stats", method = RequestMethod.GET)
     public Response<List<ClassStatsDTO>> getClassStats(SearchParamsVO req) {
         try {
             Map<String, Integer> stats = searchService.getClassStats(req);
@@ -53,7 +54,7 @@ public class SearchControllerImp implements SearchController {
     }
 
     @Override
-    @RequestMapping(value = "/api/user/class-analysis", method = RequestMethod.GET)
+    @RequestMapping(value = "class-analysis", method = RequestMethod.GET)
     public Response<EchartsOptionDTO> getClassAnalysis(SearchParamsVO req) {
         try {
             Map<String, Integer> stats = searchService.getClassStats(req);
@@ -72,7 +73,7 @@ public class SearchControllerImp implements SearchController {
     }
 
     @Override
-    @RequestMapping(value = "/api/user/country-stats", method = RequestMethod.GET)
+    @RequestMapping(value = "country-stats", method = RequestMethod.GET)
     public Response<List<CountryStatsDTO>> getCountryStats(SearchParamsVO req) {
         try {
             Map<String, Integer> stats = searchService.getCountryStats(req);
@@ -87,7 +88,7 @@ public class SearchControllerImp implements SearchController {
     }
 
     @Override
-    @RequestMapping(value = "/api/user/country-analysis", method = RequestMethod.GET)
+    @RequestMapping(value = "country-analysis", method = RequestMethod.GET)
     public Response<EchartsOptionDTO> getCountryAnalysis(SearchParamsVO req) {
         try {
             Map<String, Integer> stats = searchService.getCountryStats(req);
@@ -107,7 +108,7 @@ public class SearchControllerImp implements SearchController {
 
 
     @Override
-    @RequestMapping(value = "/api/user/year-analysis", method = RequestMethod.GET)
+    @RequestMapping(value = "year-analysis", method = RequestMethod.GET)
     public Response<EchartsOptionDTO> getYearAnalysis(SearchParamsVO req) {
         try {
             Map<Integer, Integer> stats = searchService.getYearStats(req);
@@ -129,7 +130,7 @@ public class SearchControllerImp implements SearchController {
     }
 
     @Override
-    @RequestMapping(value = "/api/user/company-relation-analysis", method = RequestMethod.GET)
+    @RequestMapping(value = "company-relation-analysis", method = RequestMethod.GET)
     public Response<EchartsOptionDTO> getCompanyRelationAnalysis(SearchParamsVO req) {
         try {
             Map<String, Integer> stats = searchService.getCompanyRelationStats(req);

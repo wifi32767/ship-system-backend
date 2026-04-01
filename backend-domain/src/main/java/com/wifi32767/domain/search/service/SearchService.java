@@ -1,8 +1,8 @@
-package com.wifi32767.domain.portal.service;
+package com.wifi32767.domain.search.service;
 
 import com.wifi32767.domain.portal.model.DeviceVO;
 import com.wifi32767.domain.portal.model.NewsVO;
-import com.wifi32767.domain.portal.model.SearchParamsVO;
+import com.wifi32767.domain.search.model.SearchParamsVO;
 
 import java.util.List;
 import java.util.Map;

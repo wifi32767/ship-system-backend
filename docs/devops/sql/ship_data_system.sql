@@ -31,6 +31,10 @@ CREATE TABLE country
     INDEX        idx_country_name (country_name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='国家地区表';
 
+INSERT INTO country (country_name, english_name)
+VALUES ('中国', 'China'),
+       ('美国', 'United States');
+
 -- 表3：数据1级分类表
 DROP TABLE IF EXISTS device_class;
 CREATE TABLE device_class
@@ -42,6 +46,7 @@ CREATE TABLE device_class
     device_class_changesql_time DATETIME     DEFAULT NULL COMMENT '数据类信息修改时间',
     deleted                     INT          DEFAULT NULL COMMENT '数据类信息逻辑删除字段'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='数据1级分类表';
+
 -- 表4：新闻、事件信息表
 DROP TABLE IF EXISTS device;
 CREATE TABLE device
@@ -74,6 +79,10 @@ CREATE TABLE device
     INDEX                 idx_country_id (device_country_id),
     INDEX                 idx_audit_flag (audit_flag),
     INDEX                 idx_deleted (deleted)
+    FOREIGN KEY (device_class_id) REFERENCES device_class(device_class_id),
+    FOREIGN KEY (device_style_id) REFERENCES device_style (device_style_id),
+    FOREIGN KEY (device_type_id) REFERENCES device_type (device_type_id),
+    FOREIGN KEY (device_country_id) REFERENCES country (country_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='新闻、事件信息表';
 
 -- 表5：2级分类表
@@ -126,6 +135,7 @@ DROP TABLE IF EXISTS user;
 CREATE TABLE user
 (
     user_id        BIGINT(20) PRIMARY KEY AUTO_INCREMENT COMMENT '用户ID',
+    user_role      INT UNSIGNED  NOT NULL COMMENT '用户角色'
     user_name      VARCHAR(30)  NOT NULL COMMENT '用户账号',
     nick_name      VARCHAR(30)  NOT NULL COMMENT '用户昵称',
     email          VARCHAR(50)  DEFAULT NULL COMMENT '用户邮箱',
@@ -136,7 +146,11 @@ CREATE TABLE user
     phonenumber    VARCHAR(11)  NOT NULL COMMENT '手机号码',
     UNIQUE KEY uk_user_name (user_name),
     INDEX          idx_phonenumber (phonenumber)
+    FOREIGN KEY (user_role) REFERENCES user_role(user_role_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
+
+INSERT INTO user (user_role, user_name, nick_name, remark, phonenumber)
+VALUES (1, 'root', '超级管理员', '超级管理员', '12345678901');
 
 -- 表9：爬虫模型表
 DROP TABLE IF EXISTS m_reptile_model;
@@ -168,3 +182,27 @@ CREATE TABLE keyword
     deleted                 INT(11) DEFAULT NULL COMMENT '关键词逻辑删除字段',
     INDEX                   idx_model_id (model_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='关键词表';
+
+-- 表11： 用户角色表
+DROP TABLE IF EXISTS user_role;
+CREATE TABLE user_role
+(
+    user_role_id   INT UNSIGNED PRIMARY KEY AUTO_INCREMENT COMMENT '用户角色id',
+    user_role_name VARCHAR(255) DEFAULT NULL COMMENT '用户角色名称',
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户角色表';
+
+INSERT INTO user_role (user_role_name)
+VALUES ('管理员'),
+       ('数据录入员'),
+       ('数据审核员'),
+       ('普通用户');
+
+-- 表12：用户权限表
+DROP TABLE IF EXISTS user_permission;
+CREATE TABLE user_permission
+(
+    user_permission_id   INT UNSIGNED PRIMARY KEY AUTO_INCREMENT COMMENT '用户权限id',
+    user_role            INT UNSIGNED NOT NULL COMMENT '用户角色id',
+    user_permission_name VARCHAR(255) DEFAULT NULL COMMENT '用户权限名称',
+    FOREIGN KEY (user_role) REFERENCES user_role (user_role_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户权限表';

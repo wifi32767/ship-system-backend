@@ -1,8 +1,8 @@
 package com.wifi32767.infra.adapter.repository;
 
-import com.wifi32767.domain.portal.adapter.repository.SearchRepository;
 import com.wifi32767.domain.portal.model.DeviceVO;
 import com.wifi32767.domain.portal.model.NewsVO;
+import com.wifi32767.domain.search.adapter.repository.SearchRepository;
 import com.wifi32767.infra.adapter.converter.DeviceConverter;
 import com.wifi32767.infra.dao.CountryDao;
 import com.wifi32767.infra.dao.DeviceDao;

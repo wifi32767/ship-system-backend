@@ -17,7 +17,7 @@ import java.util.List;
 @Slf4j
 @RestController()
 @CrossOrigin("*")
-@RequestMapping("/api/user/portal")
+@RequestMapping("/api/portal")
 public class PortalControllerImp implements PortalController {
     @Resource
     private PortalService portalService;

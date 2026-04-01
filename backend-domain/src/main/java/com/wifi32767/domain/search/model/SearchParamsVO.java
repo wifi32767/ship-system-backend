@@ -1,4 +1,4 @@
-package com.wifi32767.domain.portal.model;
+package com.wifi32767.domain.search.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
