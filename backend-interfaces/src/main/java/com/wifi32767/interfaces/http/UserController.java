@@ -2,7 +2,7 @@ package com.wifi32767.interfaces.http;
 
 import com.wifi32767.domain.user.model.SimpleUserVO;
 import com.wifi32767.domain.user.model.UserVO;
-import com.wifi32767.interfaces.response.Response;
+import com.wifi32767.interfaces.common.Response;
 
 import java.util.List;
 

@@ -14,8 +14,4 @@ public interface UserDao {
     List<User> queryAll();
 
     void deleteByUsername(String username);
-
-    Integer queryRoleIdByRoleName(String roleName);
-
-    String queryRoleNameByRoleId(Integer roleId);
 }

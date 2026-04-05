@@ -14,6 +14,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class User {
+    public static final String ADMIN = "admin";
+    public static final String AUDITOR = "auditor";
+    public static final String TYPIST = "typist";
+    public static final String USER = "user";
     /**
      * 用户ID
      */
@@ -21,7 +25,7 @@ public class User {
     /**
      * 用户角色
      */
-    private Integer userRole;
+    private String userRole;
     /**
      * 用户账号
      */

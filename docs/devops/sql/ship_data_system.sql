@@ -4,36 +4,12 @@ DROP DATABASE `ship_data_system`;
 CREATE DATABASE `ship_data_system` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 USE `ship_data_system`;
 
--- 表1：用户角色表（最先创建，因为被其他表依赖）
-DROP TABLE IF EXISTS user_role;
-CREATE TABLE user_role
-(
-    user_role_id   INT UNSIGNED PRIMARY KEY AUTO_INCREMENT COMMENT '用户角色id',
-    user_role_name VARCHAR(255) DEFAULT NULL COMMENT '用户角色名称'
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='用户角色表';
-
-INSERT INTO user_role (user_role_name)
-VALUES ('admin');
-
--- 表2：用户权限表
-DROP TABLE IF EXISTS user_permission;
-CREATE TABLE user_permission
-(
-    user_permission_id   INT UNSIGNED PRIMARY KEY AUTO_INCREMENT COMMENT '用户权限id',
-    user_role            INT UNSIGNED NOT NULL COMMENT '用户角色id',
-    user_permission_name VARCHAR(255) DEFAULT NULL COMMENT '用户权限名称',
-    INDEX idx_user_role (user_role),
-    FOREIGN KEY (user_role) REFERENCES user_role (user_role_id) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='用户权限表';
-
 -- 表3：用户表
 DROP TABLE IF EXISTS user;
 CREATE TABLE user
 (
     user_id        BIGINT(20) PRIMARY KEY AUTO_INCREMENT COMMENT '用户ID',
-    user_role      INT UNSIGNED NOT NULL COMMENT '用户角色',
+    user_role      VARCHAR(20)  NOT NULL COMMENT '用户角色',
     user_name      VARCHAR(30)  NOT NULL COMMENT '用户账号',
     nick_name      VARCHAR(30)  NOT NULL COMMENT '用户昵称',
     email          VARCHAR(50)  DEFAULT NULL COMMENT '用户邮箱',
@@ -43,9 +19,7 @@ CREATE TABLE user
     remark         VARCHAR(500) NOT NULL COMMENT '备注',
     phonenumber    VARCHAR(11)  NOT NULL COMMENT '手机号码',
     UNIQUE KEY uk_user_name (user_name),
-    INDEX idx_phonenumber (phonenumber),
-    INDEX idx_user_role (user_role),
-    FOREIGN KEY (user_role) REFERENCES user_role (user_role_id) ON DELETE RESTRICT ON UPDATE CASCADE
+    INDEX idx_phonenumber (phonenumber)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='用户表';
 

@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.wifi32767</groupId>
-        <artifactId>sysbackend</artifactId>
+        <artifactId>ship-system-backend</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>backend-app</artifactId>

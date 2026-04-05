@@ -26,19 +26,22 @@ public class UserServiceImp implements UserService {
             return null;
         }
         UUID randomUUID = UUID.randomUUID();
-        // TODO: 写入redis
         return randomUUID.toString();
     }
 
     @Override
     public void delete(String username) {
-        // TODO: 删除redis中的token
         userRepository.delete(username);
     }
 
     @Override
     public UserVO getUserInfo(String username) {
         return userRepository.getUserInfo(username);
+    }
+
+    @Override
+    public SimpleUserVO getSimpleUserInfo(String username) {
+        return userRepository.getSimpleUserInfo(username);
     }
 
     @Override

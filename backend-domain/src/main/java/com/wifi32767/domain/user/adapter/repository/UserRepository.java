@@ -14,5 +14,7 @@ public interface UserRepository {
 
     UserVO getUserInfo(String username);
 
+    SimpleUserVO getSimpleUserInfo(String username);
+
     List<SimpleUserVO> getAllUsersInfo();
 }

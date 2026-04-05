@@ -15,5 +15,7 @@ public interface UserService {
 
     UserVO getUserInfo(String username);
 
+    SimpleUserVO getSimpleUserInfo(String username);
+
     List<SimpleUserVO> getAllUsersInfo();
 }

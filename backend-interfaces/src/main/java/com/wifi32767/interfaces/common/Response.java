@@ -1,4 +1,4 @@
-package com.wifi32767.interfaces.response;
+package com.wifi32767.interfaces.common;
 
 import lombok.Getter;
 import lombok.Setter;

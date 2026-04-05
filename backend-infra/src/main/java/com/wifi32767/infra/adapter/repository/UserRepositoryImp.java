@@ -28,12 +28,8 @@ public class UserRepositoryImp implements UserRepository {
 
     @Override
     public int register(UserVO user) throws Exception {
-        int userRole = userDao.queryRoleIdByRoleName(user.getUserRole());
-        if (userRole == 0) {
-            throw new IllegalArgumentException("Invalid user role: " + user.getUserRole());
-        }
         User userPO = new User();
-        userPO.setUserRole(userRole);
+        userPO.setUserRole(user.getUserRole());
         userPO.setUserName(user.getUserName());
         userPO.setPassword(encode(user.getPassword()));
         userPO.setNickName(user.getNickName());
@@ -82,12 +78,26 @@ public class UserRepositoryImp implements UserRepository {
     }
 
     @Override
+    public SimpleUserVO getSimpleUserInfo(String username) {
+        User user = userDao.queryByUsername(username);
+        if (user == null) {
+            throw new IllegalArgumentException("User not found: " + username);
+        }
+        SimpleUserVO userVO = new SimpleUserVO();
+        userVO.setUserId(user.getUserId());
+        userVO.setUserRole(user.getUserRole());
+        userVO.setUserName(user.getUserName());
+        userVO.setNickName(user.getNickName());
+        return userVO;
+    }
+
+    @Override
     public List<SimpleUserVO> getAllUsersInfo() {
         List<User> users = userDao.queryAll();
         return users.stream().map(user -> {
             SimpleUserVO userVO = new SimpleUserVO();
             userVO.setUserId(user.getUserId());
-            userVO.setUserRole(userDao.queryRoleNameByRoleId(user.getUserRole()));
+            userVO.setUserRole(user.getUserRole());
             userVO.setUserName(user.getUserName());
             userVO.setNickName(user.getNickName());
             return userVO;

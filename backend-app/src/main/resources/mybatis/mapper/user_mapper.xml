@@ -45,20 +45,4 @@
         WHERE user_name = #{username}
         ]]>
     </delete>
-
-    <select id="queryRoleIdByRoleName" parameterType="java.lang.String">
-        <![CDATA[
-        SELECT user_role_id
-        FROM user_role
-        WHERE user_role_name = #{roleName}
-        ]]>
-    </select>
-
-    <select id="queryRoleNameByRoleId" parameterType="java.lang.Integer">
-        <![CDATA[
-        SELECT user_role_name
-        FROM user_role
-        WHERE user_role_id = #{roleId}
-        ]]>
-    </select>
 </mapper>

@@ -4,7 +4,8 @@ import com.wifi32767.domain.user.model.SimpleUserVO;
 import com.wifi32767.domain.user.model.UserVO;
 import com.wifi32767.domain.user.service.UserService;
 import com.wifi32767.infra.redis.RedisService;
-import com.wifi32767.interfaces.response.Response;
+import com.wifi32767.interfaces.common.Permission;
+import com.wifi32767.interfaces.common.Response;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
@@ -44,6 +45,7 @@ public class UserControllerImp implements UserController {
 
     @Override
     @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @Permission(Permission.ADMIN)
     @Operation(summary = "用户注册", description = "使用用户信息进行注册，成功后返回新用户的ID")
     public Response<Integer> register(@RequestBody UserVO user) {
         try {
@@ -76,6 +78,7 @@ public class UserControllerImp implements UserController {
 
     @Override
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @Permission(Permission.ADMIN)
     @Operation(summary = "删除用户", description = "根据用户名删除用户账号")
     public Response<String> deleteUser(@RequestBody String username) {
         try {
