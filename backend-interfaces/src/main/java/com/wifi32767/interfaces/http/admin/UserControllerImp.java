@@ -1,4 +1,4 @@
-package com.wifi32767.interfaces.http;
+package com.wifi32767.interfaces.http.admin;
 
 import com.wifi32767.domain.user.model.SimpleUserVO;
 import com.wifi32767.domain.user.model.UserVO;
