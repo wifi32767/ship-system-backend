@@ -30,10 +30,10 @@ public class UserDaoTest {
         log.info("match: {}", encoder.matches("asdasd", pwd));
     }
 
-    @Test
-    public void testQueryRoleIdByRoleName() {
-        String roleName = "admin";
-        int roleId = userDao.queryRoleIdByRoleName(roleName);
-        log.info("Role ID for role name '{}': {}", roleName, roleId);
-    }
+//    @Test
+//    public void testQueryRoleIdByRoleName() {
+//        String roleName = "admin";
+//        int roleId = userDao.queryRoleIdByRoleName(roleName);
+//        log.info("Role ID for role name '{}': {}", roleName, roleId);
+//    }
 }

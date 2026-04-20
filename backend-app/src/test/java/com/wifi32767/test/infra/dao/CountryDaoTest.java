@@ -1,6 +1,7 @@
 package com.wifi32767.test.infra.dao;
 
 import com.wifi32767.infra.dao.CountryDao;
+import com.wifi32767.infra.dao.po.Country;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,5 +26,39 @@ public class CountryDaoTest {
         int countryId = 2;
         String countryName = countryDao.queryCountryNameById(countryId);
         log.info("countryName: {}", countryName);
+    }
+
+    @Test
+    public void queryCountryAllTest() {
+        countryDao.queryAllCountries().forEach(country -> log.info("{}", country));
+    }
+
+    @Test
+    public void insertCountryTest() {
+        Country country = new Country();
+        country.setCountryName("圣马力诺");
+        country.setEnglishName("San Marino");
+        countryDao.insertCountry(country);
+
+        queryCountryAllTest();
+    }
+
+    @Test
+    public void updateCountryTest() {
+        Country country = new Country();
+        country.setCountryId(4);
+        country.setEnglishName("ST");
+        countryDao.updateCountry(country);
+
+        queryCountryAllTest();
+    }
+
+    @Test
+    public void deleteCountryTest() {
+        int countryId = 3;
+        countryDao.deleteCountry(countryId);
+        log.info("countryId: {}", countryId);
+
+        queryCountryAllTest();
     }
 }

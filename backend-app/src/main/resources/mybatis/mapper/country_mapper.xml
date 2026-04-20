@@ -5,7 +5,7 @@
     <resultMap id="dataMap" type="com.wifi32767.infra.dao.po.Country">
         <id column="country_id" property="countryId"/>
         <result column="country_name" property="countryName"/>
-        <result column="english_name" property="endlishName"/>
+        <result column="english_name" property="englishName"/>
     </resultMap>
 
     <select id="queryCountryIdByName" parameterType="java.lang.String" resultType="java.lang.Integer">
@@ -25,4 +25,45 @@
         ]]>
     </select>
 
+    <select id="queryDataCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*)
+        FROM device
+        WHERE device_country_id = #{countryId}
+        ]]>
+    </select>
+
+    <select id="queryAllCountries" resultMap="dataMap">
+        <![CDATA[
+        SELECT country_id, country_name, english_name
+        FROM country
+        ]]>
+    </select>
+
+    <insert id="insertCountry" parameterType="com.wifi32767.infra.dao.po.Country">
+        <![CDATA[
+        INSERT INTO country (country_name, english_name)
+        VALUES (#{countryName}, #{englishName})
+        ]]>
+    </insert>
+
+    <update id="updateCountry" parameterType="com.wifi32767.infra.dao.po.Country">
+        UPDATE country
+        <set>
+            <if test="countryName != null and countryName != ''">
+                country_name = #{countryName},
+            </if>
+            <if test="englishName != null and englishName != ''">
+                english_name = #{englishName},
+            </if>
+        </set>
+        WHERE country_id = #{countryId}
+    </update>
+
+    <delete id="deleteCountry" parameterType="java.lang.Integer">
+        <![CDATA[
+        DELETE FROM country
+        WHERE country_id = #{countryId}
+        ]]>
+    </delete>
 </mapper>
