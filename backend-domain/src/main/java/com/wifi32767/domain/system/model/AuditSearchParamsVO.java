@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 public class AuditSearchParamsVO {
     Integer id;
     String title; // 标题检索
-    Integer status; // 状态检索
+    Integer status; // 状态检索 0/null 未审核 1审核通过 2审核未通过
 }

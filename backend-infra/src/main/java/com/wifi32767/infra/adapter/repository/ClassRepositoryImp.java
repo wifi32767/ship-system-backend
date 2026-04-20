@@ -1,6 +1,6 @@
 package com.wifi32767.infra.adapter.repository;
 
-import com.wifi32767.domain.portal.adapter.repository.ClassRepository;
+import com.wifi32767.domain.system.adapter.repository.ClassRepository;
 import com.wifi32767.infra.dao.ClassDao;
 import com.wifi32767.infra.redis.RedisService;
 import org.springframework.stereotype.Repository;

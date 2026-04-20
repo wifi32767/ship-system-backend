@@ -1,5 +1,6 @@
 package com.wifi32767.infra.dao;
 
+import com.wifi32767.domain.system.model.AuditSearchParamsVO;
 import com.wifi32767.infra.dao.po.Device;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -31,4 +32,8 @@ public interface DeviceDao {
     List<Device> queryDevicesByClass(Integer id);
 
     List<Device> queryDevicesByCountry(Integer id);
+
+    List<Device> queryDevicesByTitleAndStatus(AuditSearchParamsVO params);
+
+    void audit(AuditSearchParamsVO params);
 }

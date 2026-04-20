@@ -1,6 +1,6 @@
 package com.wifi32767.domain.system.service;
 
-import com.wifi32767.domain.portal.adapter.repository.CountryRepository;
+import com.wifi32767.domain.system.adapter.repository.CountryRepository;
 import com.wifi32767.domain.system.model.CountryVO;
 import org.springframework.stereotype.Service;
 
