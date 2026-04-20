@@ -40,9 +40,9 @@ public class CountryControllerImp implements CountryController {
     public Response<String> countryInsert(@RequestBody Country country) {
         try {
             countryService.insertCountry(CountryVO.builder()
-                            .countryId(country.getCountryId())
-                            .countryName(country.getCountryName())
-                            .englishName(country.getEnglishName())
+                    .countryId(country.getCountryId())
+                    .countryName(country.getCountryName())
+                    .englishName(country.getEnglishName())
                     .build());
             return new Response<>(null);
         } catch (Exception e) {
@@ -83,9 +83,9 @@ public class CountryControllerImp implements CountryController {
     public Response<String> countryEdit(@RequestBody Country country) {
         try {
             countryService.updateCountry(CountryVO.builder()
-                            .countryId(country.getCountryId())
-                            .countryName(country.getCountryName())
-                            .englishName(country.getEnglishName())
+                    .countryId(country.getCountryId())
+                    .countryName(country.getCountryName())
+                    .englishName(country.getEnglishName())
                     .build());
             return new Response<>(null);
         } catch (Exception e) {

@@ -8,5 +8,5 @@ import java.util.List;
 public interface AuditRepository {
     void audit(AuditSearchParamsVO params);
 
-    List<DeviceVO> queryAuditDevices(AuditSearchParamsVO params);
+    List<DeviceVO> searchAuditDevices(AuditSearchParamsVO params);
 }

@@ -155,7 +155,8 @@
         ]]>
     </select>
 
-    <select id="queryDevicesByTitleAndStatus" parameterType="com.wifi32767.domain.system.model.AuditSearchParamsVO" resultMap="dataMap">
+    <select id="queryDevicesByTitleAndStatus" parameterType="com.wifi32767.domain.system.model.AuditSearchParamsVO"
+            resultMap="dataMap">
         <![CDATA[
         SELECT *
         FROM device

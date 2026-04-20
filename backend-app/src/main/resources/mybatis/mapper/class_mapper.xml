@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wifi32767.infra.dao.ClassDao">
-    <resultMap id="dataMap" type="com.wifi32767.infra.dao.po.DeviceClass">
+    <resultMap id="deviceClassMap" type="com.wifi32767.infra.dao.po.DeviceClass">
         <id column="device_class_id" property="deviceClassId"/>
         <result column="device_class_name" property="deviceClassName"/>
         <result column="device_class_describe" property="deviceClassDescribe"/>
@@ -10,6 +10,25 @@
         <result column="deleted" property="deleted"/>
     </resultMap>
 
+    <resultMap id="deviceStyleMap" type="com.wifi32767.infra.dao.po.DeviceStyle">
+        <id column="device_style_id" property="deviceStyleId"/>
+        <result column="device_style_name" property="deviceStyleName"/>
+        <result column="device_style_describe" property="deviceStyleDescribe"/>
+        <result column="device_style_class_id" property="deviceStyleClassId"/>
+        <result column="device_style_insql_time" property="deviceStyleInsqlTime"/>
+        <result column="device_style_changesql_time" property="deviceStyleChangesqlTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+
+    <resultMap id="deviceTypeMap" type="com.wifi32767.infra.dao.po.DeviceType">
+        <id column="device_type_id" property="deviceTypeId"/>
+        <result column="device_type_name" property="deviceTypeName"/>
+        <result column="device_type_describe" property="deviceTypeDescribe"/>
+        <result column="device_type_style_id" property="deviceTypeStyleId"/>
+        <result column="device_type_insql_time" property="deviceTypeInsqlTime"/>
+        <result column="device_type_changesql_time" property="deviceTypeChangesqlTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
     <select id="queryClassNameById" parameterType="java.lang.String" resultType="java.lang.Integer">
         <![CDATA[
         SELECT device_class_id
@@ -18,4 +37,155 @@
         ]]>
     </select>
 
+    <select id="getAllClass" resultMap="deviceClassMap">
+        <![CDATA[
+        SELECT *
+        FROM device_class
+        WHERE (deleted = NULL OR deleted = 0)
+        ]]>
+    </select>
+
+    <select id="queryStyleByClassId" parameterType="java.lang.Integer"
+            resultType="com.wifi32767.infra.dao.po.DeviceStyle">
+        <![CDATA[
+        SELECT *
+        FROM device_style
+        WHERE (deleted = NULL OR deleted = 0)
+          AND device_style_class_id = #{deviceStyleClassId}
+        ]]>
+    </select>
+
+    <select id="queryTypeByStyleId" parameterType="java.lang.Integer"
+            resultType="com.wifi32767.infra.dao.po.DeviceType">
+        <![CDATA[
+        SELECT *
+        FROM device_type
+        WHERE (deleted = NULL OR deleted = 0)
+          AND device_type_style_id = #{deviceTypeStyleId}
+        ]]>
+    </select>
+
+    <insert id="insertClass" parameterType="com.wifi32767.infra.dao.po.DeviceClass">
+        <![CDATA[
+        INSERT INTO device_class(device_class_name, device_class_describe, device_class_insql_time,
+                                 device_class_changesql_time)
+        VALUES (#{deviceClassName}, #{deviceClassDescribe}, #{deviceClassInsqlTime}, #{deviceClassChangesqlTime})
+        ]]>
+    </insert>
+
+    <insert id="insertStyle" parameterType="com.wifi32767.infra.dao.po.DeviceStyle">
+        <![CDATA[
+        INSERT INTO device_style(device_style_name, device_style_describe, device_style_class_id,
+                                 device_style_insql_time, device_style_changesql_time)
+        VALUES (#{deviceStyleName}, #{deviceStyleDescribe}, #{deviceStyleClassId}, #{deviceStyleInsqlTime},
+                #{deviceStyleChangesqlTime})
+        ]]>
+    </insert>
+    <insert id="insertType" parameterType="com.wifi32767.infra.dao.po.DeviceType">
+        <![CDATA[
+        INSERT INTO device_type(device_type_name, device_type_describe, device_type_style_id, device_type_insql_time,
+                                device_type_changesql_time)
+        VALUES (#{deviceTypeName}, #{deviceTypeDescribe}, #{deviceTypeStyleId}, #{deviceTypeInsqlTime},
+                #{deviceTypeChangesqlTime})
+        ]]>
+    </insert>
+
+    <update id="updateClass" parameterType="com.wifi32767.infra.dao.po.DeviceClass">
+        UPDATE device_class
+        <set>
+            <if test="deviceClassName != null and deviceClassName != ''">
+                device_class_name = #{deviceClassName},
+            </if>
+            <if test="deviceClassDescribe != null and deviceClassDescribe != ''">
+                device_class_describe = #{deviceClassDescribe},
+            </if>
+        </set>
+        WHERE device_class_id = #{deviceClassId}
+    </update>
+
+    <update id="updateStyle" parameterType="com.wifi32767.infra.dao.po.DeviceStyle">
+        UPDATE device_style
+        <set>
+            <if test="deviceStyleName != null and deviceStyleName != ''">
+                device_style_name = #{deviceStyleName},
+            </if>
+            <if test="deviceStyleDescribe != null and deviceStyleDescribe != ''">
+                device_style_describe = #{deviceStyleDescribe},
+            </if>
+            <if test="deviceStyleClassId != null and deviceStyleClassId != ''">
+                device_style_class_id = #{deviceStyleClassId},
+            </if>
+        </set>
+        WHERE device_style_id = #{deviceStyleId}
+    </update>
+
+    <update id="updateType" parameterType="com.wifi32767.infra.dao.po.DeviceType">
+        UPDATE device_type
+        <set>
+            <if test="deviceTypeName != null and deviceTypeName != ''">
+                device_type_name = #{deviceTypeName},
+            </if>
+            <if test="deviceTypeDescribe != null and deviceTypeDescribe != ''">
+                device_type_describe = #{deviceTypeDescribe},
+            </if>
+            <if test="deviceTypeStyleId != null and deviceTypeStyleId != ''">
+                device_type_style_id = #{deviceTypeStyleId},
+            </if>
+        </set>
+        WHERE device_type_id = #{deviceTypeId}
+    </update>
+
+    <delete id="deleteClass" parameterType="com.wifi32767.infra.dao.po.DeviceClass">
+        DELETE
+        FROM device_class
+        WHERE device_class_id = #{deviceClassId}
+    </delete>
+
+    <delete id="deleteStyle" parameterType="com.wifi32767.infra.dao.po.DeviceStyle">
+        DELETE
+        FROM device_style
+        WHERE device_style_id = #{deviceStyleId}
+    </delete>
+
+    <delete id="deleteType" parameterType="com.wifi32767.infra.dao.po.DeviceType">
+        DELETE
+        FROM device_type
+        WHERE device_type_id = #{deviceTypeId}
+    </delete>
+
+    <select id="queryStyleIdByClassId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT device_style_id
+        FROM device_style
+        WHERE (deleted = NULL OR deleted = 0)
+          AND device_style_class_id = #{deviceStyleClassId}
+        ]]>
+    </select>
+
+    <select id="queryTypeIdByStyleId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT device_type_id
+        FROM device_type
+        WHERE (deleted = NULL OR deleted = 0)
+          AND device_type_style_id = #{deviceTypeStyleId}
+        ]]>
+    </select>
+
+    <delete id="deleteStyleByClassId" parameterType="java.lang.Integer">
+        <![CDATA[
+        DELETE
+        FROM device_style
+        WHERE (deleted = NULL OR deleted = 0)
+          AND device_style_class_id = #{deviceStyleClassId}
+        ]]>
+    </delete>
+
+    <delete id="deleteTypeByStyleId" parameterType="java.lang.Integer">
+        <![CDATA[
+        DELETE
+        FROM device_type
+        WHERE (deleted = NULL OR deleted = 0)
+          AND device_type_style_id = #{deviceTypeStyleId}
+        ]]>
+    </delete>
 </mapper>

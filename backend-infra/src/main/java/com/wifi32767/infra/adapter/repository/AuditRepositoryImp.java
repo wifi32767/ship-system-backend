@@ -17,7 +17,7 @@ public class AuditRepositoryImp implements AuditRepository {
     private DeviceDao deviceDao;
 
     @Override
-    public List<DeviceVO> queryAuditDevices(AuditSearchParamsVO params) {
+    public List<DeviceVO> searchAuditDevices(AuditSearchParamsVO params) {
         return DeviceConverter.LDevice2LDeviceVO(deviceDao.queryDevicesByTitleAndStatus(params));
     }
 

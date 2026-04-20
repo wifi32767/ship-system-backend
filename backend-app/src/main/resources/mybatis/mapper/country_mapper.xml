@@ -62,7 +62,8 @@
 
     <delete id="deleteCountry" parameterType="java.lang.Integer">
         <![CDATA[
-        DELETE FROM country
+        DELETE
+        FROM country
         WHERE country_id = #{countryId}
         ]]>
     </delete>

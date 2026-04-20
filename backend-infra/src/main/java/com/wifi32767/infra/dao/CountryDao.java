@@ -1,8 +1,7 @@
 package com.wifi32767.infra.dao;
 
-import org.apache.ibatis.annotations.Mapper;
-
 import com.wifi32767.infra.dao.po.Country;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 

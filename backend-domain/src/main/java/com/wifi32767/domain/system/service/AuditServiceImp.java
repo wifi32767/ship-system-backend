@@ -16,7 +16,7 @@ public class AuditServiceImp implements AuditService {
 
     @Override
     public List<DeviceVO> searchAuditDevices(AuditSearchParamsVO params) {
-        return auditRepository.queryAuditDevices(params);
+        return auditRepository.searchAuditDevices(params);
     }
 
     @Override

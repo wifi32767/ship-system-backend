@@ -1,14 +1,12 @@
-package com.wifi32767.domain.system.adapter.repository;
+package com.wifi32767.domain.system.service;
 
 import com.wifi32767.domain.system.model.ClassVO;
 import com.wifi32767.domain.system.model.TypeVO;
 
 import java.util.List;
 
-public interface ClassRepository {
-    String getClassNameById(int classId);
-
-    List<ClassVO> getAllClasses();
+public interface ClassService {
+    List<ClassVO> getClasses();
 
     List<ClassVO> searchClasses(String keyword);
 
