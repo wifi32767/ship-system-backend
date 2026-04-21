@@ -7,6 +7,7 @@
         <id column="device_id" property="deviceId"/>
         <result column="device_name" property="deviceName"/>
         <result column="device_class_id" property="deviceClassId"/>
+        <result column="device_style_id" property="deviceStyleId"/>
         <result column="device_type_id" property="deviceTypeId"/>
         <result column="device_use_year" property="deviceUseYear"/>
         <result column="device_price" property="devicePrice"/>
@@ -26,6 +27,92 @@
         <result column="audit_flag" property="auditFlag"/>
         <result column="deleted" property="deleted"/>
     </resultMap>
+
+    <select id="queryAll" resultMap="dataMap">
+        <![CDATA[
+        SELECT *
+        FROM device
+        WHERE (deleted IS NULL OR deleted = 0)
+        ]]>
+    </select>
+
+    <select id="queryAllWithPages" parameterType="java.lang.Integer" resultMap="dataMap">
+        <![CDATA[
+        SELECT *
+        FROM device
+        WHERE (deleted IS NULL OR deleted = 0)
+        LIMIT #{offset}, #{size}
+        ]]>
+    </select>
+
+    <update id="update" parameterType="com.wifi32767.infra.dao.po.Device">
+        UPDATE device
+        <set>
+            <if test="deviceName != null">
+                device_name = #{deviceName},
+            </if>
+            <if test="deviceClassId != null">
+                device_class_id = #{deviceClassId},
+            </if>
+            <if test="deviceStyleId != null">
+                device_style_id = #{deviceStyleId},
+            </if>
+            <if test="deviceTypeId != null">
+                device_type_id = #{deviceTypeId},
+            </if>
+            <if test="deviceUseYear != null">
+                device_use_year = #{deviceUseYear},
+            </if>
+            <if test="devicePrice != null">
+                device_price = #{devicePrice},
+            </if>
+            <if test="deviceUsingUnit != null">
+                device_using_unit = #{deviceUsingUnit},
+            </if>
+            <if test="deviceCountryId != null">
+                device_country_id = #{deviceCountryId},
+            </if>
+            <if test="deviceLocation != null">
+                device_location = #{deviceLocation},
+            </if>
+            <if test="deviceLongitude != null">
+                device_longitude = #{deviceLongitude},
+            </if>
+            <if test="deviceLatitude != null">
+                device_latitude = #{deviceLatitude},
+            </if>
+            <if test="deviceImg != null">
+                device_img = #{deviceImg},
+            </if>
+            <if test="deviceVideo != null">
+                device_video = #{deviceVideo},
+            </if>
+            <if test="deviceIntroduce != null">
+                device_introduce = #{deviceIntroduce},
+            </if>
+            <if test="deviceChangesqlTime != null">
+                device_changesql_time = #{deviceChangesqlTime},
+            </if>
+            <if test="deviceNewsLink != null">
+                device_news_link = #{deviceNewsLink},
+            </if>
+            <if test="deviceNewsTitle != null">
+                device_news_title = #{deviceNewsTitle},
+            </if>
+            <if test="deviceNewsTime != null">
+                device_news_time = #{deviceNewsTime},
+            </if>
+        </set>
+        WHERE device_id = #{deviceId}
+    </update>
+
+    <update id="deleteById" parameterType="java.lang.Integer">
+        <![CDATA[
+        UPDATE device
+        SET deleted = 1
+        WHERE device_id = #{deviceId}
+        ]]>
+    </update>
 
     <select id="queryAllCount" resultType="java.lang.Integer">
         <![CDATA[
@@ -163,6 +250,18 @@
         WHERE (deleted IS NULL OR deleted = 0)
           AND device_name LIKE CONCAT('%', #{keyword}, '%')
           AND ((audit_flag IS NULL AND #{auditFlag} = 0) OR audit_flag = #{auditFlag})
+        ]]>
+    </select>
+
+    <select id="queryDevicesByTitleAndStatusWithPages" resultMap="dataMap">
+        <![CDATA[
+        SELECT *
+        FROM device
+        WHERE (deleted IS NULL OR deleted = 0)
+          AND device_name LIKE CONCAT('%', #{params.keyword}, '%')
+          AND ((audit_flag IS NULL AND #{params.auditFlag} = 0) OR audit_flag = #{params.auditFlag})
+            LIMIT #{params.pageNum}
+            , #{params.pageSize}
         ]]>
     </select>
 

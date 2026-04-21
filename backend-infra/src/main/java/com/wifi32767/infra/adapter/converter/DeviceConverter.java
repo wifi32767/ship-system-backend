@@ -8,6 +8,50 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeviceConverter {
+    static public DeviceVO Device2DeviceVO(Device device) {
+        return DeviceVO.builder()
+                .id(device.getDeviceId())
+                .deviceName(device.getDeviceName())
+                .deviceClassId(device.getDeviceClassId())
+                .deviceStyleId(device.getDeviceStyleId())
+                .deviceTypeId(device.getDeviceTypeId())
+                .deviceUseYear(device.getDeviceUseYear())
+                .devicePrice(device.getDevicePrice())
+                .deviceUsingUnit(device.getDeviceUsingUnit())
+                .deviceCountryId(device.getDeviceCountryId())
+                .deviceLocation(device.getDeviceLocation())
+                .deviceLongitude(device.getDeviceLongitude())
+                .deviceLatitude(device.getDeviceLatitude())
+                .deviceImg(device.getDeviceImg())
+                .deviceVideo(device.getDeviceVideo())
+                .deviceIntroduce(device.getDeviceIntroduce())
+                .deviceInsqlTime(device.getDeviceInsqlTime())
+                .deviceChangesqlTime(device.getDeviceChangesqlTime())
+                .build();
+    }
+
+    static public Device DeviceVO2Device(DeviceVO deviceVO) {
+        return Device.builder()
+                .deviceId(deviceVO.getId())
+                .deviceName(deviceVO.getDeviceName())
+                .deviceClassId(deviceVO.getDeviceClassId())
+                .deviceStyleId(deviceVO.getDeviceStyleId())
+                .deviceTypeId(deviceVO.getDeviceTypeId())
+                .deviceUseYear(deviceVO.getDeviceUseYear())
+                .devicePrice(deviceVO.getDevicePrice())
+                .deviceUsingUnit(deviceVO.getDeviceUsingUnit())
+                .deviceCountryId(deviceVO.getDeviceCountryId())
+                .deviceLocation(deviceVO.getDeviceLocation())
+                .deviceLongitude(deviceVO.getDeviceLongitude())
+                .deviceLatitude(deviceVO.getDeviceLatitude())
+                .deviceImg(deviceVO.getDeviceImg())
+                .deviceVideo(deviceVO.getDeviceVideo())
+                .deviceIntroduce(deviceVO.getDeviceIntroduce())
+                .deviceInsqlTime(deviceVO.getDeviceInsqlTime())
+                .deviceChangesqlTime(deviceVO.getDeviceChangesqlTime())
+                .build();
+    }
+
     static public List<NewsVO> LDevice2LNewsVO(List<Device> deviceList) {
         List<NewsVO> newsList = new ArrayList<>();
         for (Device device : deviceList) {

@@ -29,11 +29,30 @@
         <result column="device_type_changesql_time" property="deviceTypeChangesqlTime"/>
         <result column="deleted" property="deleted"/>
     </resultMap>
-    <select id="queryClassNameById" parameterType="java.lang.String" resultType="java.lang.Integer">
+    <select id="queryClassNameById" parameterType="java.lang.Integer" resultType="java.lang.String">
         <![CDATA[
-        SELECT device_class_id
+        SELECT device_class_name
         FROM device_class
-        WHERE (deleted = NULL OR deleted = 0) device_class_id = #{deviceClassId}
+        WHERE (deleted = NULL OR deleted = 0)
+            AND device_class_id = #{deviceClassId}
+        ]]>
+    </select>
+    
+    <select id="queryStyleNameById" parameterType="java.lang.Integer" resultType="java.lang.String">
+        <![CDATA[
+        SELECT device_style_name
+        FROM device_style
+        WHERE (deleted = NULL OR deleted = 0)
+            AND device_style_id = #{deviceStyleId}
+        ]]>
+    </select>
+    
+    <select id="queryTypeNameById" parameterType="java.lang.Integer" resultType="java.lang.String">
+        <![CDATA[
+        SELECT device_type_name
+        FROM device_type
+        WHERE (deleted = NULL OR deleted = 0)
+            AND device_type_id = #{deviceTypeId}
         ]]>
     </select>
 

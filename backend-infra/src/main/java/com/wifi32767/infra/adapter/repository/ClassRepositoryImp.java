@@ -20,6 +20,9 @@ import java.util.List;
 public class ClassRepositoryImp implements ClassRepository {
 
     private static final String CLASS_ID_KEY_PREFIX = "class_id:";
+    private static final String STYLE_ID_KEY_PREFIX = "style_id:";
+    private static final String TYPE_ID_KEY_PREFIX = "type_id:";
+
     @Resource
     private ClassDao classDao;
     @Resource
@@ -35,6 +38,30 @@ public class ClassRepositoryImp implements ClassRepository {
             redisService.setValue(CLASS_ID_KEY_PREFIX + classId, className);
         }
         return className;
+    }
+
+    @Override
+    public String getStyleNameById(int styleId) {
+        if (redisService.isExists(STYLE_ID_KEY_PREFIX + styleId)) {
+            return redisService.getValue(STYLE_ID_KEY_PREFIX + styleId);
+        }
+        String styleName = classDao.queryStyleNameById(styleId);
+        if (styleName != null) {
+            redisService.setValue(STYLE_ID_KEY_PREFIX + styleId, styleName);
+        }
+        return styleName;
+    }
+
+    @Override
+    public String getTypeNameById(int typeId) {
+        if (redisService.isExists(TYPE_ID_KEY_PREFIX + typeId)) {
+            return redisService.getValue(TYPE_ID_KEY_PREFIX + typeId);
+        }
+        String typeName = classDao.queryTypeNameById(typeId);
+        if (typeName != null) {
+            redisService.setValue(TYPE_ID_KEY_PREFIX + typeId, typeName);
+        }
+        return typeName;
     }
 
     @Override

@@ -9,6 +9,14 @@ import java.util.List;
 
 @Mapper
 public interface DeviceDao {
+    List<Device> queryAll();
+
+    List<Device> queryAllWithPages(int offset, int size);
+
+    void update(Device device);
+
+    void deleteById(Integer id);
+
     Integer queryAllCount();
 
     Integer queryCountByDate(LocalDate localdate);
@@ -34,6 +42,8 @@ public interface DeviceDao {
     List<Device> queryDevicesByCountry(Integer id);
 
     List<Device> queryDevicesByTitleAndStatus(AuditSearchParamsVO params);
+
+    List<Device> queryDevicesByTitleAndStatusWithPages(AuditSearchParamsVO params, int page, int size);
 
     void audit(AuditSearchParamsVO params);
 }

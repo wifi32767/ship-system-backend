@@ -8,6 +8,10 @@ import java.util.List;
 public interface ClassRepository {
     String getClassNameById(int classId);
 
+    String getStyleNameById(int styleId);
+
+    String getTypeNameById(int typeId);
+
     List<ClassVO> getAllClasses();
 
     List<ClassVO> searchClasses(String keyword);

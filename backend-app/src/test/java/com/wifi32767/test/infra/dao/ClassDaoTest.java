@@ -15,8 +15,20 @@ public class ClassDaoTest {
 
     @Test
     public void queryClassNameByIdTest() {
-        String className = classDao.queryClassNameById(1);
+        String className = classDao.queryClassNameById(5);
         log.info("className: {}", className);
+    }
+
+    @Test
+    public void queryStyleNameByIdTest() {
+        String styleName = classDao.queryStyleNameById(1);
+        log.info("styleName: {}", styleName);
+    }
+
+    @Test
+    public void queryTypeNameByIdTest() {
+        String typeName = classDao.queryTypeNameById(1);
+        log.info("typeName: {}", typeName);
     }
 
     @Test

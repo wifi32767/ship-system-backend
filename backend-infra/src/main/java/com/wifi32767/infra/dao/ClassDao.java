@@ -11,6 +11,10 @@ import java.util.List;
 public interface ClassDao {
     String queryClassNameById(Integer classId);
 
+    String queryStyleNameById(Integer styleId);
+
+    String queryTypeNameById(Integer typeId);
+
     List<DeviceClass> getAllClass();
 
     List<DeviceStyle> queryStyleByClassId(Integer classId);

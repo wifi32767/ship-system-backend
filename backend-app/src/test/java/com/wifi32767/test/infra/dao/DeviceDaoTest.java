@@ -15,6 +15,11 @@ public class DeviceDaoTest {
     private DeviceDao deviceDao;
 
     @Test
+    public void queryAllTest() {
+        deviceDao.queryAll().forEach(device -> log.info("测试结果:{}", device));
+    }
+
+    @Test
     public void queryAllCountTest() {
         log.info("测试开始");
         int cnt = deviceDao.queryAllCount();
