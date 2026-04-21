@@ -8,18 +8,18 @@ import lombok.Setter;
 public class Response<T> {
     public final static int SUCCESS = 200;
     public final static int ERROR = 500;
-    private T body;
+    private T data;
     private int code;
     private String message;
 
     public Response(int code, String message) {
-        this.body = null;
+        this.data = null;
         this.code = code;
         this.message = message;
     }
 
-    public Response(T body) {
-        this.body = body;
+    public Response(T data) {
+        this.data = data;
         this.code = SUCCESS;
         this.message = "success";
     }

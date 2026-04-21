@@ -56,7 +56,7 @@ public interface ClassController {
      * 创建二级分类（样式）：在指定父级分类下创建。
      * 数据格式：JSON
      *
-     * @param styleVO 二级分类信息 {@link TypeVO}
+     * @param styleVO  二级分类信息 {@link TypeVO}
      * @param parentId 父级分类（一级分类）ID
      * @return 创建结果消息 {@code String}
      */
@@ -84,7 +84,7 @@ public interface ClassController {
      * 创建三级分类（类型）：在指定父级分类下创建。
      * 数据格式：JSON
      *
-     * @param typeVO 三级分类信息 {@link TypeVO}
+     * @param typeVO   三级分类信息 {@link TypeVO}
      * @param parentId 父级分类（二级分类）ID
      * @return 创建结果消息 {@code String}
      */

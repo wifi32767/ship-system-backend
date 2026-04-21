@@ -70,6 +70,7 @@ public class ClassRepositoryImp implements ClassRepository {
                     types.add(typeVO);
                 }
                 styleVO.setTypeList(types);
+                styles.add(styleVO);
             }
             classVO.setStyleList(styles);
             classes.add(classVO);

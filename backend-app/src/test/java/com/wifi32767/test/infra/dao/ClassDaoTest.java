@@ -18,4 +18,14 @@ public class ClassDaoTest {
         String className = classDao.queryClassNameById(1);
         log.info("className: {}", className);
     }
+
+    @Test
+    public void getAllClassTest() {
+        log.info("getAllClass: {}", classDao.getAllClass());
+    }
+
+    @Test
+    public void queryStyleByClassIdTest() {
+        log.info("queryStyleByClassId: {}", classDao.queryStyleByClassId(5));
+    }
 }

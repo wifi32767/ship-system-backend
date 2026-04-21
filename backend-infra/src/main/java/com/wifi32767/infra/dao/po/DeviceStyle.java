@@ -36,4 +36,8 @@ public class DeviceStyle {
      * 分类修改时间
      */
     private LocalDateTime deviceStyleChangesqlTime;
+    /**
+     * 分类是否删除
+     */
+    private Integer deleted;
 }

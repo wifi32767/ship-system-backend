@@ -32,4 +32,8 @@ public class DeviceClass {
      * 分类修改时间
      */
     private LocalDateTime deviceClassChangesqlTime;
+    /**
+     * 逻辑删除
+     */
+    private Integer deleted;
 }

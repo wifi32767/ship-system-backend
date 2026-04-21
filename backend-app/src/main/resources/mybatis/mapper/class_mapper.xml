@@ -46,7 +46,7 @@
     </select>
 
     <select id="queryStyleByClassId" parameterType="java.lang.Integer"
-            resultType="com.wifi32767.infra.dao.po.DeviceStyle">
+            resultMap="deviceStyleMap">
         <![CDATA[
         SELECT *
         FROM device_style
@@ -56,7 +56,7 @@
     </select>
 
     <select id="queryTypeByStyleId" parameterType="java.lang.Integer"
-            resultType="com.wifi32767.infra.dao.po.DeviceType">
+            resultMap="deviceTypeMap">
         <![CDATA[
         SELECT *
         FROM device_type
@@ -135,23 +135,23 @@
         WHERE device_type_id = #{deviceTypeId}
     </update>
 
-    <delete id="deleteClass" parameterType="com.wifi32767.infra.dao.po.DeviceClass">
-        DELETE
-        FROM device_class
-        WHERE device_class_id = #{deviceClassId}
-    </delete>
+    <update id="deleteClass" parameterType="java.lang.Integer">
+        UPDATE device_class
+        SET deleted = 1
+        WHERE device_class_id = #{classId}
+    </update>
 
-    <delete id="deleteStyle" parameterType="com.wifi32767.infra.dao.po.DeviceStyle">
-        DELETE
-        FROM device_style
-        WHERE device_style_id = #{deviceStyleId}
-    </delete>
+    <update id="deleteStyle" parameterType="java.lang.Integer">
+        UPDATE device_style
+        SET deleted = 1
+        WHERE device_style_id = #{styleId}
+    </update>
 
-    <delete id="deleteType" parameterType="com.wifi32767.infra.dao.po.DeviceType">
-        DELETE
-        FROM device_type
-        WHERE device_type_id = #{deviceTypeId}
-    </delete>
+    <update id="deleteType" parameterType="java.lang.Integer">
+        UPDATE device_type
+        SET deleted = 1
+        WHERE device_type_id = #{typeId}
+    </update>
 
     <select id="queryStyleIdByClassId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         <![CDATA[
