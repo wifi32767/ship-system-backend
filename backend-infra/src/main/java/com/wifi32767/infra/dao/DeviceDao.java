@@ -43,7 +43,7 @@ public interface DeviceDao {
 
     List<Device> queryDevicesByTitleAndStatus(AuditSearchParamsVO params);
 
-    List<Device> queryDevicesByTitleAndStatusWithPages(AuditSearchParamsVO params, int page, int size);
+    List<Device> queryDevicesByTitleAndStatusWithPages(AuditSearchParamsVO params, int offset, int size);
 
     void audit(AuditSearchParamsVO params);
 }

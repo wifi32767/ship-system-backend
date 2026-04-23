@@ -1,8 +1,8 @@
 package com.wifi32767.domain.system.service;
 
-import com.wifi32767.domain.portal.model.DeviceVO;
 import com.wifi32767.domain.system.adapter.repository.AuditRepository;
 import com.wifi32767.domain.system.model.AuditSearchParamsVO;
+import com.wifi32767.domain.system.model.FullDeviceVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,8 +15,13 @@ public class AuditServiceImp implements AuditService {
     private AuditRepository auditRepository;
 
     @Override
-    public List<DeviceVO> searchAuditDevices(AuditSearchParamsVO params) {
+    public List<FullDeviceVO> searchAuditDevices(AuditSearchParamsVO params) {
         return auditRepository.searchAuditDevices(params);
+    }
+
+    @Override
+    public List<FullDeviceVO> searchAuditDevices(AuditSearchParamsVO params, int page, int size) {
+        return auditRepository.searchAuditDevicesPages(params, page, size);
     }
 
     @Override

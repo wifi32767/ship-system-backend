@@ -6,7 +6,10 @@ import java.util.List;
 
 public interface DeviceRepository {
     List<DeviceVO> getDeviceList();
+
     List<DeviceVO> getDeviceList(int page, int size);
+
     void modifyDevice(DeviceVO deviceVO);
+
     void deleteDevice(Integer deviceId);
 }

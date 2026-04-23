@@ -1,5 +1,6 @@
 package com.wifi32767.test.infra.dao;
 
+import com.wifi32767.domain.system.model.AuditSearchParamsVO;
 import com.wifi32767.infra.dao.DeviceDao;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -31,6 +32,16 @@ public class DeviceDaoTest {
         log.info("测试开始");
         Integer cnt = deviceDao.queryCountByDate(LocalDate.now().minusDays(7));
         log.info("测试结果:{}", cnt);
+    }
+
+    @Test
+    public void queryDevicesByTitleAndStatusTest() {
+        log.info("测试开始");
+        var res = deviceDao.queryDevicesByTitleAndStatus(AuditSearchParamsVO.builder()
+                .title("1")
+                .status(0)
+                .build());
+        res.forEach(device -> log.info("测试结果:{}", device));
     }
 
 }

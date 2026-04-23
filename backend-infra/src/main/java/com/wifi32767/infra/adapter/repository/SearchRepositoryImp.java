@@ -20,29 +20,32 @@ public class SearchRepositoryImp implements SearchRepository {
     @Resource
     private CountryDao countryDao;
 
+    @Resource
+    private DeviceConverter deviceConverter;
+
     @Override
     public List<DeviceVO> searchDeviceByText(String param) {
-        return DeviceConverter.LDevice2LDeviceVO(deviceDao.queryDevicesByText(param));
+        return deviceConverter.LDevice2LDeviceVO(deviceDao.queryDevicesByText(param));
     }
 
     @Override
     public List<DeviceVO> searchDeviceByTitle(String param) {
-        return DeviceConverter.LDevice2LDeviceVO(deviceDao.queryDevicesByTitle(param));
+        return deviceConverter.LDevice2LDeviceVO(deviceDao.queryDevicesByTitle(param));
     }
 
     @Override
     public List<DeviceVO> searchDeviceByType(int param) {
-        return DeviceConverter.LDevice2LDeviceVO(deviceDao.queryDevicesByType(param));
+        return deviceConverter.LDevice2LDeviceVO(deviceDao.queryDevicesByType(param));
     }
 
     @Override
     public List<DeviceVO> searchDeviceByStyle(int param) {
-        return DeviceConverter.LDevice2LDeviceVO(deviceDao.queryDevicesByStyle(param));
+        return deviceConverter.LDevice2LDeviceVO(deviceDao.queryDevicesByStyle(param));
     }
 
     @Override
     public List<DeviceVO> searchDeviceByClass(int param) {
-        return DeviceConverter.LDevice2LDeviceVO(deviceDao.queryDevicesByClass(param));
+        return deviceConverter.LDevice2LDeviceVO(deviceDao.queryDevicesByClass(param));
     }
 
     @Override
@@ -51,32 +54,32 @@ public class SearchRepositoryImp implements SearchRepository {
         if (countryId == -1) {
             return new ArrayList<>();
         }
-        return DeviceConverter.LDevice2LDeviceVO(deviceDao.queryDevicesByCountry(countryId));
+        return deviceConverter.LDevice2LDeviceVO(deviceDao.queryDevicesByCountry(countryId));
     }
 
     @Override
     public List<NewsVO> searchNewsByText(String param) {
-        return DeviceConverter.LDevice2LNewsVO(deviceDao.queryDevicesByText(param));
+        return deviceConverter.LDevice2LNewsVO(deviceDao.queryDevicesByText(param));
     }
 
     @Override
     public List<NewsVO> searchNewsByTitle(String param) {
-        return DeviceConverter.LDevice2LNewsVO(deviceDao.queryDevicesByTitle(param));
+        return deviceConverter.LDevice2LNewsVO(deviceDao.queryDevicesByTitle(param));
     }
 
     @Override
     public List<NewsVO> searchNewsByType(int param) {
-        return DeviceConverter.LDevice2LNewsVO(deviceDao.queryDevicesByType(param));
+        return deviceConverter.LDevice2LNewsVO(deviceDao.queryDevicesByType(param));
     }
 
     @Override
     public List<NewsVO> searchNewsByStyle(int param) {
-        return DeviceConverter.LDevice2LNewsVO(deviceDao.queryDevicesByStyle(param));
+        return deviceConverter.LDevice2LNewsVO(deviceDao.queryDevicesByStyle(param));
     }
 
     @Override
     public List<NewsVO> searchNewsByClass(int param) {
-        return DeviceConverter.LDevice2LNewsVO(deviceDao.queryDevicesByClass(param));
+        return deviceConverter.LDevice2LNewsVO(deviceDao.queryDevicesByClass(param));
     }
 
     @Override
@@ -85,6 +88,6 @@ public class SearchRepositoryImp implements SearchRepository {
         if (countryId == -1) {
             return new ArrayList<>();
         }
-        return DeviceConverter.LDevice2LNewsVO(deviceDao.queryDevicesByCountry(countryId));
+        return deviceConverter.LDevice2LNewsVO(deviceDao.queryDevicesByCountry(countryId));
     }
 }

@@ -17,20 +17,26 @@ public class DeviceRepositoryImp implements DeviceRepository {
     @Resource
     private DeviceDao deviceDao;
 
+    @Resource
+    private DeviceConverter deviceConverter;
+
     @Override
     public List<DeviceVO> getDeviceList() {
-        return DeviceConverter.LDevice2LDeviceVO(deviceDao.queryAll());
+        return deviceConverter.LDevice2LDeviceVO(deviceDao.queryAll());
     }
+
     @Override
     public List<DeviceVO> getDeviceList(int page, int size) {
-        return DeviceConverter.LDevice2LDeviceVO(deviceDao.queryAllWithPages((page - 1) * size, size));
+        return deviceConverter.LDevice2LDeviceVO(deviceDao.queryAllWithPages((page - 1) * size, size));
     }
+
     @Override
     public void modifyDevice(DeviceVO deviceVO) {
-        Device device = DeviceConverter.DeviceVO2Device(deviceVO);
+        Device device = deviceConverter.DeviceVO2Device(deviceVO);
         device.setDeviceChangesqlTime(LocalDateTime.now());
         deviceDao.update(device);
     }
+
     @Override
     public void deleteDevice(Integer deviceId) {
         deviceDao.deleteById(deviceId);

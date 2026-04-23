@@ -1,7 +1,7 @@
 package com.wifi32767.interfaces.http.admin;
 
-import com.wifi32767.domain.portal.model.DeviceVO;
 import com.wifi32767.domain.system.model.AuditSearchParamsVO;
+import com.wifi32767.domain.system.model.FullDeviceVO;
 import com.wifi32767.domain.system.service.AuditService;
 import com.wifi32767.interfaces.common.Response;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,11 +23,24 @@ public class AuditControllerImp implements AuditController {
     private AuditService auditService;
 
     @Override
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(path = "/search", method = RequestMethod.POST)
     @Operation(summary = "搜索录入信息", description = "根据标题和状态获取录入信息")
-    public Response<List<DeviceVO>> searchAuditDevices(@RequestBody AuditSearchParamsVO params) {
+    public Response<List<FullDeviceVO>> searchAuditDevices(@RequestBody AuditSearchParamsVO params) {
         try {
-            List<DeviceVO> devices = auditService.searchAuditDevices(params);
+            List<FullDeviceVO> devices = auditService.searchAuditDevices(params);
+            return new Response<>(devices);
+        } catch (Exception e) {
+            log.error("Error searching audit devices: ", e);
+            return new Response<>(Response.ERROR, "Failed to search audit devices: " + e.getMessage());
+        }
+    }
+
+    @Override
+    @RequestMapping(path = "/page", method = RequestMethod.POST)
+    @Operation(summary = "搜索录入信息", description = "根据标题和状态获取录入信息")
+    public Response<List<FullDeviceVO>> searchAuditDevices(@RequestBody AuditSearchParamsVO params, @RequestParam int page, @RequestParam int size) {
+        try {
+            List<FullDeviceVO> devices = auditService.searchAuditDevices(params, page, size);
             return new Response<>(devices);
         } catch (Exception e) {
             log.error("Error searching audit devices: ", e);

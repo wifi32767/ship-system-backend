@@ -1,8 +1,8 @@
 package com.wifi32767.infra.adapter.repository;
 
-import com.wifi32767.domain.portal.model.DeviceVO;
 import com.wifi32767.domain.system.adapter.repository.AuditRepository;
 import com.wifi32767.domain.system.model.AuditSearchParamsVO;
+import com.wifi32767.domain.system.model.FullDeviceVO;
 import com.wifi32767.infra.adapter.converter.DeviceConverter;
 import com.wifi32767.infra.dao.DeviceDao;
 import org.springframework.stereotype.Repository;
@@ -16,9 +16,17 @@ public class AuditRepositoryImp implements AuditRepository {
     @Resource
     private DeviceDao deviceDao;
 
+    @Resource
+    private DeviceConverter deviceConverter;
+
     @Override
-    public List<DeviceVO> searchAuditDevices(AuditSearchParamsVO params) {
-        return DeviceConverter.LDevice2LDeviceVO(deviceDao.queryDevicesByTitleAndStatus(params));
+    public List<FullDeviceVO> searchAuditDevices(AuditSearchParamsVO params) {
+        return deviceConverter.LDevice2LFDeviceVO(deviceDao.queryDevicesByTitleAndStatus(params));
+    }
+
+    @Override
+    public List<FullDeviceVO> searchAuditDevicesPages(AuditSearchParamsVO params, int page, int size) {
+        return deviceConverter.LDevice2LFDeviceVO(deviceDao.queryDevicesByTitleAndStatusWithPages(params, (page - 1) * size, size));
     }
 
     @Override

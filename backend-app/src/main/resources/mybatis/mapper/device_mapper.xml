@@ -41,7 +41,8 @@
         SELECT *
         FROM device
         WHERE (deleted IS NULL OR deleted = 0)
-        LIMIT #{offset}, #{size}
+            LIMIT #{offset}
+            , #{size}
         ]]>
     </select>
 
@@ -248,8 +249,8 @@
         SELECT *
         FROM device
         WHERE (deleted IS NULL OR deleted = 0)
-          AND device_name LIKE CONCAT('%', #{keyword}, '%')
-          AND ((audit_flag IS NULL AND #{auditFlag} = 0) OR audit_flag = #{auditFlag})
+          AND device_name LIKE CONCAT('%', #{title}, '%')
+          AND (#{status} = 3 OR (audit_flag IS NULL AND #{status} = 0) OR audit_flag = #{status})
         ]]>
     </select>
 
@@ -258,18 +259,19 @@
         SELECT *
         FROM device
         WHERE (deleted IS NULL OR deleted = 0)
-          AND device_name LIKE CONCAT('%', #{params.keyword}, '%')
-          AND ((audit_flag IS NULL AND #{params.auditFlag} = 0) OR audit_flag = #{params.auditFlag})
-            LIMIT #{params.pageNum}
-            , #{params.pageSize}
+          AND device_name LIKE CONCAT('%', #{params.title}, '%')
+          AND (#{params.status} = 3 OR (audit_flag IS NULL AND #{params.status} = 0) OR
+               audit_flag = #{params.status})
+            LIMIT #{offset}
+            , #{size}
         ]]>
     </select>
 
     <update id="audit" parameterType="com.wifi32767.domain.system.model.AuditSearchParamsVO">
         <![CDATA[
         UPDATE device
-        SET audit_flag = #{auditFlag}
-        WHERE device_id = #{deviceId}
+        SET audit_flag = #{status}
+        WHERE device_id = #{id}
         ]]>
     </update>
 
