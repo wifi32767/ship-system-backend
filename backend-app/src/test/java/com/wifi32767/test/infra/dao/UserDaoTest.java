@@ -18,7 +18,7 @@ public class UserDaoTest {
     @Test
     public void testQueryByUsername() {
         String username = "root";
-        var user = userDao.queryByUsername(username);
+        var user = userDao.queryUserByUsername(username);
         log.info("User details for username '{}': {}", username, user);
     }
 

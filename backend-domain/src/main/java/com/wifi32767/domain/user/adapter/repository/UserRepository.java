@@ -1,5 +1,6 @@
 package com.wifi32767.domain.user.adapter.repository;
 
+import com.wifi32767.domain.system.model.UserRoleVO;
 import com.wifi32767.domain.user.model.SimpleUserVO;
 import com.wifi32767.domain.user.model.UserVO;
 
@@ -10,11 +11,27 @@ public interface UserRepository {
 
     int login(String username, String password) throws Exception;
 
-    void delete(String username);
-
     UserVO getUserInfo(String username);
 
-    SimpleUserVO getSimpleUserInfo(String username);
+    List<UserVO> getAllUsersInfo(int pageNum, int pageSize);
 
-    List<SimpleUserVO> getAllUsersInfo();
+    void deleteUser(String username);
+
+    void updateUserInfo(UserVO user);
+
+    List<UserRoleVO> getAllUsersRole();
+
+    void addUserRole(UserRoleVO userRole);
+
+    void removeUserRole(int userRoleId);
+
+    void addPermission(int userRoleId, int permissionId);
+
+    void addPermissionBatch(int userRoleId, List<Integer> permissionIds);
+
+    void removePermission(int userRoleId, int permissionId);
+
+    void removePermissionBatch(int userRoleId, List<Integer> permissionIds);
+
+    boolean hasPermission(int userRoleId, int permissionId);
 }

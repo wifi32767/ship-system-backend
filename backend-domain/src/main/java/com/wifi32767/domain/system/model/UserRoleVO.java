@@ -1,5 +1,6 @@
 package com.wifi32767.domain.system.model;
 
+import com.wifi32767.domain.common.enums.Module;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,5 +15,5 @@ import java.util.List;
 public class UserRoleVO {
     private Integer roleId; // 角色id
     private String roleName; // 角色名称
-    private List<ModuleVO> modules; // 有权限的板块
+    private List<Module> modules; // 有权限的功能模块
 }

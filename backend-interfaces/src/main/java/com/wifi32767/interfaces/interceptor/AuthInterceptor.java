@@ -1,8 +1,8 @@
 package com.wifi32767.interfaces.interceptor;
 
-import com.wifi32767.domain.user.model.SimpleUserVO;
+import com.wifi32767.domain.common.enums.Module;
+import com.wifi32767.domain.user.model.UserVO;
 import com.wifi32767.domain.user.service.UserService;
-import com.wifi32767.infra.dao.po.User;
 import com.wifi32767.infra.redis.RedisService;
 import com.wifi32767.interfaces.common.Permission;
 import com.wifi32767.interfaces.common.UserContext;
@@ -27,8 +27,6 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) {
-        String token = req.getHeader("Authorization");
-
         if (!(handler instanceof HandlerMethod method)) {
             return true; // 放行静态资源
         }
@@ -38,27 +36,26 @@ public class AuthInterceptor implements HandlerInterceptor {
             return true;
         }
 
+        String token = req.getHeader("Authorization");
         Permission permission = method.getMethodAnnotation(Permission.class);
-        if (permission.value().equals(User.USER)) {
-            return true;
-        }
+        Module module = permission.value();
 
-        SimpleUserVO user = null;
+        UserVO user = null;
         try {
             String userName = redisService.getValue("token:" + token);
-            user = userService.getSimpleUserInfo(userName);
+            user = userService.getUserInfo(userName);
         } catch (Exception e) {
             log.error("Token 验证失败", e);
             res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return false;
         }
-        if (user.getUserRole().equals(User.ADMIN) || permission.value().equals(user.getUserRole())) {
-            UserContext.set(user);
-            return true;
-        } else {
+        // TODO: 可以用上下文简化一下，或者缓存一下
+        boolean isAllowed = user.getUserRole().getModules().contains(module);
+        if (!isAllowed) {
             res.setStatus(HttpServletResponse.SC_FORBIDDEN);
             return false;
         }
+        return true;
     }
 
     @Override

@@ -1,8 +1,9 @@
 package com.wifi32767.infra.adapter.repository;
 
+import com.wifi32767.domain.system.model.UserRoleVO;
 import com.wifi32767.domain.user.adapter.repository.UserRepository;
-import com.wifi32767.domain.user.model.SimpleUserVO;
 import com.wifi32767.domain.user.model.UserVO;
+import com.wifi32767.domain.common.enums.Module;
 import com.wifi32767.infra.dao.UserDao;
 import com.wifi32767.infra.dao.po.User;
 import lombok.extern.slf4j.Slf4j;
@@ -28,22 +29,12 @@ public class UserRepositoryImp implements UserRepository {
 
     @Override
     public int register(UserVO user) throws Exception {
-        User userPO = new User();
-        userPO.setUserRole(user.getUserRole());
-        userPO.setUserName(user.getUserName());
-        userPO.setPassword(encode(user.getPassword()));
-        userPO.setNickName(user.getNickName());
-        userPO.setEmail(user.getEmail());
-        userPO.setSex(user.getSex());
-        userPO.setAvatarAddress(user.getAvatarAddress());
-        userPO.setRemark(user.getRemark());
-        userPO.setPhoneNumber(user.getPhoneNumber());
-        return userDao.insert(userPO);
+        return userDao.insertUser(userVO2User(user));
     }
 
     @Override
     public int login(String username, String password) throws Exception {
-        User user = userDao.queryByUsername(username);
+        User user = userDao.queryUserByUsername(username);
         if (user == null) {
             throw new IllegalArgumentException("User not found: " + username);
         }
@@ -55,53 +46,82 @@ public class UserRepositoryImp implements UserRepository {
     }
 
     @Override
-    public void delete(String username) {
-        userDao.deleteByUsername(username);
-    }
-
-    @Override
     public UserVO getUserInfo(String username) {
-        User user = userDao.queryByUsername(username);
+        User user = userDao.queryUserByUsername(username);
         if (user == null) {
             throw new IllegalArgumentException("User not found: " + username);
         }
-        UserVO userVO = new UserVO();
-        userVO.setUserId(user.getUserId());
-        userVO.setUserName(user.getUserName());
-        userVO.setNickName(user.getNickName());
-        userVO.setEmail(user.getEmail());
-        userVO.setSex(user.getSex());
-        userVO.setAvatarAddress(user.getAvatarAddress());
-        userVO.setRemark(user.getRemark());
-        userVO.setPhoneNumber(user.getPhoneNumber());
-        return userVO;
+        return user2UserVO(user);
     }
 
     @Override
-    public SimpleUserVO getSimpleUserInfo(String username) {
-        User user = userDao.queryByUsername(username);
-        if (user == null) {
-            throw new IllegalArgumentException("User not found: " + username);
+    public List<UserVO> getAllUsersInfo(int pageNum, int pageSize) {
+        List<User> users = userDao.queryAllUsers((pageNum - 1) * pageSize, pageSize);
+        return users.stream().map(user -> user2UserVO(user)).toList();
+    }
+
+    @Override
+    public void deleteUser(String username) {
+        userDao.deleteUserByUsername(username);
+    }
+
+    @Override
+    public void updateUserInfo(UserVO user) {
+        userDao.updateUserInfo(userVO2User(user));
+    }
+
+    @Override
+    public List<UserRoleVO> getAllUsersRole() {
+        return userDao.queryAllUsersRole().stream().map(
+                userRole -> UserRoleVO.builder()
+                        .roleId(userRole.getRoleId())
+                        .roleName(userRole.getRoleName())
+                        .modules(getModulesByRoleId(userRole.getRoleId()))
+                        .build()
+        ).toList();
+    }
+
+    @Override
+    public void addUserRole(UserRoleVO userRole) {
+        // TODO: 写在一个事务
+        int roleId = userDao.insertUserRole(userRole.getRoleName());
+        for (Module module : userRole.getModules()) {
+            userDao.insertPermission(roleId, module.getModuleId());
         }
-        SimpleUserVO userVO = new SimpleUserVO();
-        userVO.setUserId(user.getUserId());
-        userVO.setUserRole(user.getUserRole());
-        userVO.setUserName(user.getUserName());
-        userVO.setNickName(user.getNickName());
-        return userVO;
     }
 
     @Override
-    public List<SimpleUserVO> getAllUsersInfo() {
-        List<User> users = userDao.queryAll();
-        return users.stream().map(user -> {
-            SimpleUserVO userVO = new SimpleUserVO();
-            userVO.setUserId(user.getUserId());
-            userVO.setUserRole(user.getUserRole());
-            userVO.setUserName(user.getUserName());
-            userVO.setNickName(user.getNickName());
-            return userVO;
-        }).toList();
+    public void removeUserRole(int userRoleId) {
+        userDao.deleteUserRole(userRoleId);
+    }
+
+    @Override
+    public void addPermission(int userRoleId, int permissionId) {
+        userDao.insertPermission(userRoleId, permissionId);
+    }
+
+    @Override
+    public void addPermissionBatch(int userRoleId, List<Integer> permissionIds) {
+        for (Integer permissionId : permissionIds) {
+            userDao.insertPermission(userRoleId, permissionId);
+        }
+    }
+
+    @Override
+    public void removePermission(int userRoleId, int permissionId) {
+        userDao.deletePermission(userRoleId, permissionId);
+    }
+
+    @Override
+    public void removePermissionBatch(int userRoleId, List<Integer> permissionIds) {
+        for (Integer permissionId : permissionIds) {
+            userDao.deletePermission(userRoleId, permissionId);
+        }
+    }
+
+    @Override
+    public boolean hasPermission(int userRoleId, int permissionId) {
+        return userDao.hasPermission(userRoleId, permissionId);
     }
 
     private String encode(String password) {
@@ -118,5 +138,46 @@ public class UserRepositoryImp implements UserRepository {
             return false;
         }
         return ENCODER.matches(rawPassword, encodedPassword);
+    }
+
+    private User userVO2User(UserVO userVO) {
+        return User.builder()
+                .userId(userVO.getUserId())
+                .userRole(userVO.getUserRole().getRoleId())
+                .userName(userVO.getUserName())
+                .nickName(userVO.getNickName())
+                .email(userVO.getEmail())
+                .sex(userVO.getSex())
+                .avatarAddress(userVO.getAvatarAddress())
+                .password(encode(userVO.getPassword()))
+                .remark(userVO.getRemark())
+                .phoneNumber(userVO.getPhoneNumber())
+                .build();
+    }
+
+    private UserVO user2UserVO(User user) {
+        List<Integer> permissions = userDao.queryPermissionsByRoleId(user.getUserRole());
+        UserVO userVO = UserVO.builder()
+                .userId(user.getUserId())
+                .userName(user.getUserName())
+                .nickName(user.getNickName())
+                .email(user.getEmail())
+                .sex(user.getSex())
+                .avatarAddress(user.getAvatarAddress())
+                .remark(user.getRemark())
+                .phoneNumber(user.getPhoneNumber())
+                .build();
+        // TODO: 这里可以设置一个缓存机制，保存角色权限
+        userVO.setUserRole(UserRoleVO.builder()
+                .roleId(user.getUserRole())
+                .roleName(userDao.queryRoleNameByRoleId(user.getUserRole()))
+                .modules(getModulesByRoleId(user.getUserRole()))
+                .build());
+        return userVO;
+    }
+
+    private List<Module> getModulesByRoleId(int roleId) {
+        // 这不是一个好的实现方式，最好还是用map映射
+        return userDao.queryPermissionsByRoleId(roleId).stream().map(moduleId -> Module.values()[moduleId - 1]).toList();
     }
 }

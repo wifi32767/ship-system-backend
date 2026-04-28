@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wifi32767.infra.dao.UserDao">
-    <resultMap id="dataMap" type="com.wifi32767.infra.dao.po.User">
+    <resultMap id="userMap" type="com.wifi32767.infra.dao.po.User">
         <id column="user_id" property="userId"/>
         <result column="user_role" property="userRole"/>
         <result column="user_name" property="userName"/>
@@ -14,7 +14,12 @@
         <result column="phonenumber" property="phoneNumber"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.wifi32767.infra.dao.po.User">
+    <resultMap id="roleMap" type="com.wifi32767.infra.dao.po.UserRole">
+        <id column="role_id" property="roleId"/>
+        <result column="role_name" property="roleName"/>
+    </resultMap>
+
+    <insert id="insertUser" parameterType="com.wifi32767.infra.dao.po.User">
         <![CDATA[
         INSERT INTO user (user_role, user_name, nick_name, email, sex, avatar_address, password, remark,
                           phonenumber)
@@ -23,7 +28,7 @@
         ]]>
     </insert>
 
-    <select id="queryByUsername" parameterType="java.lang.String" resultMap="dataMap">
+    <select id="queryUserByUsername" parameterType="java.lang.String" resultMap="userMap">
         <![CDATA[
         SELECT *
         FROM user
@@ -31,18 +36,118 @@
         ]]>
     </select>
 
-    <select id="queryAll" resultMap="dataMap">
+    <select id="queryAllUsers" parameterType="java.lang.Integer" resultMap="userMap">
         <![CDATA[
         SELECT *
         FROM user
+        LIMIT #{offset}, #{pageSize}
         ]]>
     </select>
 
-    <delete id="deleteByUsername" parameterType="java.lang.String">
+    <delete id="deleteUserByUsername" parameterType="java.lang.String">
         <![CDATA[
         DELETE
         FROM user
         WHERE user_name = #{username}
         ]]>
     </delete>
+
+    <update id="updateUserInfo" parameterType="com.wifi32767.infra.dao.po.User">
+        UPDATE user
+        <set>
+            <if test="userRole != null">
+                user_role = #{userRole},
+            </if>
+            <if test="userName != null">
+                user_name = #{userName},
+            </if>
+            <if test="nickName != null">
+                nick_name = #{nickName},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="avatarAddress != null">
+                avatar_address = #{avatarAddress},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="phoneNumber != null">
+                phonenumber = #{phoneNumber}
+            </if>
+        </set>
+        WHERE user_id = #{userId}
+    </update>
+
+    <select id="queryAllUsersRole" resultMap="roleMap">
+        <![CDATA[
+        SELECT *
+        FROM user_role
+        ]]>
+    </select>
+
+    <select id="queryRoleNameByRoleId" parameterType="java.lang.Integer" resultType="java.lang.String">
+        <![CDATA[
+        SELECT role_name
+        FROM user_role
+        WHERE role_id = #{roleId}
+        ]]>
+    </select>
+
+    <insert id="insertUserRole" parameterType="java.lang.String">
+        <![CDATA[
+        INSERT INTO user_role (role_name)
+        VALUES (#{roleName})
+        ]]>
+    </insert>
+
+    <delete id="deleteUserRole" parameterType="java.lang.Integer">
+        <![CDATA[
+        DELETE
+        FROM user_role
+        WHERE role_id = #{roleId}
+        ]]>
+    </delete>
+
+    <select id="queryPermissionsByRoleId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT permission
+        FROM role_permission
+        WHERE role_id = #{roleId}
+        ]]>
+    </select>
+
+    <insert id="insertPermission" parameterType="java.lang.Integer">
+        <![CDATA[
+        INSERT INTO role_permission (role_id, permission)
+        VALUES (#{roleId}, #{permissionId})
+        ]]>
+    </insert>
+
+    <delete id="deletePermission" parameterType="java.lang.Integer">
+        <![CDATA[
+        DELETE
+        FROM role_permission
+        WHERE permission = #{permissionId}
+        AND role_id = #{roleId}
+        ]]>
+    </delete>
+
+    <select id="hasPermission" parameterType="java.lang.Integer" resultType="java.lang.Boolean">
+        <![CDATA[
+        SELECT EXISTS(
+        SELECT *
+        FROM role_permission
+        WHERE permission = #{permissionId}
+        AND role_id = #{roleId}
+        )
+        ]]>
+    </select>
 </mapper>

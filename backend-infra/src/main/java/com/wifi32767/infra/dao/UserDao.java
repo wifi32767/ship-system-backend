@@ -1,17 +1,36 @@
 package com.wifi32767.infra.dao;
 
 import com.wifi32767.infra.dao.po.User;
+import com.wifi32767.infra.dao.po.UserRole;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 @Mapper
 public interface UserDao {
-    Integer insert(User user);
+    Integer insertUser(User user);
 
-    User queryByUsername(String username);
+    User queryUserByUsername(String username);
 
-    List<User> queryAll();
+    List<User> queryAllUsers(int offset, int pageSize);
 
-    void deleteByUsername(String username);
+    void deleteUserByUsername(String username);
+
+    void updateUserInfo(User user);
+
+    List<UserRole> queryAllUsersRole();
+
+    String queryRoleNameByRoleId(int roleId);
+
+    int insertUserRole(String roleName);
+
+    void deleteUserRole(int roleId);
+
+    List<Integer> queryPermissionsByRoleId(int roleId);
+
+    void insertPermission(int roleId, int permissionId);
+
+    void deletePermission(int roleId, int permissionId);
+
+    boolean hasPermission(int roleId, int permissionId);
 }

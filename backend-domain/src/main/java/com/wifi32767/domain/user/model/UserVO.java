@@ -1,5 +1,6 @@
 package com.wifi32767.domain.user.model;
 
+import com.wifi32767.domain.system.model.UserRoleVO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +18,7 @@ public class UserVO {
     /**
      * 用户角色
      */
-    private String userRole;
+    private UserRoleVO userRole;
     /**
      * 用户账号
      */

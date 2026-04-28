@@ -1,5 +1,6 @@
 package com.wifi32767.domain.user.service;
 
+import com.wifi32767.domain.system.model.UserRoleVO;
 import com.wifi32767.domain.user.adapter.repository.UserRepository;
 import com.wifi32767.domain.user.model.SimpleUserVO;
 import com.wifi32767.domain.user.model.UserVO;
@@ -30,23 +31,62 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void delete(String username) {
-        userRepository.delete(username);
-    }
-
-    @Override
     public UserVO getUserInfo(String username) {
         return userRepository.getUserInfo(username);
     }
 
     @Override
-    public SimpleUserVO getSimpleUserInfo(String username) {
-        return userRepository.getSimpleUserInfo(username);
+    public List<UserVO> getAllUsersInfo(int pageNum, int pageSize) {
+        return userRepository.getAllUsersInfo(pageNum, pageSize);
     }
 
     @Override
-    public List<SimpleUserVO> getAllUsersInfo() {
-        // TODO: 分页机制
-        return userRepository.getAllUsersInfo();
+    public void deleteUser(String username) {
+        userRepository.deleteUser(username);
+    }
+
+    @Override
+    public void updateUserInfo(UserVO user) {
+        userRepository.updateUserInfo(user);
+    }
+
+    @Override
+    public List<UserRoleVO> getAllUsersRole() {
+        return userRepository.getAllUsersRole();
+    }
+
+    @Override
+    public void addUserRole(UserRoleVO userRole) {
+        userRepository.addUserRole(userRole);
+    }
+
+    @Override
+    public void removeUserRole(int userRoleId) {
+        userRepository.removeUserRole(userRoleId);
+    }
+
+    @Override
+    public void addPermission(int userRoleId, int permissionId) {
+        userRepository.addPermission(userRoleId, permissionId);
+    }
+
+    @Override
+    public void addPermissionBatch(int userRoleId, List<Integer> permissionIds) {
+        userRepository.addPermissionBatch(userRoleId, permissionIds);
+    }
+
+    @Override
+    public void removePermission(int userRoleId, int permissionId) {
+        userRepository.removePermission(userRoleId, permissionId);
+    }
+
+    @Override
+    public void removePermissionBatch(int userRoleId, List<Integer> permissionIds) {
+        userRepository.removePermissionBatch(userRoleId, permissionIds);
+    }
+
+    @Override
+    public boolean hasPermission(int userRoleId, int permissionId) {
+        return userRepository.hasPermission(userRoleId, permissionId);
     }
 }

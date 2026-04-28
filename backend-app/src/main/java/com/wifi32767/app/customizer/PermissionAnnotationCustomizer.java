@@ -17,8 +17,9 @@ public class PermissionAnnotationCustomizer implements OperationCustomizer {
         if (perm != null) {
             // 追加到描述尾部
             String desc = operation.getDescription() == null ? "" : operation.getDescription();
+            var module = perm.value();
             operation.setDescription(desc +
-                    "\n\n🔐 **权限要求**: " + perm.value());
+                    "\n\n🔐 **权限要求**: " + module.getModuleName() + "(" + module.getModuleId() + ")");
         }
 
         return operation;

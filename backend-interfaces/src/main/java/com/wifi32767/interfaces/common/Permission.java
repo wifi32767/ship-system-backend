@@ -1,6 +1,6 @@
 package com.wifi32767.interfaces.common;
 
-import com.wifi32767.infra.dao.po.User;
+import com.wifi32767.domain.common.enums.Module;
 
 import java.lang.annotation.*;
 
@@ -8,10 +8,5 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD})
 @Documented
 public @interface Permission {
-    public static final String ADMIN = User.ADMIN;
-    public static final String AUDITOR = User.AUDITOR;
-    public static final String TYPIST = User.TYPIST;
-    public static final String USER = User.USER;
-
-    String value() default USER;
+    Module value();
 }
