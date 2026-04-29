@@ -21,7 +21,7 @@ VALUES ('管理员'),
 DROP TABLE IF EXISTS role_permission;
 CREATE TABLE role_permission
 (
-    role_id INT COMMENT '角色ID',
+    role_id         INT COMMENT '角色ID',
     permission_name VARCHAR(20) NOT NULL COMMENT '权限名称',
     PRIMARY KEY (role_id, permission_name),
     FOREIGN KEY (role_id) REFERENCES user_role (role_id) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -33,7 +33,7 @@ DROP TABLE IF EXISTS user;
 CREATE TABLE user
 (
     user_id        BIGINT(20) PRIMARY KEY AUTO_INCREMENT COMMENT '用户ID',
-    user_role      INT NOT NULL COMMENT '用户角色',
+    user_role      INT          NOT NULL COMMENT '用户角色',
     user_name      VARCHAR(30)  NOT NULL COMMENT '用户账号',
     nick_name      VARCHAR(30)  NOT NULL COMMENT '用户昵称',
     email          VARCHAR(50)  DEFAULT NULL COMMENT '用户邮箱',

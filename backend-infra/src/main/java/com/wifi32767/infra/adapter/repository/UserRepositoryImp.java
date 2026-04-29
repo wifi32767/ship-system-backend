@@ -3,7 +3,6 @@ package com.wifi32767.infra.adapter.repository;
 import com.wifi32767.domain.system.model.UserRoleVO;
 import com.wifi32767.domain.user.adapter.repository.UserRepository;
 import com.wifi32767.domain.user.model.UserVO;
-import com.wifi32767.domain.common.enums.Module;
 import com.wifi32767.infra.dao.UserDao;
 import com.wifi32767.infra.dao.po.User;
 import com.wifi32767.infra.dao.po.UserRole;

@@ -1,8 +1,10 @@
 package com.wifi32767.interfaces.http.admin;
 
+import com.wifi32767.domain.common.enums.Module;
 import com.wifi32767.domain.system.model.ClassVO;
 import com.wifi32767.domain.system.model.TypeVO;
 import com.wifi32767.domain.system.service.ClassService;
+import com.wifi32767.interfaces.common.Permission;
 import com.wifi32767.interfaces.common.Response;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -48,6 +50,7 @@ public class ClassControllerImp implements ClassController {
 
     @Override
     @RequestMapping(value = "/class", method = RequestMethod.POST)
+    @Permission(Module.CATEGORY)
     @Operation(summary = "创建一级分类", description = "创建一级分类")
     public Response<String> createClass(@RequestBody TypeVO classVO) {
         try {
@@ -61,6 +64,7 @@ public class ClassControllerImp implements ClassController {
 
     @Override
     @RequestMapping(value = "/class", method = RequestMethod.PUT)
+    @Permission(Module.CATEGORY)
     @Operation(summary = "更新一级分类信息", description = "更新一级分类信息")
     public Response<String> updateClass(@RequestBody TypeVO classVO) {
         try {
@@ -74,6 +78,7 @@ public class ClassControllerImp implements ClassController {
 
     @Override
     @RequestMapping(value = "/class", method = RequestMethod.DELETE)
+    @Permission(Module.CATEGORY)
     @Operation(summary = "删除一级分类", description = "根据ID删除指定的一级分类")
     public Response<String> deleteClass(@RequestParam Integer classId) {
         try {
@@ -87,6 +92,7 @@ public class ClassControllerImp implements ClassController {
 
     @Override
     @RequestMapping(value = "/style", method = RequestMethod.POST)
+    @Permission(Module.CATEGORY)
     @Operation(summary = "创建二级分类（样式）", description = "在指定父级分类下创建二级分类")
     public Response<String> createStyle(@RequestBody TypeVO styleVO, @RequestParam Integer parentId) {
         try {
@@ -100,6 +106,7 @@ public class ClassControllerImp implements ClassController {
 
     @Override
     @RequestMapping(value = "/style", method = RequestMethod.PUT)
+    @Permission(Module.CATEGORY)
     @Operation(summary = "更新二级分类（样式）信息", description = "更新二级分类信息")
     public Response<String> updateStyle(@RequestBody TypeVO styleVO) {
         try {
@@ -113,6 +120,7 @@ public class ClassControllerImp implements ClassController {
 
     @Override
     @RequestMapping(value = "/style", method = RequestMethod.DELETE)
+    @Permission(Module.CATEGORY)
     @Operation(summary = "删除二级分类（样式）", description = "根据ID删除指定的二级分类")
     public Response<String> deleteStyle(@RequestParam Integer styleId) {
         try {
@@ -126,6 +134,7 @@ public class ClassControllerImp implements ClassController {
 
     @Override
     @RequestMapping(value = "/type", method = RequestMethod.POST)
+    @Permission(Module.CATEGORY)
     @Operation(summary = "创建三级分类（类型）", description = "在指定父级分类下创建三级分类")
     public Response<String> createType(@RequestBody TypeVO typeVO, @RequestParam Integer parentId) {
         try {
@@ -139,6 +148,7 @@ public class ClassControllerImp implements ClassController {
 
     @Override
     @RequestMapping(value = "/type", method = RequestMethod.PUT)
+    @Permission(Module.CATEGORY)
     @Operation(summary = "更新三级分类（类型）信息", description = "更新三级分类信息")
     public Response<String> updateType(@RequestBody TypeVO typeVO) {
         try {
@@ -152,6 +162,7 @@ public class ClassControllerImp implements ClassController {
 
     @Override
     @RequestMapping(value = "/type", method = RequestMethod.DELETE)
+    @Permission(Module.CATEGORY)
     @Operation(summary = "删除三级分类（类型）", description = "根据ID删除指定的三级分类")
     public Response<String> deleteType(@RequestParam Integer typeId) {
         try {

@@ -1,7 +1,6 @@
 package com.wifi32767.domain.user.adapter.repository;
 
 import com.wifi32767.domain.system.model.UserRoleVO;
-import com.wifi32767.domain.user.model.SimpleUserVO;
 import com.wifi32767.domain.user.model.UserVO;
 
 import java.util.List;

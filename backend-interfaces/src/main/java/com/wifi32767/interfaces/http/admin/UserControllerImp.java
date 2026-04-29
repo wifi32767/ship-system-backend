@@ -1,7 +1,7 @@
 package com.wifi32767.interfaces.http.admin;
 
-import com.wifi32767.domain.system.model.UserRoleVO;
 import com.wifi32767.domain.common.enums.Module;
+import com.wifi32767.domain.system.model.UserRoleVO;
 import com.wifi32767.domain.user.model.UserVO;
 import com.wifi32767.domain.user.service.UserService;
 import com.wifi32767.infra.redis.RedisService;
@@ -11,9 +11,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.AbstractMap;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +50,7 @@ public class UserControllerImp implements UserController {
 
     @Override
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-//    @Permission(Module.USER)
+    @Permission(Module.USER)
     @Operation(summary = "用户注册", description = "使用用户信息进行注册，成功后返回新用户的ID")
     public Response<Integer> register(@RequestBody UserVO user) {
         try {
@@ -65,13 +65,15 @@ public class UserControllerImp implements UserController {
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     @Operation(summary = "用户登出", description = "用户登出，删除对应的token")
     public Response<String> logout(@CookieValue(value = "token", required = false) String token) {
-        redisService.remove(token);
+        if (!StringUtils.isEmpty(token)) {
+            redisService.remove("token:" + token);
+        }
         return new Response<>(null);
     }
 
     @Override
     @RequestMapping(value = "/allUsers", method = RequestMethod.GET)
-//    @Permission(Module.USER)
+    @Permission(Module.USER)
     @Operation(summary = "获取所有用户信息", description = "返回系统中所有用户的基本信息列表")
     public Response<List<UserVO>> getAllUsersInfo(@RequestParam int pageNum, @RequestParam int pageSize) {
         try {
@@ -84,7 +86,7 @@ public class UserControllerImp implements UserController {
 
     @Override
     @RequestMapping(value = "/deleteUser", method = RequestMethod.DELETE)
-//    @Permission(Module.USER)
+    @Permission(Module.USER)
     @Operation(summary = "删除用户", description = "根据用户名删除用户账号")
     public Response<String> deleteUser(@RequestBody String username) {
         try {
@@ -124,7 +126,7 @@ public class UserControllerImp implements UserController {
 
     @Override
     @RequestMapping(value = "/addUserRole", method = RequestMethod.POST)
-//    @Permission(Module.USER)
+    @Permission(Module.USER)
     @Operation(summary = "添加用户角色", description = "添加用户角色")
     public Response<String> addUserRole(@RequestBody UserRoleVO userRoleVO) {
         try {
@@ -138,7 +140,7 @@ public class UserControllerImp implements UserController {
 
     @Override
     @RequestMapping(value = "/removeUserRole", method = RequestMethod.DELETE)
-//    @Permission(Module.USER)
+    @Permission(Module.USER)
     @Operation(summary = "删除用户角色", description = "根据角色ID删除用户角色")
     public Response<String> removeUserRole(@RequestParam int roleId) {
         try {
@@ -152,7 +154,7 @@ public class UserControllerImp implements UserController {
 
     @Override
     @RequestMapping(value = "/allModules", method = RequestMethod.GET)
-//    @Permission(Module.USER)
+    @Permission(Module.USER)
     @Operation(summary = "获取所有模块权限", description = "返回系统中所有模块权限列表")
     public Response<Map<Integer, String>> getAllModules() {
         return new Response<>(Arrays.stream(Module.values()).collect(Collectors.toMap(
@@ -163,7 +165,7 @@ public class UserControllerImp implements UserController {
 
     @Override
     @RequestMapping(value = "/addPermission", method = RequestMethod.POST)
-//    @Permission(Module.USER)
+    @Permission(Module.USER)
     @Operation(summary = "添加用户权限", description = "为指定角色添加权限")
     public Response<String> addPermission(@RequestParam int roleId, @RequestParam int permissionId) {
         try {
@@ -177,7 +179,7 @@ public class UserControllerImp implements UserController {
 
     @Override
     @RequestMapping(value = "/addPermissionBatch", method = RequestMethod.POST)
-//    @Permission(Module.USER)
+    @Permission(Module.USER)
     @Operation(summary = "批量添加用户权限", description = "为指定角色批量添加权限")
     public Response<String> addPermissionBatch(@RequestParam int roleId, @RequestBody List<Integer> permissionIds) {
         try {
@@ -191,7 +193,7 @@ public class UserControllerImp implements UserController {
 
     @Override
     @RequestMapping(value = "/removePermission", method = RequestMethod.DELETE)
-//    @Permission(Module.USER)
+    @Permission(Module.USER)
     @Operation(summary = "删除用户权限", description = "从指定角色中删除权限")
     public Response<String> removePermission(@RequestParam int roleId, @RequestParam int permissionId) {
         try {
@@ -205,7 +207,7 @@ public class UserControllerImp implements UserController {
 
     @Override
     @RequestMapping(value = "/removePermissionBatch", method = RequestMethod.DELETE)
-//    @Permission(Module.USER)
+    @Permission(Module.USER)
     @Operation(summary = "批量删除用户权限", description = "从指定角色中批量删除权限")
     public Response<String> removePermissionBatch(@RequestParam int roleId, @RequestBody List<Integer> permissionIds) {
         try {

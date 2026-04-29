@@ -1,6 +1,5 @@
 package com.wifi32767.domain.system.model;
 
-import com.wifi32767.domain.common.enums.Module;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

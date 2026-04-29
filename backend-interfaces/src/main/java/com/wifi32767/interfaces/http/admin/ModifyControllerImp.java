@@ -1,9 +1,11 @@
 package com.wifi32767.interfaces.http.admin;
 
+import com.wifi32767.domain.common.enums.Module;
 import com.wifi32767.domain.portal.model.DeviceVO;
 import com.wifi32767.domain.system.adapter.repository.ClassRepository;
 import com.wifi32767.domain.system.adapter.repository.CountryRepository;
 import com.wifi32767.domain.system.service.DeviceService;
+import com.wifi32767.interfaces.common.Permission;
 import com.wifi32767.interfaces.common.Response;
 import com.wifi32767.interfaces.dto.DeviceDTO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -69,6 +71,7 @@ public class ModifyControllerImp implements ModifyController {
 
     @Override
     @RequestMapping(method = RequestMethod.PUT)
+    @Permission(Module.MODIFY)
     @Operation(summary = "修改信息", description = "更新指定的信息")
     public Response<String> modifyDevice(@RequestBody DeviceVO deviceVO) {
         try {
@@ -82,6 +85,7 @@ public class ModifyControllerImp implements ModifyController {
 
     @Override
     @RequestMapping(method = RequestMethod.DELETE)
+    @Permission(Module.MODIFY)
     @Operation(summary = "删除信息", description = "删除指定的信息")
     public Response<String> deleteDevice(@RequestParam Integer id) {
         try {

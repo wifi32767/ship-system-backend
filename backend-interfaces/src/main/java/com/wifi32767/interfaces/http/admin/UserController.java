@@ -1,7 +1,6 @@
 package com.wifi32767.interfaces.http.admin;
 
 import com.wifi32767.domain.system.model.UserRoleVO;
-import com.wifi32767.domain.common.enums.Module;
 import com.wifi32767.domain.user.model.UserVO;
 import com.wifi32767.interfaces.common.Response;
 
@@ -41,7 +40,7 @@ public interface UserController {
      * 获取用户信息：返回用户信息列表（表示所有用户）。
      * 数据格式：JSON
      *
-     * @param pageNum 页码
+     * @param pageNum  页码
      * @param pageSize 每页数量
      * @return 用户信息列表 {@code List<UserVO>}
      */
@@ -103,7 +102,7 @@ public interface UserController {
      * 添加用户权限接口：添加用户权限。
      * 数据格式：JSON
      *
-     * @param roleId 添加用户权限角色 ID
+     * @param roleId       添加用户权限角色 ID
      * @param permissionId 添加用户权限
      * @return 添加操作结果消息 {@code String}
      */
@@ -113,7 +112,7 @@ public interface UserController {
      * 批量添加用户权限接口：批量添加用户权限。
      * 数据格式：JSON
      *
-     * @param roleId 添加用户权限角色 ID
+     * @param roleId        添加用户权限角色 ID
      * @param permissionIds 添加用户权限
      * @return 添加操作结果消息 {@code String}
      */
@@ -123,7 +122,7 @@ public interface UserController {
      * 删除用户权限接口：删除用户权限。
      * 数据格式：JSON
      *
-     * @param roleId 删除用户权限角色 ID
+     * @param roleId       删除用户权限角色 ID
      * @param permissionId 删除用户权限
      * @return 删除操作结果消息 {@code String}
      */
@@ -133,7 +132,7 @@ public interface UserController {
      * 批量删除用户权限接口：批量删除用户权限。
      * 数据格式：JSON
      *
-     * @param roleId 删除用户权限角色 ID
+     * @param roleId        删除用户权限角色 ID
      * @param permissionIds 删除用户权限
      * @return 删除操作结果消息 {@code String}
      */

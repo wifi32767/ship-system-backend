@@ -36,7 +36,20 @@ public class AuthInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        String token = req.getHeader("Authorization");
+        // 从cookie中获取token
+        String token = null;
+        if (req.getCookies() != null) {
+            for (jakarta.servlet.http.Cookie cookie : req.getCookies()) {
+                if ("token".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+        }
+        if (token == null || token.isEmpty()) {
+            res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return false;
+        }
         Permission permission = method.getMethodAnnotation(Permission.class);
         Module module = permission.value();
 
@@ -50,7 +63,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             return false;
         }
         // TODO: 可以用上下文简化一下，或者缓存一下
-        boolean isAllowed = user.getUserRole().getModules().contains(module);
+        boolean isAllowed = user.getUserRole().getModules().contains(module.getModuleId());
         if (!isAllowed) {
             res.setStatus(HttpServletResponse.SC_FORBIDDEN);
             return false;

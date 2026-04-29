@@ -39,8 +39,7 @@
     <select id="queryAllUsers" parameterType="java.lang.Integer" resultMap="userMap">
         <![CDATA[
         SELECT *
-        FROM user
-        LIMIT #{offset}, #{pageSize}
+        FROM user LIMIT #{offset}, #{pageSize}
         ]]>
     </select>
 
@@ -136,18 +135,16 @@
         DELETE
         FROM role_permission
         WHERE permission = #{permissionId}
-        AND role_id = #{roleId}
+          AND role_id = #{roleId}
         ]]>
     </delete>
 
     <select id="hasPermission" parameterType="java.lang.Integer" resultType="java.lang.Boolean">
         <![CDATA[
-        SELECT EXISTS(
-        SELECT *
-        FROM role_permission
-        WHERE permission = #{permissionId}
-        AND role_id = #{roleId}
-        )
+        SELECT EXISTS(SELECT *
+                      FROM role_permission
+                      WHERE permission = #{permissionId}
+                        AND role_id = #{roleId})
         ]]>
     </select>
 </mapper>

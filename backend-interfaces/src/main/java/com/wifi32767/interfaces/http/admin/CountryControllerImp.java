@@ -1,8 +1,10 @@
 package com.wifi32767.interfaces.http.admin;
 
+import com.wifi32767.domain.common.enums.Module;
 import com.wifi32767.domain.system.model.CountryVO;
 import com.wifi32767.domain.system.service.CountryService;
 import com.wifi32767.infra.dao.po.Country;
+import com.wifi32767.interfaces.common.Permission;
 import com.wifi32767.interfaces.common.Response;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -36,6 +38,7 @@ public class CountryControllerImp implements CountryController {
 
     @Override
     @RequestMapping(method = RequestMethod.POST)
+    @Permission(Module.COUNTRY)
     @Operation(summary = "添加国家", description = "创建新的国家记录")
     public Response<String> countryInsert(@RequestBody Country country) {
         try {
@@ -53,6 +56,7 @@ public class CountryControllerImp implements CountryController {
 
     @Override
     @RequestMapping(method = RequestMethod.DELETE)
+    @Permission(Module.COUNTRY)
     @Operation(summary = "删除国家", description = "根据ID删除指定国家记录")
     public Response<String> countryDelete(@RequestParam Integer countryId) {
         try {
@@ -66,6 +70,7 @@ public class CountryControllerImp implements CountryController {
 
     @Override
     @RequestMapping(path = "/batch", method = RequestMethod.DELETE)
+    @Permission(Module.COUNTRY)
     @Operation(summary = "批量删除国家", description = "根据ID列表批量删除国家记录")
     public Response<String> countryBatchDelete(@RequestBody List<Integer> countryIds) {
         try {
@@ -79,6 +84,7 @@ public class CountryControllerImp implements CountryController {
 
     @Override
     @RequestMapping(method = RequestMethod.PUT)
+    @Permission(Module.COUNTRY)
     @Operation(summary = "修改国家", description = "更新指定国家的信息")
     public Response<String> countryEdit(@RequestBody Country country) {
         try {
