@@ -6,6 +6,7 @@ import com.wifi32767.domain.user.model.UserVO;
 import com.wifi32767.interfaces.common.Response;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserController {
     /**
@@ -94,9 +95,9 @@ public interface UserController {
      * 获取用户权限接口：返回用户权限列表（表示所有用户权限）。
      * 数据格式：JSON
      *
-     * @return 用户权限列表 {@code List<Module>}
+     * @return 用户权限列表 {@code Map<Integer, String>}
      */
-    Response<List<Module>> getAllModules();
+    Response<Map<Integer, String>> getAllModules();
 
     /**
      * 添加用户权限接口：添加用户权限。

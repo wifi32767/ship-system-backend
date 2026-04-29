@@ -101,7 +101,7 @@
         ]]>
     </select>
 
-    <insert id="insertUserRole" parameterType="java.lang.String">
+    <insert id="insertUserRole" useGeneratedKeys="true" keyProperty="roleId" keyColumn="id">
         <![CDATA[
         INSERT INTO user_role (role_name)
         VALUES (#{roleName})

@@ -15,5 +15,5 @@ import java.util.List;
 public class UserRoleVO {
     private Integer roleId; // 角色id
     private String roleName; // 角色名称
-    private List<Module> modules; // 有权限的功能模块
+    private List<Integer> modules; // 有权限的功能模块id
 }

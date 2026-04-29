@@ -6,6 +6,7 @@ import com.wifi32767.domain.user.model.UserVO;
 import com.wifi32767.domain.common.enums.Module;
 import com.wifi32767.infra.dao.UserDao;
 import com.wifi32767.infra.dao.po.User;
+import com.wifi32767.infra.dao.po.UserRole;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -84,10 +85,14 @@ public class UserRepositoryImp implements UserRepository {
     @Override
     public void addUserRole(UserRoleVO userRole) {
         // TODO: 写在一个事务
-        int roleId = userDao.insertUserRole(userRole.getRoleName());
-        for (Module module : userRole.getModules()) {
-            userDao.insertPermission(roleId, module.getModuleId());
-        }
+        UserRole role = UserRole.builder()
+                .roleName(userRole.getRoleName())
+                .build();
+        userDao.insertUserRole(role);
+        int roleId = role.getRoleId();
+        userRole.getModules().forEach(
+                module -> userDao.insertPermission(roleId, module)
+        );
     }
 
     @Override
@@ -176,8 +181,7 @@ public class UserRepositoryImp implements UserRepository {
         return userVO;
     }
 
-    private List<Module> getModulesByRoleId(int roleId) {
-        // 这不是一个好的实现方式，最好还是用map映射
-        return userDao.queryPermissionsByRoleId(roleId).stream().map(moduleId -> Module.values()[moduleId - 1]).toList();
+    private List<Integer> getModulesByRoleId(int roleId) {
+        return userDao.queryPermissionsByRoleId(roleId);
     }
 }

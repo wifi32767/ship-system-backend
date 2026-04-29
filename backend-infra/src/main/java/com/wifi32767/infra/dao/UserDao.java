@@ -22,7 +22,7 @@ public interface UserDao {
 
     String queryRoleNameByRoleId(int roleId);
 
-    int insertUserRole(String roleName);
+    void insertUserRole(UserRole userRole);
 
     void deleteUserRole(int roleId);
 

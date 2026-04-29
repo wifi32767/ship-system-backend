@@ -2,6 +2,7 @@ package com.wifi32767.test.infra.dao;
 
 
 import com.wifi32767.infra.dao.UserDao;
+import com.wifi32767.infra.dao.po.UserRole;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,17 +24,18 @@ public class UserDaoTest {
     }
 
     @Test
-    public void test() {
+    public void insertUserRoleTest() {
+        UserRole userRole = new UserRole();
+        userRole.setRoleName("testttt");
+        userDao.insertUserRole(userRole);
+        log.info("insert user role: {}", userRole.getRoleId());
+    }
+
+    @Test
+    public void encoderTest() {
         var encoder = new BCryptPasswordEncoder(10);
         String pwd = encoder.encode("asdasd");
         log.info("{}", pwd);
         log.info("match: {}", encoder.matches("asdasd", pwd));
     }
-
-//    @Test
-//    public void testQueryRoleIdByRoleName() {
-//        String roleName = "admin";
-//        int roleId = userDao.queryRoleIdByRoleName(roleName);
-//        log.info("Role ID for role name '{}': {}", roleName, roleId);
-//    }
 }
