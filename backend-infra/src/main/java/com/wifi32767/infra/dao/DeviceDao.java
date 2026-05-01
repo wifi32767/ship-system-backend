@@ -13,6 +13,8 @@ public interface DeviceDao {
 
     List<Device> queryAllWithPages(int offset, int size);
 
+    void insert(Device device);
+
     void update(Device device);
 
     void deleteById(Integer id);

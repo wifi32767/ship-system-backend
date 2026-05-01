@@ -9,10 +9,7 @@ import com.wifi32767.interfaces.dto.EntryBatchRespDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -31,12 +28,13 @@ public class EntryControllerImp implements EntryController {
     @RequestMapping(path = "/single", method = RequestMethod.POST)
     @Permission(Module.ENTRY)
     @Operation(summary = "单条数据录入", description = "单条数据录入")
-    public Response<String> entry(DeviceVO device) {
+    public Response<String> entry(@RequestBody DeviceVO device) {
         try {
-            return new Response<>(entryService.single(device));
+            entryService.single(device);
+            return new Response<>(null);
         } catch (Exception e) {
-            log.error("", e);
-            return new Response<>(Response.ERROR, e.getMessage());
+            log.error("Error entrying device", e);
+            return new Response<>(Response.ERROR, "Failed to entry device" + e.getMessage());
         }
     }
 
@@ -44,7 +42,10 @@ public class EntryControllerImp implements EntryController {
     @RequestMapping(path = "/batch", method = RequestMethod.POST)
     @Permission(Module.ENTRY)
     @Operation(summary = "批量数据录入", description = "批量数据录入，支持xlsx、csv格式")
-    public Response<EntryBatchRespDTO> entryBatch(List<DeviceVO> devices) {
+    public Response<EntryBatchRespDTO> entryBatch(@RequestBody List<DeviceVO> devices) {
+        for (DeviceVO deviceVO : devices) {
+            log.info("deviceVO={}", deviceVO);
+        }
         return null;
     }
 }
