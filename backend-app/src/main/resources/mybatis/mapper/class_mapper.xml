@@ -207,4 +207,33 @@
           AND device_type_style_id = #{deviceTypeStyleId}
         ]]>
     </delete>
+
+    <select id="queryClassIdByName" parameterType="java.lang.String" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT device_class_id
+        FROM device_class
+        WHERE (deleted = NULL OR deleted = 0)
+          AND device_class_name = #{className}
+        ]]>
+    </select>
+
+    <select id="queryStyleIdByName" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT device_style_id
+        FROM device_style
+        WHERE (deleted = NULL OR deleted = 0)
+          AND device_style_class_id = #{parentId}
+          AND device_style_name = #{styleName}
+        ]]>
+    </select>
+
+    <select id="queryTypeIdByName" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT device_type_id
+        FROM device_type
+        WHERE (deleted = NULL OR deleted = 0)
+          AND device_type_style_id = #{parentId}
+          AND device_type_name = #{typeName}
+        ]]>
+    </select>
 </mapper>

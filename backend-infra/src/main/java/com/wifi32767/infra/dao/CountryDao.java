@@ -7,7 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface CountryDao {
-    int queryCountryIdByName(String countryName);
+    Integer queryCountryIdByName(String countryName);
 
     String queryCountryNameById(int countryId);
 

@@ -197,4 +197,19 @@ public class ClassRepositoryImp implements ClassRepository {
     public void deleteType(Integer typeId) {
         classDao.deleteType(typeId);
     }
+
+    @Override
+    public Integer getClassIdByName(String className) {
+        return classDao.queryClassIdByName(className);
+    }
+
+    @Override
+    public Integer getStyleIdByName(String styleName, int parentId) {
+        return classDao.queryStyleIdByName(styleName, parentId);
+    }
+
+    @Override
+    public Integer getTypeIdByName(String typeName, int parentId) {
+        return classDao.queryTypeIdByName(typeName, parentId);
+    }
 }

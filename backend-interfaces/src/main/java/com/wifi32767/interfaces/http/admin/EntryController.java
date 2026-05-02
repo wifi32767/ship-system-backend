@@ -1,8 +1,8 @@
 package com.wifi32767.interfaces.http.admin;
 
+import com.wifi32767.domain.entry.model.DeviceJsonVO;
 import com.wifi32767.domain.portal.model.DeviceVO;
 import com.wifi32767.interfaces.common.Response;
-import com.wifi32767.interfaces.dto.EntryBatchRespDTO;
 
 import java.util.List;
 
@@ -23,5 +23,5 @@ public interface EntryController {
      * @param devices
      * @return
      */
-    Response<EntryBatchRespDTO> entryBatch(List<DeviceVO> devices);
+    Response<String> entryBatch(List<DeviceJsonVO> devices);
 }

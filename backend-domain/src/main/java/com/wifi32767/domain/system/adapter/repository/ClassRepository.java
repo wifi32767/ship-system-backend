@@ -33,4 +33,10 @@ public interface ClassRepository {
     void updateType(TypeVO typeVO);
 
     void deleteType(Integer typeId);
+
+    Integer getClassIdByName(String className);
+
+    Integer getStyleIdByName(String styleName, int parentId);
+
+    Integer getTypeIdByName(String typeName, int parentId);
 }

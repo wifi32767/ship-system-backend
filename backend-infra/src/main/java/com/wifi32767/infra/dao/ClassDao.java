@@ -46,4 +46,10 @@ public interface ClassDao {
     void deleteStyleByClassId(Integer classId);
 
     void deleteTypeByStyleId(Integer styleId);
+
+    Integer queryClassIdByName(String className);
+
+    Integer queryStyleIdByName(String styleName, Integer parentId);
+
+    Integer queryTypeIdByName(String typeName, Integer parentId);
 }

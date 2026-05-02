@@ -1,17 +1,15 @@
-package com.wifi32767.domain.portal.model;
+package com.wifi32767.domain.entry.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DeviceVO {
+public class DeviceJsonVO {
 
     /**
      * id、表id
@@ -24,19 +22,19 @@ public class DeviceVO {
     private String deviceName;
 
     /**
-     * 分类id、外键
+     * 分类
      */
-    private Integer deviceClassId;
+    private String deviceClassName;
 
     /**
-     * 子分类id、外键
+     * 子分类
      */
-    private Integer deviceStyleId;
+    private String deviceStyleName;
 
     /**
-     * 具体方向id、外键
+     * 具体方向
      */
-    private Integer deviceTypeId;
+    private String deviceTypeName;
 
     /**
      * 投产年份
@@ -54,9 +52,9 @@ public class DeviceVO {
     private String deviceUsingUnit;
 
     /**
-     * 所属国家id
+     * 所属国家名
      */
-    private Integer deviceCountryId;
+    private String deviceCountryName;
 
     /**
      * 具体地址
@@ -87,19 +85,4 @@ public class DeviceVO {
      * 详情介绍
      */
     private String deviceIntroduce;
-
-    /**
-     * 信息入库时间
-     */
-    private LocalDateTime deviceInsqlTime;
-
-    /**
-     * 信息修改时间
-     */
-    private LocalDateTime deviceChangesqlTime;
-
-    /**
-     * 审核状态 0待审核 1审核通过 2审核未通过
-     */
-    private Integer auditFlag;
 }

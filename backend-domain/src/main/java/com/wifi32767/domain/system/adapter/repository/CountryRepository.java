@@ -14,4 +14,6 @@ public interface CountryRepository {
     void updateCountry(CountryVO countryVO);
 
     void deleteCountry(int countryId);
+
+    Integer getCountryIdByName(String countryName);
 }

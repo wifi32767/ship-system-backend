@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 public class EntryRepositoryImp implements EntryRepository {
@@ -22,5 +23,16 @@ public class EntryRepositoryImp implements EntryRepository {
         deviceVO.setDeviceInsqlTime(LocalDateTime.now());
         deviceVO.setDeviceChangesqlTime(LocalDateTime.now());
         deviceDao.insert(deviceConverter.DeviceVO2Device(deviceVO));
+    }
+
+    @Override
+    public void batch(List<DeviceVO> devices) {
+        devices.forEach(
+                deviceVO -> {
+                    deviceVO.setDeviceInsqlTime(LocalDateTime.now());
+                    deviceVO.setDeviceChangesqlTime(LocalDateTime.now());
+                    deviceDao.insert(deviceConverter.DeviceVO2Device(deviceVO));
+                }
+        );
     }
 }

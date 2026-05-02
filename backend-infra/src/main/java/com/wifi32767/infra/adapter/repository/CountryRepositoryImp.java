@@ -6,6 +6,7 @@ import com.wifi32767.infra.dao.CountryDao;
 import com.wifi32767.infra.dao.po.Country;
 import com.wifi32767.infra.redis.RedisService;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -90,5 +91,13 @@ public class CountryRepositoryImp implements CountryRepository {
     public void deleteCountry(int countryId) {
         countryDao.deleteCountry(countryId);
         redisService.remove(ALL_LIST_KEY);
+    }
+
+    @Override
+    public Integer getCountryIdByName(String countryName) {
+        if (StringUtils.isEmpty(countryName)) {
+            return null;
+        }
+        return countryDao.queryCountryIdByName(countryName);
     }
 }
