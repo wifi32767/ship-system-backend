@@ -1,7 +1,9 @@
 package com.wifi32767.infra.adapter.repository;
 
+import com.wifi32767.domain.common.context.UserContext;
 import com.wifi32767.domain.entry.adapter.repository.EntryRepository;
 import com.wifi32767.domain.portal.model.DeviceVO;
+import com.wifi32767.domain.system.model.EntryLogVO;
 import com.wifi32767.infra.adapter.converter.DeviceConverter;
 import com.wifi32767.infra.dao.DeviceDao;
 import org.springframework.stereotype.Repository;
@@ -26,13 +28,27 @@ public class EntryRepositoryImp implements EntryRepository {
     }
 
     @Override
-    public void batch(List<DeviceVO> devices) {
-        devices.forEach(
-                deviceVO -> {
-                    deviceVO.setDeviceInsqlTime(LocalDateTime.now());
-                    deviceVO.setDeviceChangesqlTime(LocalDateTime.now());
-                    deviceDao.insert(deviceConverter.DeviceVO2Device(deviceVO));
-                }
-        );
+    public EntryLogVO batch(List<DeviceVO> devices) {
+        StringBuilder log = new StringBuilder();
+        int count = 0;
+        for (DeviceVO deviceVO : devices) {
+            deviceVO.setDeviceInsqlTime(LocalDateTime.now());
+            deviceVO.setDeviceChangesqlTime(LocalDateTime.now());
+            try {
+                deviceDao.insert(deviceConverter.DeviceVO2Device(deviceVO));
+            } catch (Exception e) {
+                log.append(String.format("device: %s, error: %s\n", deviceVO.toString(), e.getMessage()));
+            } finally {
+                count++;
+            }
+        }
+        return EntryLogVO.builder()
+                .modelLogId(1)
+                .csvEnterLogs(log.toString())
+                .csvEnterNumber(devices.size())
+                .csvEnterSuccessNumber(count)
+                .csvEnterLogsTime(LocalDateTime.now())
+                .csvEnterUserName(String.valueOf(UserContext.get().getUserId()))
+                .build();
     }
 }

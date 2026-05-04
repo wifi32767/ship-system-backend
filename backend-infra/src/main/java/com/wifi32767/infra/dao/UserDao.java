@@ -33,4 +33,6 @@ public interface UserDao {
     void deletePermission(int roleId, int permissionId);
 
     boolean hasPermission(int roleId, int permissionId);
+
+    String queryUserNameByUserId(int userId);
 }

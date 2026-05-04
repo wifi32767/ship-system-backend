@@ -1,21 +1,21 @@
-package com.wifi32767.interfaces.common;
+package com.wifi32767.domain.common.context;
 
-import com.wifi32767.domain.user.model.SimpleUserVO;
+import com.wifi32767.domain.user.model.UserVO;
 
 public class UserContext {
 
     // 使用静态 ThreadLocal 存储用户信息
-    private static final ThreadLocal<SimpleUserVO> USER_HOLDER = new ThreadLocal<>();
+    private static final ThreadLocal<UserVO> USER_HOLDER = new ThreadLocal<>();
 
     // 防止实例化
     private UserContext() {
     }
 
-    public static void set(SimpleUserVO user) {
+    public static void set(UserVO user) {
         USER_HOLDER.set(user);
     }
 
-    public static SimpleUserVO get() {
+    public static UserVO get() {
         return USER_HOLDER.get();
     }
 

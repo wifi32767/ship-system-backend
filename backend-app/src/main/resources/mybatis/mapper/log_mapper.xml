@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wifi32767.infra.dao.LogDao">
+    <resultMap id="csvEnterLog" type="com.wifi32767.infra.dao.po.CsvEnterLog">
+        <id column="csv_enter_logs_id" property="csvEnterLogsId"/>
+        <result column="model_log_id" property="modelLogId"/>
+        <result column="csv_enter_logs" property="csvEnterLogs"/>
+        <result column="csv_enter_number" property="csvEnterNumber"/>
+        <result column="csv_enter_success_number" property="csvEnterSuccessNumber"/>
+        <result column="csv_enter_logs_time" property="csvEnterLogsTime"/>
+        <result column="csv_enter_user_id" property="csvEnterUserId"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+
+    <insert id="insertLog" parameterType="com.wifi32767.infra.dao.po.CsvEnterLog">
+        <![CDATA[
+        INSERT INTO csv_enter_logs (model_log_id, csv_enter_logs, csv_enter_number, csv_enter_success_number,
+                                    csv_enter_logs_time, csv_enter_user_id)
+        VALUES (#{modelLogId}, #{csvEnterLogs}, #{csvEnterNumber}, #{csvEnterSuccessNumber}, #{csvEnterLogsTime},
+                #{csvEnterUserId})
+        ]]>
+    </insert>
+
+    <select id="queryAllLogs" resultMap="csvEnterLog">
+        <![CDATA[
+        SELECT *
+        FROM csv_enter_logs
+        WHERE deleted IS NULL
+           OR deleted = 0
+        ORDER BY csv_enter_logs_time DESC
+        ]]>
+    </select>
+
+    <select id="queryAllLogsWithPage" parameterType="java.lang.Integer" resultMap="csvEnterLog">
+        <![CDATA[
+        SELECT *
+        FROM csv_enter_logs
+        WHERE deleted IS NULL
+           OR deleted = 0
+        ORDER BY csv_enter_logs_time DESC
+            LIMIT #{pageSize}
+        OFFSET #{offset}
+        ]]>
+    </select>
+
+    <delete id="deleteLog" parameterType="java.lang.Integer">
+        <![CDATA[
+        UPDATE csv_enter_logs
+        SET deleted = 1
+        WHERE csv_enter_logs_id = #{csvEnterLogsId}
+        ]]>
+    </delete>
+</mapper>
