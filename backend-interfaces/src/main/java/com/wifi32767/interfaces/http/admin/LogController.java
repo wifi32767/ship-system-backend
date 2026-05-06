@@ -1,7 +1,7 @@
 package com.wifi32767.interfaces.http.admin;
 
+import com.wifi32767.common.Response;
 import com.wifi32767.domain.system.model.EntryLogVO;
-import com.wifi32767.interfaces.common.Response;
 
 import java.util.List;
 

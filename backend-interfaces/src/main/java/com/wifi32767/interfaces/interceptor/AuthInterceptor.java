@@ -1,11 +1,11 @@
 package com.wifi32767.interfaces.interceptor;
 
-import com.wifi32767.domain.common.context.UserContext;
-import com.wifi32767.domain.common.enums.Module;
+import com.wifi32767.common.Permission;
+import com.wifi32767.common.enums.Module;
+import com.wifi32767.domain.context.UserContext;
 import com.wifi32767.domain.user.model.UserVO;
 import com.wifi32767.domain.user.service.UserService;
 import com.wifi32767.infra.redis.RedisService;
-import com.wifi32767.interfaces.common.Permission;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;

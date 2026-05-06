@@ -1,12 +1,12 @@
 package com.wifi32767.interfaces.http.admin;
 
-import com.wifi32767.domain.common.enums.Module;
+import com.wifi32767.common.Permission;
+import com.wifi32767.common.Response;
+import com.wifi32767.common.enums.Module;
 import com.wifi32767.domain.portal.model.DeviceVO;
 import com.wifi32767.domain.system.adapter.repository.ClassRepository;
 import com.wifi32767.domain.system.adapter.repository.CountryRepository;
 import com.wifi32767.domain.system.service.DeviceService;
-import com.wifi32767.interfaces.common.Permission;
-import com.wifi32767.interfaces.common.Response;
 import com.wifi32767.interfaces.dto.DeviceDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

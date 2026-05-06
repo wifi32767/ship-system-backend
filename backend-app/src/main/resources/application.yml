@@ -1,5 +1,19 @@
 spring:
+  application:
+    name: ship-backend-app
+  cloud:
+    consul:
+      host: 127.0.0.1    # 宿主机实际 IP，以便 WSL 内的服务访问
+      port: 8500
+      discovery:
+        prefer-ip-address: true   # 强制使用 IP 地址注册
+        ip-address: 192.168.31.75  # (可选) 手动指定要注册的 IP
+        service-name: ship-backend-app
+    loadbalancer:
+      ribbon:
+        enabled: false
   config:
-    name: sysbackend-app
+    name: ship-backend-app
+    import: "optional:consul:"
   profiles:
     active: dev

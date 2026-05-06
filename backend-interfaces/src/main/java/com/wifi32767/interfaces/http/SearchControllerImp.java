@@ -1,9 +1,9 @@
 package com.wifi32767.interfaces.http;
 
+import com.wifi32767.common.Response;
 import com.wifi32767.domain.portal.model.DeviceVO;
 import com.wifi32767.domain.search.model.SearchParamsVO;
 import com.wifi32767.domain.search.service.SearchService;
-import com.wifi32767.interfaces.common.Response;
 import com.wifi32767.interfaces.dto.ClassStatsDTO;
 import com.wifi32767.interfaces.dto.CountryStatsDTO;
 import com.wifi32767.interfaces.dto.EchartsOptionDTO;

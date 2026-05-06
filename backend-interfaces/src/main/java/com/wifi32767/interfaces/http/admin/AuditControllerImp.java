@@ -1,11 +1,11 @@
 package com.wifi32767.interfaces.http.admin;
 
-import com.wifi32767.domain.common.enums.Module;
+import com.wifi32767.common.Permission;
+import com.wifi32767.common.Response;
+import com.wifi32767.common.enums.Module;
 import com.wifi32767.domain.system.model.AuditSearchParamsVO;
 import com.wifi32767.domain.system.model.FullDeviceVO;
 import com.wifi32767.domain.system.service.AuditService;
-import com.wifi32767.interfaces.common.Permission;
-import com.wifi32767.interfaces.common.Response;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;

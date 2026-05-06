@@ -1,6 +1,6 @@
 package com.wifi32767.infra.adapter.repository;
 
-import com.wifi32767.domain.common.context.UserContext;
+import com.wifi32767.domain.context.UserContext;
 import com.wifi32767.domain.entry.adapter.repository.EntryRepository;
 import com.wifi32767.domain.portal.model.DeviceVO;
 import com.wifi32767.domain.system.model.EntryLogVO;

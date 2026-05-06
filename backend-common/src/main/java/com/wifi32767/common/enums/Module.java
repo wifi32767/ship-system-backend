@@ -1,4 +1,4 @@
-package com.wifi32767.domain.common.enums;
+package com.wifi32767.common.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

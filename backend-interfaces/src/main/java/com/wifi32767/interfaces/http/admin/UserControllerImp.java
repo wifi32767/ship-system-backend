@@ -1,12 +1,12 @@
 package com.wifi32767.interfaces.http.admin;
 
-import com.wifi32767.domain.common.enums.Module;
+import com.wifi32767.common.Permission;
+import com.wifi32767.common.Response;
+import com.wifi32767.common.enums.Module;
 import com.wifi32767.domain.system.model.UserRoleVO;
 import com.wifi32767.domain.user.model.UserVO;
 import com.wifi32767.domain.user.service.UserService;
 import com.wifi32767.infra.redis.RedisService;
-import com.wifi32767.interfaces.common.Permission;
-import com.wifi32767.interfaces.common.Response;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;

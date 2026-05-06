@@ -1,9 +1,9 @@
 package com.wifi32767.interfaces.http;
 
+import com.wifi32767.common.Response;
 import com.wifi32767.domain.portal.model.DeviceVO;
 import com.wifi32767.domain.portal.model.NewsVO;
 import com.wifi32767.domain.portal.model.StatsBoardVO;
-import com.wifi32767.interfaces.common.Response;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.wifi32767.domain.common.context;
+package com.wifi32767.domain.context;
 
 import com.wifi32767.domain.user.model.UserVO;
 

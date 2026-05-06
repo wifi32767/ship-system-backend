@@ -1,6 +1,6 @@
-package com.wifi32767.interfaces.common;
+package com.wifi32767.common;
 
-import com.wifi32767.domain.common.enums.Module;
+import com.wifi32767.common.enums.Module;
 
 import java.lang.annotation.*;
 

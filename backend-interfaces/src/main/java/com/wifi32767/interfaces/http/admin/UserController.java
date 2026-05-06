@@ -1,8 +1,8 @@
 package com.wifi32767.interfaces.http.admin;
 
+import com.wifi32767.common.Response;
 import com.wifi32767.domain.system.model.UserRoleVO;
 import com.wifi32767.domain.user.model.UserVO;
-import com.wifi32767.interfaces.common.Response;
 
 import java.util.List;
 import java.util.Map;

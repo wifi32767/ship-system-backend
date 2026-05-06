@@ -1,10 +1,10 @@
 package com.wifi32767.interfaces.http;
 
+import com.wifi32767.common.Response;
 import com.wifi32767.domain.portal.model.DeviceVO;
 import com.wifi32767.domain.portal.model.NewsVO;
 import com.wifi32767.domain.portal.model.StatsBoardVO;
 import com.wifi32767.domain.portal.service.PortalService;
-import com.wifi32767.interfaces.common.Response;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;

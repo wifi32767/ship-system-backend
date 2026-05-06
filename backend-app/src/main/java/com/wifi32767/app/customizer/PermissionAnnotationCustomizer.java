@@ -1,6 +1,6 @@
 package com.wifi32767.app.customizer;
 
-import com.wifi32767.interfaces.common.Permission;
+import com.wifi32767.common.Permission;
 import io.swagger.v3.oas.models.Operation;
 import org.springdoc.core.customizers.OperationCustomizer;
 import org.springframework.stereotype.Component;
