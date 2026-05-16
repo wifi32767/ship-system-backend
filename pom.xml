@@ -55,7 +55,6 @@
         <redisson.version>3.17.6</redisson.version>
         <spring-cloud.version>2025.0.1</spring-cloud.version>
         <openfeign.version>3.8.0</openfeign.version>
-        <jackson.version>2.19.4</jackson.version>
     </properties>
 
     <dependencyManagement>
@@ -126,11 +125,6 @@
                 <groupId>io.github.openfeign.form</groupId>
                 <artifactId>feign-form-spring</artifactId>
                 <version>${openfeign.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>${jackson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
