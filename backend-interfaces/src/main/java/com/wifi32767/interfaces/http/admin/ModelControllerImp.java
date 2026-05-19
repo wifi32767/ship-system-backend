@@ -34,7 +34,7 @@ public class ModelControllerImp implements ModelController {
     }
 
     @Override
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/detail")
     @Operation(summary = "查询模型详情", description = "查询模型详情（含关键词）")
     public String getModel(@PathVariable("id") int id) {
         try {
@@ -65,7 +65,7 @@ public class ModelControllerImp implements ModelController {
     }
 
     @Override
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/delete")
     @Operation(summary = "逻辑删除模型", description = "根据ID逻辑删除模型")
     public String deleteModel(@PathVariable("id") int id) {
         try {
@@ -133,6 +133,18 @@ public class ModelControllerImp implements ModelController {
         } catch (Exception e) {
             log.error("Error deleting keyword, id: {}", id, e);
             return new Response<String>(Response.ERROR, "Failed to delete keyword: " + e.getMessage()).toString();
+        }
+    }
+
+    @Override
+    @GetMapping("/fetchers")
+    @Operation(summary = "查询采集器列表", description = "查询采集器列表")
+    public String getFetcherList() {
+        try {
+            return spiderClient.getFetcherList();
+        } catch (Exception e) {
+            log.error("Error fetching fetcher list", e);
+            return new Response<String>(Response.ERROR, "Failed to fetch fetcher list: " + e.getMessage()).toString();
         }
     }
 }

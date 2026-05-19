@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication(scanBasePackages = {
         "com.wifi32767.app",
+        "com.wifi32767.common",
         "com.wifi32767.domain",
         "com.wifi32767.infra",
         "com.wifi32767.interfaces"

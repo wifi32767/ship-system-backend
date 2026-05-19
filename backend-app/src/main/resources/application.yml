@@ -9,7 +9,7 @@ spring:
       config:
         enabled: true
         format: YAML
-        data-key: data
+        data-key: token
         profile-separator: ','
         watch:
           enabled: true
@@ -26,5 +26,10 @@ spring:
     active: dev
 logging:
   level:
-    org.springframework.cloud.consul: DEBUG
-    org.springframework.boot.actuate.endpoint: DEBUG
+    org:
+      springframework:
+        cloud:
+          consul: DEBUG
+        boot:
+          actuate:
+            endpoint: DEBUG

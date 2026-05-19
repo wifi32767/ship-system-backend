@@ -14,7 +14,7 @@ public class CountryDaoTest {
     @Resource
     private CountryDao countryDao;
 
-    //    @Test
+    @Test
     public void queryCountryIdByNameTest() {
         String countryName = "中国";
         Integer countryId = countryDao.queryCountryIdByName(countryName);
@@ -35,19 +35,19 @@ public class CountryDaoTest {
         log.info("countryId: {}", countryId);
     }
 
-    //    @Test
+    @Test
     public void queryCountryNameByIdTest() {
         int countryId = 2;
         String countryName = countryDao.queryCountryNameById(countryId);
         log.info("countryName: {}", countryName);
     }
 
-    //    @Test
+    @Test
     public void queryCountryAllTest() {
         countryDao.queryAllCountries().forEach(country -> log.info("{}", country));
     }
 
-    //    @Test
+    @Test
     public void insertCountryTest() {
         Country country = new Country();
         country.setCountryName("圣马力诺");
@@ -57,7 +57,7 @@ public class CountryDaoTest {
         queryCountryAllTest();
     }
 
-    //    @Test
+    @Test
     public void updateCountryTest() {
         Country country = new Country();
         country.setCountryId(4);
@@ -67,7 +67,7 @@ public class CountryDaoTest {
         queryCountryAllTest();
     }
 
-    //    @Test
+    @Test
     public void deleteCountryTest() {
         int countryId = 3;
         countryDao.deleteCountry(countryId);
