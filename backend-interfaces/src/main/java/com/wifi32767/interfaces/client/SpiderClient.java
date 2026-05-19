@@ -1,5 +1,6 @@
 package com.wifi32767.interfaces.client;
 
+import com.wifi32767.common.config.FeignClientConfig;
 import com.wifi32767.interfaces.dto.KeywordCreateBody;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-@FeignClient(name = "spider-service")
+@FeignClient(name = "spider-service", configuration = FeignClientConfig.class)
 public interface SpiderClient {
     @RequestMapping(value = "/api/model/list", method = RequestMethod.GET)
     String getModelList();
@@ -49,4 +50,6 @@ public interface SpiderClient {
     @RequestMapping(value = "/api/model/keyword/{id}", method = RequestMethod.DELETE)
     String deleteKeyword(@PathVariable("id") int id);
 
+    @RequestMapping(value = "/api/fetcher/list", method = RequestMethod.GET)
+    String getFetcherList();
 }

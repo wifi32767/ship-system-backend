@@ -29,4 +29,6 @@ public interface ModelController {
     String addKeyword(KeywordCreateBody body);
 
     String deleteKeyword(int id);
+
+    String getFetcherList();
 }

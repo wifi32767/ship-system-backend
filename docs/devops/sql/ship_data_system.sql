@@ -172,8 +172,8 @@ CREATE TABLE doc
   DEFAULT CHARSET = utf8mb4 COMMENT ='上传文件表';
 
 -- 表10：爬虫模型表
-DROP TABLE IF EXISTS m_reptile_model;
-CREATE TABLE m_reptile_model
+DROP TABLE IF EXISTS reptile_model;
+CREATE TABLE reptile_model
 (
     m_reptile_model_id             INT PRIMARY KEY AUTO_INCREMENT COMMENT '爬虫模型id',
     m_reptile_model_name           VARCHAR(255) DEFAULT NULL COMMENT '爬虫模型名称',
