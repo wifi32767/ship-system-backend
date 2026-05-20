@@ -6,6 +6,7 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public interface RedisService {
@@ -118,6 +119,43 @@ public interface RedisService {
     void remove(String key);
 
     /**
+     * 移除指定 key 的值
+     *
+     * @param keys 键
+     */
+    void remove(String... keys);
+
+    /**
+     * 延迟移除指定 key 的值
+     *
+     * @param delay 延迟时间(ms)
+     * @param key   键
+     */
+    void delayedRemove(long delay, String key);
+
+    /**
+     * 延迟移除指定 key 的值
+     *
+     * @param delay 延迟时间(ms)
+     * @param keys  键
+     */
+    void delayedRemove(long delay, String... keys);
+
+    /**
+     * 延迟移除指定 key 的值 使用默认时间
+     *
+     * @param key 键
+     */
+    void delayedRemove(String key);
+
+    /**
+     * 延迟移除指定 key 的值 使用默认时间
+     *
+     * @param keys 键
+     */
+    void delayedRemove(String... keys);
+
+    /**
      * 判断指定 key 的值是否存在
      *
      * @param key 键
@@ -132,6 +170,14 @@ public interface RedisService {
      * @param value 值
      */
     void addToSet(String key, String value);
+
+    /**
+     * 获取集合
+     *
+     * @param key 键
+     * @return 值
+     */
+    <T> Set<T> getSet(String key);
 
     /**
      * 判断指定的值是否是集合的成员

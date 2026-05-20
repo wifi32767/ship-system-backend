@@ -4,11 +4,14 @@ import org.redisson.api.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.Duration;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 @Service("redissonService")
 public class RedissonService implements RedisService {
+
+    private static final long DELAY = 3000;
 
     @Resource
     private RedissonClient redissonClient;
@@ -78,30 +81,66 @@ public class RedissonService implements RedisService {
     }
 
     @Override
+    public void remove(String... keys) {
+        for (String key : keys) {
+            redissonClient.getBucket(key).delete();
+        }
+    }
+
+    @Override
+    public void delayedRemove(long delay, String key) {
+        redissonClient.getBucket(key).expire(Duration.ofMillis(delay));
+    }
+
+    @Override
+    public void delayedRemove(long delay, String... keys) {
+        for (String key : keys) {
+            redissonClient.getBucket(key).expire(Duration.ofMillis(delay));
+        }
+    }
+
+    @Override
+    public void delayedRemove(String key) {
+        redissonClient.getBucket(key).expire(Duration.ofMillis(DELAY));
+    }
+
+    @Override
+    public void delayedRemove(String... keys) {
+        for (String key : keys) {
+            redissonClient.getBucket(key).expire(Duration.ofMillis(DELAY));
+        }
+    }
+
+    @Override
     public boolean isExists(String key) {
         return redissonClient.getBucket(key).isExists();
     }
 
+    @Override
     public void addToSet(String key, String value) {
         RSet<String> set = redissonClient.getSet(key);
         set.add(value);
     }
 
+    @Override
     public <T> Set<T> getSet(String key) {
         RSet<T> set = redissonClient.getSet(key);
         return set.readAll();
     }
 
+    @Override
     public boolean isSetMember(String key, String value) {
         RSet<String> set = redissonClient.getSet(key);
         return set.contains(value);
     }
 
+    @Override
     public void addToList(String key, String value) {
         RList<String> list = redissonClient.getList(key);
         list.add(value);
     }
 
+    @Override
     public String getFromList(String key, int index) {
         RList<String> list = redissonClient.getList(key);
         return list.get(index);
@@ -112,11 +151,13 @@ public class RedissonService implements RedisService {
         return redissonClient.getMap(key);
     }
 
+    @Override
     public void addToMap(String key, String field, String value) {
         RMap<String, String> map = redissonClient.getMap(key);
         map.put(field, value);
     }
 
+    @Override
     public String getFromMap(String key, String field) {
         RMap<String, String> map = redissonClient.getMap(key);
         return map.get(field);
@@ -127,6 +168,7 @@ public class RedissonService implements RedisService {
         return redissonClient.<K, V>getMap(key).get(field);
     }
 
+    @Override
     public void addToSortedSet(String key, String value) {
         RSortedSet<String> sortedSet = redissonClient.getSortedSet(key);
         sortedSet.add(value);

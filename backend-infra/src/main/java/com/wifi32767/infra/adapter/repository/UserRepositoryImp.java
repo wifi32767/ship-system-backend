@@ -10,11 +10,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * 这个类本来想做个缓存
+ * 但是只有用户角色需要缓存
+ * 总感觉应该假设用户很少，需求量小
+ * 所以还是没必要做
+ */
 @Slf4j
 @Repository
 public class UserRepositoryImp implements UserRepository {
@@ -81,9 +87,9 @@ public class UserRepositoryImp implements UserRepository {
         ).toList();
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void addUserRole(UserRoleVO userRole) {
-        // TODO: 写在一个事务
         UserRole role = UserRole.builder()
                 .roleName(userRole.getRoleName())
                 .build();
@@ -129,16 +135,16 @@ public class UserRepositoryImp implements UserRepository {
     }
 
     private String encode(String password) {
-        if (StringUtils.isEmpty(password)) {
+        if (password.isBlank()) {
             return null;
         }
         return ENCODER.encode(password);
     }
 
     private boolean matches(String rawPassword, String encodedPassword) {
-        if (StringUtils.isEmpty(rawPassword) && StringUtils.isEmpty(encodedPassword)) {
+        if (rawPassword.isBlank() && encodedPassword.isBlank()) {
             return true;
-        } else if (StringUtils.isEmpty(encodedPassword) || StringUtils.isEmpty(encodedPassword)) {
+        } else if (encodedPassword.isBlank() || rawPassword.isBlank()) {
             return false;
         }
         return ENCODER.matches(rawPassword, encodedPassword);
@@ -160,7 +166,6 @@ public class UserRepositoryImp implements UserRepository {
     }
 
     private UserVO user2UserVO(User user) {
-        List<Integer> permissions = userDao.queryPermissionsByRoleId(user.getUserRole());
         UserVO userVO = UserVO.builder()
                 .userId(user.getUserId())
                 .userName(user.getUserName())
@@ -171,7 +176,6 @@ public class UserRepositoryImp implements UserRepository {
                 .remark(user.getRemark())
                 .phoneNumber(user.getPhoneNumber())
                 .build();
-        // TODO: 这里可以设置一个缓存机制，保存角色权限
         userVO.setUserRole(UserRoleVO.builder()
                 .roleId(user.getUserRole())
                 .roleName(userDao.queryRoleNameByRoleId(user.getUserRole()))
