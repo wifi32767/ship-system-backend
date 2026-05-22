@@ -126,6 +126,27 @@ public interface RedisService {
     void remove(String... keys);
 
     /**
+     * 移除指定通配符的值
+     *
+     * @param pattern 通配符
+     */
+    void removeByPattern(String pattern);
+
+    /**
+     * 延迟移除指定通配符的值
+     *
+     * @param pattern 通配符
+     */
+    void expireByPattern(String pattern);
+
+    /**
+     * 延迟移除指定通配符的值
+     *
+     * @param pattern 通配符
+     */
+    void expireByPatternAsync(String pattern);
+
+    /**
      * 延迟移除指定 key 的值
      *
      * @param delay 延迟时间(ms)

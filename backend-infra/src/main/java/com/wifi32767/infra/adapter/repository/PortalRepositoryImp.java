@@ -5,6 +5,7 @@ import com.wifi32767.domain.portal.model.DeviceVO;
 import com.wifi32767.domain.portal.model.NewsVO;
 import com.wifi32767.infra.dao.DeviceDao;
 import com.wifi32767.infra.dao.po.Device;
+import com.wifi32767.infra.redis.RedisService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Repository;
 
@@ -16,31 +17,65 @@ import java.util.List;
 public class PortalRepositoryImp implements PortalRepository {
 
     @Resource
+    private RedisService redisService;
+
+    @Resource
     private DeviceDao deviceDao;
 
+    // TODO: 我觉得可以提取公共缓存方法
     @Override
     public int queryDeviceCount() {
-        return deviceDao.queryAllCount();
+        Integer cnt = redisService.getValue(DeviceCache.DEVICE_COUNT_TOTAL);
+        if (cnt != null) {
+            return cnt;
+        }
+        cnt = deviceDao.queryAllCount();
+        redisService.setValue(DeviceCache.DEVICE_COUNT_TOTAL, cnt);
+        return cnt;
     }
 
     @Override
     public int queryDeviceCountByDate(LocalDate date) {
-        return deviceDao.queryCountByDate(date);
+        Integer cnt = redisService.getValue(DeviceCache.DEVICE_COUNT_BY_DATE + date);
+        if (cnt != null) {
+            return cnt;
+        }
+        cnt = deviceDao.queryCountByDate(date);
+        redisService.setValue(DeviceCache.DEVICE_COUNT_BY_DATE + date, cnt);
+        return cnt;
     }
 
     @Override
     public int queryDeviceCorrectionCountByDate(LocalDate date) {
-        return deviceDao.queryCorrectionCountByDate(date);
+        Integer cnt = redisService.getValue(DeviceCache.DEVICE_CORRECTION_COUNT_BY_DATE + date);
+        if (cnt != null) {
+            return cnt;
+        }
+        cnt = deviceDao.queryCorrectionCountByDate(date);
+        redisService.setValue(DeviceCache.DEVICE_CORRECTION_COUNT_BY_DATE + date, cnt);
+        return cnt;
     }
 
     @Override
     public List<NewsVO> queryLatestNews(int limit) {
-        return LDevice2LNewsVO(deviceDao.queryLatestNews(limit));
+        List<NewsVO> newsVOList = redisService.getValue(DeviceCache.LATEST_NEWS_LIMIT + limit);
+        if (newsVOList != null) {
+            return newsVOList;
+        }
+        newsVOList = LDevice2LNewsVO(deviceDao.queryLatestNews(limit));
+        redisService.setValue(DeviceCache.LATEST_NEWS_LIMIT + limit, newsVOList);
+        return newsVOList;
     }
 
     @Override
     public List<DeviceVO> queryLatestDevices(int limit) {
-        return LDevice2LDeviceVO(deviceDao.queryLatestDevices(limit));
+        List<DeviceVO> deviceVOList = redisService.getValue(DeviceCache.LATEST_DEVICES_LIMIT + limit);
+        if (deviceVOList != null) {
+            return deviceVOList;
+        }
+        deviceVOList = LDevice2LDeviceVO(deviceDao.queryLatestDevices(limit));
+        redisService.setValue(DeviceCache.LATEST_DEVICES_LIMIT + limit, deviceVOList);
+        return deviceVOList;
     }
 
     @Override

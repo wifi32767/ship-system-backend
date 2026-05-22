@@ -6,6 +6,7 @@ import com.wifi32767.domain.portal.model.DeviceVO;
 import com.wifi32767.domain.system.model.EntryLogVO;
 import com.wifi32767.infra.adapter.converter.DeviceConverter;
 import com.wifi32767.infra.dao.DeviceDao;
+import com.wifi32767.infra.redis.RedisService;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -14,6 +15,9 @@ import java.util.List;
 
 @Repository
 public class EntryRepositoryImp implements EntryRepository {
+    @Resource
+    private RedisService redisService;
+
     @Resource
     private DeviceDao deviceDao;
 
@@ -25,6 +29,7 @@ public class EntryRepositoryImp implements EntryRepository {
         deviceVO.setDeviceInsqlTime(LocalDateTime.now());
         deviceVO.setDeviceChangesqlTime(LocalDateTime.now());
         deviceDao.insert(deviceConverter.DeviceVO2Device(deviceVO));
+        DeviceCache.removeAllList(redisService);
     }
 
     @Override
@@ -42,6 +47,7 @@ public class EntryRepositoryImp implements EntryRepository {
                 count++;
             }
         }
+        DeviceCache.removeAllList(redisService);
         return EntryLogVO.builder()
                 .modelLogId(1)
                 .csvEnterLogs(log.toString())

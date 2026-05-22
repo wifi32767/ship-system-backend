@@ -1,6 +1,8 @@
 package com.wifi32767.infra.redis;
 
+import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.*;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -8,6 +10,7 @@ import java.time.Duration;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @Service("redissonService")
 public class RedissonService implements RedisService {
 
@@ -88,6 +91,40 @@ public class RedissonService implements RedisService {
     }
 
     @Override
+    public void removeByPattern(String pattern) {
+        redissonClient.getKeys().deleteByPattern(pattern);
+    }
+
+    @Override
+    public void expireByPattern(String pattern) {
+        Iterable<String> keysIterable = redissonClient.getKeys().getKeysByPattern(pattern);
+        // 使用 RBatch 批量执行，提高效率
+        RBatch batch = redissonClient.createBatch();
+        int cnt = 0;
+        final int batchSize = 1000; // 每 1000 条提交一次，避免内存积压
+
+        for (String key : keysIterable) {
+            batch.getBucket(key).expireAsync(DELAY, TimeUnit.MILLISECONDS);
+            cnt++;
+            if (cnt % batchSize == 0) {
+                batch.execute();
+                batch = redissonClient.createBatch(); // 重置 batch
+            }
+        }
+        // 提交最后一批
+        if (cnt % batchSize != 0) {
+            batch.execute();
+        }
+    }
+
+    @Async
+    @Override
+    public void expireByPatternAsync(String pattern) {
+        expireByPattern(pattern);
+        // TODO: 测试异步执行
+        log.info("async expire finished: {}", pattern);
+    }
+
     public void delayedRemove(long delay, String key) {
         redissonClient.getBucket(key).expire(Duration.ofMillis(delay));
     }
