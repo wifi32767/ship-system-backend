@@ -5,6 +5,7 @@ import com.wifi32767.domain.system.model.CountryVO;
 import com.wifi32767.infra.dao.CountryDao;
 import com.wifi32767.infra.dao.po.Country;
 import com.wifi32767.infra.redis.RedisService;
+import io.micrometer.common.util.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -24,12 +25,12 @@ public class CountryRepositoryImp implements CountryRepository {
     @Override
     public String getCountryNameById(int countryId) {
         String countryName = redisService.getValue(COUNTRY_NAME_KEY_PREFIX + countryId);
-        if (!countryName.isBlank()) {
+        if (!StringUtils.isEmpty(countryName)) {
             return countryName;
         }
 
         countryName = countryDao.queryCountryNameById(countryId);
-        if (!countryName.isBlank()) {
+        if (!StringUtils.isEmpty(countryName)) {
             redisService.setValue(COUNTRY_ID_KEY_PREFIX + countryId, countryName);
             redisService.setValue(COUNTRY_NAME_KEY_PREFIX + countryName, countryId);
         }

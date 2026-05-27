@@ -179,7 +179,7 @@
         ]]>
     </select>
 
-    <select id="queryCorrectionCountByDate" parameterType="java.time.LocalDate" resultMap="dataMap">
+    <select id="queryCorrectionCountByDate" parameterType="java.time.LocalDate" resultType="java.lang.Integer">
         <![CDATA[
         SELECT COUNT(*)
         FROM device

@@ -7,6 +7,7 @@ import com.wifi32767.domain.search.adapter.repository.SearchRepository;
 import com.wifi32767.domain.search.model.SearchParamsVO;
 import com.wifi32767.domain.system.adapter.repository.ClassRepository;
 import com.wifi32767.domain.system.adapter.repository.CountryRepository;
+import io.micrometer.common.util.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -118,8 +119,14 @@ public class SearchServiceImp implements SearchService {
         List<DeviceVO> devices = searchDevice(params);
         Map<String, Integer> stats = new HashMap<>();
         for (DeviceVO device : devices) {
-            int classId = device.getDeviceClassId();
+            Integer classId = device.getDeviceClassId();
+            if (classId == null) {
+                continue;
+            }
             String className = classRepository.getClassNameById(classId);
+            if (StringUtils.isEmpty(className)) {
+                continue;
+            }
             stats.put(className, stats.getOrDefault(className, 0) + 1);
         }
         return stats;
@@ -130,9 +137,15 @@ public class SearchServiceImp implements SearchService {
         List<DeviceVO> devices = searchDevice(params);
         Map<String, Integer> stats = new HashMap<>();
         for (DeviceVO device : devices) {
-            int countryId = device.getDeviceCountryId();
-            String country = countryRepository.getCountryNameById(countryId);
-            stats.put(country, stats.getOrDefault(country, 0) + 1);
+            Integer countryId = device.getDeviceCountryId();
+            if (countryId == null) {
+                continue;
+            }
+            String countryName = countryRepository.getCountryNameById(countryId);
+            if (StringUtils.isEmpty(countryName)) {
+                continue;
+            }
+            stats.put(countryName, stats.getOrDefault(countryName, 0) + 1);
         }
         return stats;
     }
@@ -143,6 +156,9 @@ public class SearchServiceImp implements SearchService {
         Map<Integer, Integer> stats = new HashMap<>();
         for (DeviceVO device : devices) {
             Integer year = device.getDeviceUseYear();
+            if (year == null) {
+                continue;
+            }
             stats.put(year, stats.getOrDefault(year, 0) + 1);
         }
         return stats;

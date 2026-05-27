@@ -1,6 +1,8 @@
 package com.wifi32767.interfaces.http.admin;
 
+import com.wifi32767.common.Permission;
 import com.wifi32767.common.Response;
+import com.wifi32767.common.enums.Module;
 import com.wifi32767.interfaces.client.SpiderClient;
 import com.wifi32767.interfaces.dto.KeywordCreateBody;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,6 +37,7 @@ public class ModelControllerImp implements ModelController {
 
     @Override
     @GetMapping("/{id}/detail")
+    @Permission(Module.MODEL)
     @Operation(summary = "查询模型详情", description = "查询模型详情（含关键词）")
     public String getModel(@PathVariable("id") int id) {
         try {
@@ -47,6 +50,7 @@ public class ModelControllerImp implements ModelController {
 
     @Override
     @PostMapping("/save")
+    @Permission(Module.MODEL)
     @Operation(summary = "新增/编辑模型", description = "新增或更新模型信息（FormData + 文件上传）")
     public String saveModel(@RequestParam(value = "mReptileModelId", required = false) String mReptileModelId,
                             @RequestParam("mReptileModelName") String mReptileModelName,
@@ -66,6 +70,7 @@ public class ModelControllerImp implements ModelController {
 
     @Override
     @DeleteMapping("/{id}/delete")
+    @Permission(Module.MODEL)
     @Operation(summary = "逻辑删除模型", description = "根据ID逻辑删除模型")
     public String deleteModel(@PathVariable("id") int id) {
         try {
@@ -78,6 +83,7 @@ public class ModelControllerImp implements ModelController {
 
     @Override
     @PostMapping("/{id}/start")
+    @Permission(Module.MODEL)
     @Operation(summary = "手动触发流水线", description = "根据ID启动模型（后台线程）")
     public String startModel(@PathVariable("id") int id) {
         try {
@@ -90,6 +96,7 @@ public class ModelControllerImp implements ModelController {
 
     @Override
     @PostMapping("/{id}/stop")
+    @Permission(Module.MODEL)
     @Operation(summary = "停止运行中的模型", description = "根据ID停止模型")
     public String stopModel(@PathVariable("id") int id) {
         try {
@@ -102,6 +109,7 @@ public class ModelControllerImp implements ModelController {
 
     @Override
     @GetMapping("/{id}/keywords")
+    @Permission(Module.MODEL)
     @Operation(summary = "查询关键词列表", description = "根据模型ID获取关键词列表")
     public String getKeywords(@PathVariable("id") int id) {
         try {
@@ -114,6 +122,7 @@ public class ModelControllerImp implements ModelController {
 
     @Override
     @PostMapping("/keyword")
+    @Permission(Module.MODEL)
     @Operation(summary = "新增关键词", description = "为模型添加关键词")
     public String addKeyword(@RequestBody KeywordCreateBody body) {
         try {
@@ -126,6 +135,7 @@ public class ModelControllerImp implements ModelController {
 
     @Override
     @DeleteMapping("/keyword/{id}")
+    @Permission(Module.MODEL)
     @Operation(summary = "删除关键词", description = "根据ID删除关键词")
     public String deleteKeyword(@PathVariable("id") int id) {
         try {
@@ -138,6 +148,7 @@ public class ModelControllerImp implements ModelController {
 
     @Override
     @GetMapping("/fetchers")
+    @Permission(Module.MODEL)
     @Operation(summary = "查询采集器列表", description = "查询采集器列表")
     public String getFetcherList() {
         try {

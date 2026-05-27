@@ -9,6 +9,7 @@ import com.wifi32767.infra.dao.po.DeviceClass;
 import com.wifi32767.infra.dao.po.DeviceStyle;
 import com.wifi32767.infra.dao.po.DeviceType;
 import com.wifi32767.infra.redis.RedisService;
+import io.micrometer.common.util.StringUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronization;
@@ -35,11 +36,11 @@ public class ClassRepositoryImp implements ClassRepository {
     @Override
     public String getClassNameById(int classId) {
         String className = redisService.getValue(CLASS_ID_KEY_PREFIX + classId);
-        if (!className.isBlank()) {
+        if (!StringUtils.isEmpty(className)) {
             return className;
         }
         className = classDao.queryClassNameById(classId);
-        if (!className.isBlank()) {
+        if (!StringUtils.isEmpty(className)) {
             redisService.setValue(CLASS_ID_KEY_PREFIX + classId, className);
         }
         return className;
@@ -48,11 +49,11 @@ public class ClassRepositoryImp implements ClassRepository {
     @Override
     public String getStyleNameById(int styleId) {
         String styleName = redisService.getValue(STYLE_ID_KEY_PREFIX + styleId);
-        if (!styleName.isBlank()) {
+        if (!StringUtils.isEmpty(styleName)) {
             return styleName;
         }
         styleName = classDao.queryStyleNameById(styleId);
-        if (!styleName.isBlank()) {
+        if (!StringUtils.isEmpty(styleName)) {
             redisService.setValue(STYLE_ID_KEY_PREFIX + styleId, styleName);
         }
         return styleName;
@@ -61,11 +62,11 @@ public class ClassRepositoryImp implements ClassRepository {
     @Override
     public String getTypeNameById(int typeId) {
         String typeName = redisService.getValue(TYPE_ID_KEY_PREFIX + typeId);
-        if (!typeName.isBlank()) {
+        if (!StringUtils.isEmpty(typeName)) {
             return typeName;
         }
         typeName = classDao.queryTypeNameById(typeId);
-        if (!typeName.isBlank()) {
+        if (!StringUtils.isEmpty(typeName)) {
             redisService.setValue(TYPE_ID_KEY_PREFIX + typeId, typeName);
         }
         return typeName;

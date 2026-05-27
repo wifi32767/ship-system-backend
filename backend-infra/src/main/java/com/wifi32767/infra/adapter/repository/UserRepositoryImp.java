@@ -6,6 +6,7 @@ import com.wifi32767.domain.user.model.UserVO;
 import com.wifi32767.infra.dao.UserDao;
 import com.wifi32767.infra.dao.po.User;
 import com.wifi32767.infra.dao.po.UserRole;
+import io.micrometer.common.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -135,16 +136,16 @@ public class UserRepositoryImp implements UserRepository {
     }
 
     private String encode(String password) {
-        if (password.isBlank()) {
+        if (StringUtils.isEmpty(password)) {
             return null;
         }
         return ENCODER.encode(password);
     }
 
     private boolean matches(String rawPassword, String encodedPassword) {
-        if (rawPassword.isBlank() && encodedPassword.isBlank()) {
+        if (StringUtils.isEmpty(rawPassword) && StringUtils.isEmpty(encodedPassword)) {
             return true;
-        } else if (encodedPassword.isBlank() || rawPassword.isBlank()) {
+        } else if (StringUtils.isEmpty(rawPassword) || StringUtils.isEmpty(encodedPassword)) {
             return false;
         }
         return ENCODER.matches(rawPassword, encodedPassword);

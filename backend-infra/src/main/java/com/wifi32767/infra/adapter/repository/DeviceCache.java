@@ -20,6 +20,7 @@ public final class DeviceCache {
     public static final String DEVICE_CORRECTION_COUNT_BY_DATE_PATTERN = "device:correction:date:*";
     // 随机缓存过期时间防止缓存雪崩
     private static final Random rand = new Random();
+
     private DeviceCache() {
     } // 禁止实例化
 

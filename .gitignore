@@ -42,4 +42,7 @@ build/
 dump.rdb
 
 ### TODO list ###
-todo.md
+todo.*
+
+### markdown
+*.md
