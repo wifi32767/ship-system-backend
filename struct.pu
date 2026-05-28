@@ -1,0 +1,66 @@
+@startuml
+left to right direction
+!define RECTANGLE class
+
+title 系统架构图
+
+skinparam component {
+  BackgroundColor #F0F8FF
+  BorderColor #4682B4
+  FontColor #000000
+  FontSize 12
+}
+
+' 前端区域
+node "管理员前端 (Vue)" #LightGreen{
+  component UI
+  component Axios
+  UI --> Axios : 调用
+}
+
+' 后端微服务区域
+node "后端微服务 (Spring Cloud)" #LightBlue{
+
+  package "接口层 (Interfaces)" {
+    component REST_API
+    component HttpClient
+  }
+
+  package "应用层 (App)" {
+    component Config
+  }
+
+  package "领域层 (Domain)" {
+    component Service
+  }
+
+  package "基础设施层 (Infra)" {
+    component RepositoryImpl
+    component Dao
+  }
+
+  package "通用组件 (Common)" {
+    component Common
+  }
+
+  REST_API --> Service
+  Service --> RepositoryImpl
+  RepositoryImpl --> Dao
+  Service --> Config
+}
+
+node "中间件与数据存储" #LightYellow{
+  database MySQL
+  database Redis
+  component Consul
+  component "爬虫服务" as Spider
+}
+
+Axios --> REST_API : HTTP/HTTPS (JSON)
+Config --> Consul : 拉取配置
+Spider --> Consul : 拉取配置
+Dao --> MySQL : MyBatis
+RepositoryImpl --> Redis : Redisson
+HttpClient --> Spider : Feign 调用
+
+@enduml

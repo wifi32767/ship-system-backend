@@ -1,0 +1,3181 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API文档",
+    "description": "船舶制造业数字化转型API文档",
+    "version": "v1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8091",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "国家管理接口",
+      "description": "提供国家信息相关操作"
+    },
+    {
+      "name": "信息接口",
+      "description": "提供信息相关操作"
+    },
+    {
+      "name": "模型管理接口",
+      "description": "模型管理接口"
+    },
+    {
+      "name": "事件查询",
+      "description": "提供事件查询和统计分析相关的接口"
+    },
+    {
+      "name": "数据录入",
+      "description": "数据录入接口"
+    },
+    {
+      "name": "新闻事件获取",
+      "description": "新闻、事件信息获取接口"
+    },
+    {
+      "name": "分类管理接口",
+      "description": "提供一、二、三级分类相关操作"
+    },
+    {
+      "name": "审核管理接口",
+      "description": "提供录入信息审核相关操作"
+    },
+    {
+      "name": "日志管理接口",
+      "description": "日志管理接口"
+    },
+    {
+      "name": "测试接口",
+      "description": "用于测试接口是否正常"
+    },
+    {
+      "name": "用户管理",
+      "description": "提供用户账号相关操作"
+    }
+  ],
+  "paths": {
+    "/api/user/updateUser": {
+      "put": {
+        "tags": [
+          "用户管理"
+        ],
+        "summary": "修改用户信息",
+        "description": "根据用户名修改用户信息",
+        "operationId": "updateUserInfo",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserVO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/device": {
+      "get": {
+        "tags": [
+          "信息接口"
+        ],
+        "summary": "获取信息列表",
+        "description": "返回所有信息数据",
+        "operationId": "getDeviceList",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseListDeviceDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "信息接口"
+        ],
+        "summary": "修改信息",
+        "description": "更新指定的信息\n\n🔐 **权限要求**: 数据修改管理(5)",
+        "operationId": "modifyDevice",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeviceVO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "信息接口"
+        ],
+        "summary": "删除信息",
+        "description": "删除指定的信息\n\n🔐 **权限要求**: 数据修改管理(5)",
+        "operationId": "deleteDevice",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/country": {
+      "get": {
+        "tags": [
+          "国家管理接口"
+        ],
+        "summary": "获取国家列表",
+        "description": "返回所有国家信息",
+        "operationId": "countryGet",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseListCountryVO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "国家管理接口"
+        ],
+        "summary": "修改国家",
+        "description": "更新指定国家的信息\n\n🔐 **权限要求**: 国家管理(8)",
+        "operationId": "countryEdit",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Country"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "国家管理接口"
+        ],
+        "summary": "添加国家",
+        "description": "创建新的国家记录\n\n🔐 **权限要求**: 国家管理(8)",
+        "operationId": "countryInsert",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Country"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "国家管理接口"
+        ],
+        "summary": "删除国家",
+        "description": "根据ID删除指定国家记录\n\n🔐 **权限要求**: 国家管理(8)",
+        "operationId": "countryDelete",
+        "parameters": [
+          {
+            "name": "countryId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/class/type": {
+      "put": {
+        "tags": [
+          "分类管理接口"
+        ],
+        "summary": "更新三级分类（类型）信息",
+        "description": "更新三级分类信息\n\n🔐 **权限要求**: 分类管理(7)",
+        "operationId": "updateType",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TypeVO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "分类管理接口"
+        ],
+        "summary": "创建三级分类（类型）",
+        "description": "在指定父级分类下创建三级分类\n\n🔐 **权限要求**: 分类管理(7)",
+        "operationId": "createType",
+        "parameters": [
+          {
+            "name": "parentId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TypeVO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "分类管理接口"
+        ],
+        "summary": "删除三级分类（类型）",
+        "description": "根据ID删除指定的三级分类\n\n🔐 **权限要求**: 分类管理(7)",
+        "operationId": "deleteType",
+        "parameters": [
+          {
+            "name": "typeId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/class/style": {
+      "put": {
+        "tags": [
+          "分类管理接口"
+        ],
+        "summary": "更新二级分类（样式）信息",
+        "description": "更新二级分类信息\n\n🔐 **权限要求**: 分类管理(7)",
+        "operationId": "updateStyle",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TypeVO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "分类管理接口"
+        ],
+        "summary": "创建二级分类（样式）",
+        "description": "在指定父级分类下创建二级分类\n\n🔐 **权限要求**: 分类管理(7)",
+        "operationId": "createStyle",
+        "parameters": [
+          {
+            "name": "parentId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TypeVO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "分类管理接口"
+        ],
+        "summary": "删除二级分类（样式）",
+        "description": "根据ID删除指定的二级分类\n\n🔐 **权限要求**: 分类管理(7)",
+        "operationId": "deleteStyle",
+        "parameters": [
+          {
+            "name": "styleId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/class/class": {
+      "put": {
+        "tags": [
+          "分类管理接口"
+        ],
+        "summary": "更新一级分类信息",
+        "description": "更新一级分类信息\n\n🔐 **权限要求**: 分类管理(7)",
+        "operationId": "updateClass",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TypeVO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "分类管理接口"
+        ],
+        "summary": "创建一级分类",
+        "description": "创建一级分类\n\n🔐 **权限要求**: 分类管理(7)",
+        "operationId": "createClass",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TypeVO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "分类管理接口"
+        ],
+        "summary": "删除一级分类",
+        "description": "根据ID删除指定的一级分类\n\n🔐 **权限要求**: 分类管理(7)",
+        "operationId": "deleteClass",
+        "parameters": [
+          {
+            "name": "classId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/register": {
+      "post": {
+        "tags": [
+          "用户管理"
+        ],
+        "summary": "用户注册",
+        "description": "使用用户信息进行注册，成功后返回新用户的ID\n\n🔐 **权限要求**: 用户管理(1)",
+        "operationId": "register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserVO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseInteger"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/logout": {
+      "post": {
+        "tags": [
+          "用户管理"
+        ],
+        "summary": "用户登出",
+        "description": "用户登出，删除对应的token",
+        "operationId": "logout",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/login": {
+      "post": {
+        "tags": [
+          "用户管理"
+        ],
+        "summary": "用户登录",
+        "description": "使用用户名和密码进行登录，成功后返回一个token",
+        "operationId": "login",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/addUserRole": {
+      "post": {
+        "tags": [
+          "用户管理"
+        ],
+        "summary": "添加用户角色",
+        "description": "添加用户角色\n\n🔐 **权限要求**: 用户管理(1)",
+        "operationId": "addUserRole",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRoleVO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/addPermission": {
+      "post": {
+        "tags": [
+          "用户管理"
+        ],
+        "summary": "添加用户权限",
+        "description": "为指定角色添加权限\n\n🔐 **权限要求**: 用户管理(1)",
+        "operationId": "addPermission",
+        "parameters": [
+          {
+            "name": "roleId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "permissionId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/addPermissionBatch": {
+      "post": {
+        "tags": [
+          "用户管理"
+        ],
+        "summary": "批量添加用户权限",
+        "description": "为指定角色批量添加权限\n\n🔐 **权限要求**: 用户管理(1)",
+        "operationId": "addPermissionBatch",
+        "parameters": [
+          {
+            "name": "roleId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/model/{id}/stop": {
+      "post": {
+        "tags": [
+          "模型管理接口"
+        ],
+        "summary": "停止运行中的模型",
+        "description": "根据ID停止模型\n\n🔐 **权限要求**: 模型管理(6)",
+        "operationId": "stopModel",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/model/{id}/start": {
+      "post": {
+        "tags": [
+          "模型管理接口"
+        ],
+        "summary": "手动触发流水线",
+        "description": "根据ID启动模型（后台线程）\n\n🔐 **权限要求**: 模型管理(6)",
+        "operationId": "startModel",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/model/save": {
+      "post": {
+        "tags": [
+          "模型管理接口"
+        ],
+        "summary": "新增/编辑模型",
+        "description": "新增或更新模型信息（FormData + 文件上传）\n\n🔐 **权限要求**: 模型管理(6)",
+        "operationId": "saveModel",
+        "parameters": [
+          {
+            "name": "mReptileModelId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mReptileModelName",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mReptileModelIntroduce",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mReptileModelWeb",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cronExpression",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "keywords",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "scriptFile": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "startupFile": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/model/keyword": {
+      "post": {
+        "tags": [
+          "模型管理接口"
+        ],
+        "summary": "新增关键词",
+        "description": "为模型添加关键词\n\n🔐 **权限要求**: 模型管理(6)",
+        "operationId": "addKeyword",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KeywordCreateBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/entry/single": {
+      "post": {
+        "tags": [
+          "数据录入"
+        ],
+        "summary": "单条数据录入",
+        "description": "单条数据录入\n\n🔐 **权限要求**: 数据录入管理(3)",
+        "operationId": "entry",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeviceVO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/entry/batch": {
+      "post": {
+        "tags": [
+          "数据录入"
+        ],
+        "summary": "批量数据录入",
+        "description": "批量数据录入，支持xlsx、csv格式\n\n🔐 **权限要求**: 数据录入管理(3)",
+        "operationId": "entryBatch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/DeviceJsonVO"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/audit": {
+      "post": {
+        "tags": [
+          "审核管理接口"
+        ],
+        "summary": "录入信息审核",
+        "description": "审核录入信息\n\n🔐 **权限要求**: 数据审核管理(4)",
+        "operationId": "audit",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuditSearchParamsVO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/audit/search": {
+      "post": {
+        "tags": [
+          "审核管理接口"
+        ],
+        "summary": "搜索录入信息",
+        "description": "根据标题和状态获取录入信息",
+        "operationId": "searchAuditDevices",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuditSearchParamsVO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseListFullDeviceVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/audit/page": {
+      "post": {
+        "tags": [
+          "审核管理接口"
+        ],
+        "summary": "搜索录入信息",
+        "description": "根据标题和状态获取录入信息",
+        "operationId": "searchAuditDevices_1",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuditSearchParamsVO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseListFullDeviceVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test/hello": {
+      "get": {
+        "tags": [
+          "测试接口"
+        ],
+        "operationId": "hello",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/allUsers": {
+      "get": {
+        "tags": [
+          "用户管理"
+        ],
+        "summary": "获取所有用户信息",
+        "description": "返回系统中所有用户的基本信息列表\n\n🔐 **权限要求**: 用户管理(1)",
+        "operationId": "getAllUsersInfo",
+        "parameters": [
+          {
+            "name": "pageNum",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseListUserVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/allUsersRole": {
+      "get": {
+        "tags": [
+          "用户管理"
+        ],
+        "summary": "获取用户角色",
+        "description": "返回用户角色列表（表示所有用户角色）",
+        "operationId": "getAllUsersRole",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseListUserRoleVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/allModules": {
+      "get": {
+        "tags": [
+          "用户管理"
+        ],
+        "summary": "获取所有模块权限",
+        "description": "返回系统中所有模块权限列表\n\n🔐 **权限要求**: 用户管理(1)",
+        "operationId": "getAllModules",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMapIntegerString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/search/year-analysis": {
+      "get": {
+        "tags": [
+          "事件查询"
+        ],
+        "summary": "投产年份分析接口",
+        "description": "根据查询条件统计各投产年份的事件数量，并返回适合前端Echarts展示的数据格式。",
+        "operationId": "getYearAnalysis",
+        "parameters": [
+          {
+            "name": "req",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/SearchParamsVO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseEchartsOptionDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/search/search": {
+      "get": {
+        "tags": [
+          "事件查询"
+        ],
+        "summary": "查询接口",
+        "description": "支持全文检索、标题联想检索、类别检索、所属国家检索。检索内容为空时为全库查询，返回所有新闻信息。",
+        "operationId": "search",
+        "parameters": [
+          {
+            "name": "req",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/SearchParamsVO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseListDeviceVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/search/country-stats": {
+      "get": {
+        "tags": [
+          "事件查询"
+        ],
+        "summary": "国家统计接口",
+        "description": "根据查询条件统计各国家的事件数量，返回国家名称和对应的事件数量。",
+        "operationId": "getCountryStats",
+        "parameters": [
+          {
+            "name": "req",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/SearchParamsVO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseListCountryStatsDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/search/country-analysis": {
+      "get": {
+        "tags": [
+          "事件查询"
+        ],
+        "summary": "国家分析接口",
+        "description": "根据查询条件统计各国家的事件数量，并返回适合前端Echarts展示的数据格式。",
+        "operationId": "getCountryAnalysis",
+        "parameters": [
+          {
+            "name": "req",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/SearchParamsVO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseEchartsOptionDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/search/company-relation-analysis": {
+      "get": {
+        "tags": [
+          "事件查询"
+        ],
+        "summary": "企业关系分析接口",
+        "description": "根据查询条件统计各企业的事件数量，并返回适合前端Echarts展示的数据格式。",
+        "operationId": "getCompanyRelationAnalysis",
+        "parameters": [
+          {
+            "name": "req",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/SearchParamsVO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseEchartsOptionDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/search/class-stats": {
+      "get": {
+        "tags": [
+          "事件查询"
+        ],
+        "summary": "类别统计接口",
+        "description": "根据查询条件统计各类别的事件数量，返回类别名称和对应的事件数量。",
+        "operationId": "getClassStats",
+        "parameters": [
+          {
+            "name": "req",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/SearchParamsVO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseListClassStatsDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/search/class-analysis": {
+      "get": {
+        "tags": [
+          "事件查询"
+        ],
+        "summary": "类别分析接口",
+        "description": "根据查询条件统计各类别的事件数量，并返回适合前端Echarts展示的数据格式。",
+        "operationId": "getClassAnalysis",
+        "parameters": [
+          {
+            "name": "req",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/SearchParamsVO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseEchartsOptionDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/stats-board": {
+      "get": {
+        "tags": [
+          "新闻事件获取"
+        ],
+        "summary": "收录统计板",
+        "description": "返回收录总量、今日收录量以及今日校错量，并计算昨日同比",
+        "operationId": "getStatsBoard",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseStatsBoardVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/rolling-news": {
+      "get": {
+        "tags": [
+          "新闻事件获取"
+        ],
+        "summary": "滚动新闻",
+        "description": "返回最新的10条新闻信息用于滚动展示",
+        "operationId": "getRollingNews",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseListNewsVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/recommendations": {
+      "get": {
+        "tags": [
+          "新闻事件获取"
+        ],
+        "summary": "推荐设备",
+        "description": "返回随机的6条设备信息作为推荐",
+        "operationId": "getRecommendations",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseListDeviceVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/latest-records": {
+      "get": {
+        "tags": [
+          "新闻事件获取"
+        ],
+        "summary": "最新收录",
+        "description": "返回最新的30条收录记录",
+        "operationId": "getLatestRecords",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseListDeviceVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/latest-news": {
+      "get": {
+        "tags": [
+          "新闻事件获取"
+        ],
+        "summary": "最新新闻",
+        "description": "返回最新的10条新闻信息",
+        "operationId": "getLatestNews",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseListNewsVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/model/{id}/keywords": {
+      "get": {
+        "tags": [
+          "模型管理接口"
+        ],
+        "summary": "查询关键词列表",
+        "description": "根据模型ID获取关键词列表\n\n🔐 **权限要求**: 模型管理(6)",
+        "operationId": "getKeywords",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/model/{id}/detail": {
+      "get": {
+        "tags": [
+          "模型管理接口"
+        ],
+        "summary": "查询模型详情",
+        "description": "查询模型详情（含关键词）\n\n🔐 **权限要求**: 模型管理(6)",
+        "operationId": "getModel",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/model/list": {
+      "get": {
+        "tags": [
+          "模型管理接口"
+        ],
+        "summary": "分页查询爬虫模型列表",
+        "description": "分页查询爬虫模型列表",
+        "operationId": "getModelList",
+        "parameters": [
+          {
+            "name": "pageNum",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/model/fetchers": {
+      "get": {
+        "tags": [
+          "模型管理接口"
+        ],
+        "summary": "查询采集器列表",
+        "description": "查询采集器列表\n\n🔐 **权限要求**: 模型管理(6)",
+        "operationId": "getFetcherList",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/log": {
+      "get": {
+        "tags": [
+          "日志管理接口"
+        ],
+        "summary": "获取日志列表",
+        "description": "返回所有日志信息\n\n🔐 **权限要求**: 日志管理(9)",
+        "operationId": "getLogs",
+        "parameters": [
+          {
+            "name": "pageNum",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseListEntryLogVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/device/page": {
+      "get": {
+        "tags": [
+          "信息接口"
+        ],
+        "summary": "获取信息列表（分页）",
+        "description": "返回指定页码和每页大小的信息数据",
+        "operationId": "getDeviceList_1",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseListDeviceDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/device/count": {
+      "get": {
+        "tags": [
+          "信息接口"
+        ],
+        "summary": "获取信息数量",
+        "description": "返回所有信息数量",
+        "operationId": "getDeviceCount",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseInteger"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/class/list": {
+      "get": {
+        "tags": [
+          "分类管理接口"
+        ],
+        "summary": "获取所有一级分类列表",
+        "description": "获取所有一级分类列表",
+        "operationId": "getClasses",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseListClassVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/class/list/search": {
+      "get": {
+        "tags": [
+          "分类管理接口"
+        ],
+        "summary": "搜索分类",
+        "description": "根据关键词模糊匹配分类名称",
+        "operationId": "searchClasses",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseListClassVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/removeUserRole": {
+      "delete": {
+        "tags": [
+          "用户管理"
+        ],
+        "summary": "删除用户角色",
+        "description": "根据角色ID删除用户角色\n\n🔐 **权限要求**: 用户管理(1)",
+        "operationId": "removeUserRole",
+        "parameters": [
+          {
+            "name": "roleId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/removePermission": {
+      "delete": {
+        "tags": [
+          "用户管理"
+        ],
+        "summary": "删除用户权限",
+        "description": "从指定角色中删除权限\n\n🔐 **权限要求**: 用户管理(1)",
+        "operationId": "removePermission",
+        "parameters": [
+          {
+            "name": "roleId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "permissionId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/removePermissionBatch": {
+      "delete": {
+        "tags": [
+          "用户管理"
+        ],
+        "summary": "批量删除用户权限",
+        "description": "从指定角色中批量删除权限\n\n🔐 **权限要求**: 用户管理(1)",
+        "operationId": "removePermissionBatch",
+        "parameters": [
+          {
+            "name": "roleId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/deleteUser": {
+      "delete": {
+        "tags": [
+          "用户管理"
+        ],
+        "summary": "删除用户",
+        "description": "根据用户名删除用户账号\n\n🔐 **权限要求**: 用户管理(1)",
+        "operationId": "deleteUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/model/{id}/delete": {
+      "delete": {
+        "tags": [
+          "模型管理接口"
+        ],
+        "summary": "逻辑删除模型",
+        "description": "根据ID逻辑删除模型\n\n🔐 **权限要求**: 模型管理(6)",
+        "operationId": "deleteModel",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/model/keyword/{id}": {
+      "delete": {
+        "tags": [
+          "模型管理接口"
+        ],
+        "summary": "删除关键词",
+        "description": "根据ID删除关键词\n\n🔐 **权限要求**: 模型管理(6)",
+        "operationId": "deleteKeyword",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/log/delete": {
+      "delete": {
+        "tags": [
+          "日志管理接口"
+        ],
+        "summary": "删除日志",
+        "description": "根据ID删除指定日志\n\n🔐 **权限要求**: 日志管理(9)",
+        "operationId": "deleteLog",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/log/batch-delete": {
+      "delete": {
+        "tags": [
+          "日志管理接口"
+        ],
+        "summary": "批量删除日志",
+        "description": "批量删除指定日志\n\n🔐 **权限要求**: 日志管理(9)",
+        "operationId": "deleteLogsBatch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/country/batch": {
+      "delete": {
+        "tags": [
+          "国家管理接口"
+        ],
+        "summary": "批量删除国家",
+        "description": "根据ID列表批量删除国家记录\n\n🔐 **权限要求**: 国家管理(8)",
+        "operationId": "countryBatchDelete",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseString"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UserRoleVO": {
+        "type": "object",
+        "properties": {
+          "roleId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "roleName": {
+            "type": "string"
+          },
+          "modules": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        }
+      },
+      "UserVO": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userRole": {
+            "$ref": "#/components/schemas/UserRoleVO"
+          },
+          "userName": {
+            "type": "string"
+          },
+          "nickName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "sex": {
+            "type": "string"
+          },
+          "avatarAddress": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "remark": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponseString": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "string"
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "DeviceVO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "deviceName": {
+            "type": "string"
+          },
+          "deviceClassId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "deviceStyleId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "deviceTypeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "deviceUseYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "devicePrice": {
+            "type": "string"
+          },
+          "deviceUsingUnit": {
+            "type": "string"
+          },
+          "deviceCountryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "deviceLocation": {
+            "type": "string"
+          },
+          "deviceLongitude": {
+            "type": "string"
+          },
+          "deviceLatitude": {
+            "type": "string"
+          },
+          "deviceImg": {
+            "type": "string"
+          },
+          "deviceVideo": {
+            "type": "string"
+          },
+          "deviceIntroduce": {
+            "type": "string"
+          },
+          "deviceInsqlTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deviceChangesqlTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "auditFlag": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "Country": {
+        "type": "object",
+        "properties": {
+          "countryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "countryName": {
+            "type": "string"
+          },
+          "englishName": {
+            "type": "string"
+          }
+        }
+      },
+      "TypeVO": {
+        "type": "object",
+        "properties": {
+          "typeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "typeName": {
+            "type": "string"
+          },
+          "typeDescribe": {
+            "type": "string"
+          },
+          "createTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ResponseInteger": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "KeywordCreateBody": {
+        "type": "object",
+        "properties": {
+          "modelId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "keywordName": {
+            "type": "string"
+          },
+          "useFlag": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "DeviceJsonVO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "deviceName": {
+            "type": "string"
+          },
+          "deviceClassName": {
+            "type": "string"
+          },
+          "deviceStyleName": {
+            "type": "string"
+          },
+          "deviceTypeName": {
+            "type": "string"
+          },
+          "deviceUseYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "devicePrice": {
+            "type": "string"
+          },
+          "deviceUsingUnit": {
+            "type": "string"
+          },
+          "deviceCountryName": {
+            "type": "string"
+          },
+          "deviceLocation": {
+            "type": "string"
+          },
+          "deviceLongitude": {
+            "type": "string"
+          },
+          "deviceLatitude": {
+            "type": "string"
+          },
+          "deviceImg": {
+            "type": "string"
+          },
+          "deviceVideo": {
+            "type": "string"
+          },
+          "deviceIntroduce": {
+            "type": "string"
+          }
+        }
+      },
+      "AuditSearchParamsVO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "FullDeviceVO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "deviceName": {
+            "type": "string"
+          },
+          "deviceClass": {
+            "$ref": "#/components/schemas/KeyValue"
+          },
+          "deviceStyle": {
+            "$ref": "#/components/schemas/KeyValue"
+          },
+          "deviceType": {
+            "$ref": "#/components/schemas/KeyValue"
+          },
+          "deviceUseYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "devicePrice": {
+            "type": "string"
+          },
+          "deviceUsingUnit": {
+            "type": "string"
+          },
+          "deviceCountry": {
+            "$ref": "#/components/schemas/KeyValue"
+          },
+          "deviceLocation": {
+            "type": "string"
+          },
+          "deviceLongitude": {
+            "type": "string"
+          },
+          "deviceLatitude": {
+            "type": "string"
+          },
+          "deviceImg": {
+            "type": "string"
+          },
+          "deviceVideo": {
+            "type": "string"
+          },
+          "deviceIntroduce": {
+            "type": "string"
+          },
+          "deviceInsqlTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deviceChangesqlTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "auditFlag": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "KeyValue": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponseListFullDeviceVO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FullDeviceVO"
+            }
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponseListUserVO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserVO"
+            }
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponseListUserRoleVO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserRoleVO"
+            }
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponseMapIntegerString": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "SearchParamsVO": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "classId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "styleId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "typeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "country": {
+            "type": "string"
+          }
+        }
+      },
+      "EchartsOptionDTO": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "$ref": "#/components/schemas/Title"
+          },
+          "tooltip": {
+            "$ref": "#/components/schemas/Tooltip"
+          },
+          "series": {
+            "$ref": "#/components/schemas/Series"
+          },
+          "xaxis": {
+            "$ref": "#/components/schemas/XAxis"
+          },
+          "yaxis": {
+            "$ref": "#/components/schemas/YAxis"
+          }
+        }
+      },
+      "ResponseEchartsOptionDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/EchartsOptionDTO"
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "Series": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "radius": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "Title": {
+        "type": "object",
+        "properties": {
+          "show": {
+            "type": "boolean"
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      },
+      "Tooltip": {
+        "type": "object",
+        "properties": {
+          "show": {
+            "type": "boolean"
+          },
+          "trigger": {
+            "type": "string"
+          }
+        }
+      },
+      "XAxis": {
+        "type": "object",
+        "properties": {
+          "show": {
+            "type": "boolean"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "YAxis": {
+        "type": "object",
+        "properties": {
+          "show": {
+            "type": "boolean"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponseListDeviceVO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeviceVO"
+            }
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "CountryStatsDTO": {
+        "type": "object",
+        "properties": {
+          "country": {
+            "type": "string"
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ResponseListCountryStatsDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CountryStatsDTO"
+            }
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "ClassStatsDTO": {
+        "type": "object",
+        "properties": {
+          "className": {
+            "type": "string"
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ResponseListClassStatsDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClassStatsDTO"
+            }
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponseStatsBoardVO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/StatsBoardVO"
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "StatsBoardVO": {
+        "type": "object",
+        "properties": {
+          "totalIndexed": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "todayIndexed": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "todayCorrected": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "indexdDiff": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "correctedDiff": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "NewsVO": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "introduce": {
+            "type": "string"
+          },
+          "sourceLink": {
+            "type": "string"
+          },
+          "publishTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "img": {
+            "type": "string"
+          },
+          "video": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponseListNewsVO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewsVO"
+            }
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "EntryLogVO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "modelLogId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "csvEnterLogs": {
+            "type": "string"
+          },
+          "csvEnterNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "csvEnterSuccessNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "csvEnterLogsTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "csvEnterUserName": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponseListEntryLogVO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EntryLogVO"
+            }
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "DeviceDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "deviceName": {
+            "type": "string"
+          },
+          "deviceClass": {
+            "type": "string"
+          },
+          "deviceStyle": {
+            "type": "string"
+          },
+          "deviceType": {
+            "type": "string"
+          },
+          "deviceUseYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "devicePrice": {
+            "type": "string"
+          },
+          "deviceUsingUnit": {
+            "type": "string"
+          },
+          "deviceCountry": {
+            "type": "string"
+          },
+          "deviceLocation": {
+            "type": "string"
+          },
+          "deviceLongitude": {
+            "type": "string"
+          },
+          "deviceLatitude": {
+            "type": "string"
+          },
+          "deviceImg": {
+            "type": "string"
+          },
+          "deviceVideo": {
+            "type": "string"
+          },
+          "deviceIntroduce": {
+            "type": "string"
+          },
+          "deviceInsqlTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deviceChangesqlTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ResponseListDeviceDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeviceDTO"
+            }
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "CountryVO": {
+        "type": "object",
+        "properties": {
+          "countryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "countryName": {
+            "type": "string"
+          },
+          "englishName": {
+            "type": "string"
+          },
+          "dataCount": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ResponseListCountryVO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CountryVO"
+            }
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "ClassVO": {
+        "type": "object",
+        "properties": {
+          "classId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "className": {
+            "type": "string"
+          },
+          "classDescribe": {
+            "type": "string"
+          },
+          "createTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "styleList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StyleVO"
+            }
+          }
+        }
+      },
+      "ResponseListClassVO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClassVO"
+            }
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "StyleVO": {
+        "type": "object",
+        "properties": {
+          "styleId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "styleName": {
+            "type": "string"
+          },
+          "styleDescribe": {
+            "type": "string"
+          },
+          "createTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "typeList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TypeVO"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -117,7 +117,7 @@
 
     <select id="queryPermissionsByRoleId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         <![CDATA[
-        SELECT permission
+        SELECT permission_id
         FROM role_permission
         WHERE role_id = #{roleId}
         ]]>
@@ -125,7 +125,7 @@
 
     <insert id="insertPermission" parameterType="java.lang.Integer">
         <![CDATA[
-        INSERT INTO role_permission (role_id, permission)
+        INSERT INTO role_permission (role_id, permission_id)
         VALUES (#{roleId}, #{permissionId})
         ]]>
     </insert>
@@ -134,7 +134,7 @@
         <![CDATA[
         DELETE
         FROM role_permission
-        WHERE permission = #{permissionId}
+        WHERE permission_id = #{permissionId}
           AND role_id = #{roleId}
         ]]>
     </delete>
@@ -143,7 +143,7 @@
         <![CDATA[
         SELECT EXISTS(SELECT *
                       FROM role_permission
-                      WHERE permission = #{permissionId}
+                      WHERE permission_id = #{permissionId}
                         AND role_id = #{roleId})
         ]]>
     </select>

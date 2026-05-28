@@ -14,19 +14,28 @@ CREATE TABLE user_role
   DEFAULT CHARSET = utf8mb4 COMMENT ='角色表';
 
 INSERT INTO user_role (role_name)
-VALUES ('管理员'),
-       ('普通用户');
+VALUES ('管理员');
 
 -- 表2：角色权限表
 DROP TABLE IF EXISTS role_permission;
 CREATE TABLE role_permission
 (
     role_id         INT COMMENT '角色ID',
-    permission_name VARCHAR(20) NOT NULL COMMENT '权限名称',
-    PRIMARY KEY (role_id, permission_name),
+    permission_id INT NOT NULL COMMENT '权限ID',
+    PRIMARY KEY (role_id, permission_id),
     FOREIGN KEY (role_id) REFERENCES user_role (role_id) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='角色权限表';
+INSERT INTO role_permission (role_id, permission_id)
+VALUES (1, 1),
+       (1, 2),
+       (1, 3),
+       (1, 4),
+       (1, 5),
+       (1, 6),
+       (1, 7),
+       (1, 8),
+       (1, 9);
 
 -- 表3：用户表
 DROP TABLE IF EXISTS user;
