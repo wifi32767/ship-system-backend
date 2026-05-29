@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TypeVO {
+public class TypeEntity {
     private Integer typeId; // 三级分类id
     private String typeName; // 三级分类名称
     private String typeDescribe; // 三级分类描述

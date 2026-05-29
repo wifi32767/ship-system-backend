@@ -1,6 +1,6 @@
 package com.wifi32767.infra.adapter.repository;
 
-import com.wifi32767.domain.system.model.UserRoleVO;
+import com.wifi32767.domain.system.model.UserRoleEntity;
 import com.wifi32767.domain.user.adapter.repository.UserRepository;
 import com.wifi32767.domain.user.model.UserVO;
 import com.wifi32767.infra.dao.UserDao;
@@ -78,9 +78,9 @@ public class UserRepositoryImp implements UserRepository {
     }
 
     @Override
-    public List<UserRoleVO> getAllUsersRole() {
+    public List<UserRoleEntity> getAllUsersRole() {
         return userDao.queryAllUsersRole().stream().map(
-                userRole -> UserRoleVO.builder()
+                userRole -> UserRoleEntity.builder()
                         .roleId(userRole.getRoleId())
                         .roleName(userRole.getRoleName())
                         .modules(getModulesByRoleId(userRole.getRoleId()))
@@ -90,7 +90,7 @@ public class UserRepositoryImp implements UserRepository {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void addUserRole(UserRoleVO userRole) {
+    public void addUserRole(UserRoleEntity userRole) {
         UserRole role = UserRole.builder()
                 .roleName(userRole.getRoleName())
                 .build();
@@ -177,7 +177,7 @@ public class UserRepositoryImp implements UserRepository {
                 .remark(user.getRemark())
                 .phoneNumber(user.getPhoneNumber())
                 .build();
-        userVO.setUserRole(UserRoleVO.builder()
+        userVO.setUserRole(UserRoleEntity.builder()
                 .roleId(user.getUserRole())
                 .roleName(userDao.queryRoleNameByRoleId(user.getUserRole()))
                 .modules(getModulesByRoleId(user.getUserRole()))

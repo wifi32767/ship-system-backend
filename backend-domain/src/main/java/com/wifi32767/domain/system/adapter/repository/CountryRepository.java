@@ -1,17 +1,17 @@
 package com.wifi32767.domain.system.adapter.repository;
 
-import com.wifi32767.domain.system.model.CountryVO;
+import com.wifi32767.domain.system.model.CountryEntity;
 
 import java.util.List;
 
 public interface CountryRepository {
     String getCountryNameById(int countryId);
 
-    List<CountryVO> getAllCountries();
+    List<CountryEntity> getAllCountries();
 
-    void insertCountry(CountryVO countryVO);
+    void insertCountry(CountryEntity countryEntity);
 
-    void updateCountry(CountryVO countryVO);
+    void updateCountry(CountryEntity countryEntity);
 
     void deleteCountry(int countryId);
 

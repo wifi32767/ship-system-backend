@@ -1,6 +1,6 @@
 package com.wifi32767.domain.user.service;
 
-import com.wifi32767.domain.system.model.UserRoleVO;
+import com.wifi32767.domain.system.model.UserRoleEntity;
 import com.wifi32767.domain.user.adapter.repository.UserRepository;
 import com.wifi32767.domain.user.model.UserVO;
 import org.springframework.stereotype.Service;
@@ -50,12 +50,12 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public List<UserRoleVO> getAllUsersRole() {
+    public List<UserRoleEntity> getAllUsersRole() {
         return userRepository.getAllUsersRole();
     }
 
     @Override
-    public void addUserRole(UserRoleVO userRole) {
+    public void addUserRole(UserRoleEntity userRole) {
         userRepository.addUserRole(userRole);
     }
 

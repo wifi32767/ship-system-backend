@@ -1,9 +1,9 @@
 package com.wifi32767.infra.adapter.repository;
 
 import com.wifi32767.domain.system.adapter.repository.ClassRepository;
-import com.wifi32767.domain.system.model.ClassVO;
-import com.wifi32767.domain.system.model.StyleVO;
-import com.wifi32767.domain.system.model.TypeVO;
+import com.wifi32767.domain.system.model.ClassEntity;
+import com.wifi32767.domain.system.model.StyleEntity;
+import com.wifi32767.domain.system.model.TypeEntity;
 import com.wifi32767.infra.dao.ClassDao;
 import com.wifi32767.infra.dao.po.DeviceClass;
 import com.wifi32767.infra.dao.po.DeviceStyle;
@@ -73,8 +73,8 @@ public class ClassRepositoryImp implements ClassRepository {
     }
 
     @Override
-    public List<ClassVO> getAllClasses() {
-        List<ClassVO> classes = redisService.getValue(ALL_LIST_KEY);
+    public List<ClassEntity> getAllClasses() {
+        List<ClassEntity> classes = redisService.getValue(ALL_LIST_KEY);
         if (classes != null) {
             return classes;
         }
@@ -84,36 +84,36 @@ public class ClassRepositoryImp implements ClassRepository {
 
         // 如果有扩展层数的需求，可以用dfs责任链方便维护
         for (DeviceClass deviceClass : deviceClasses) {
-            ClassVO classVO = new ClassVO();
-            classVO.setClassId(deviceClass.getDeviceClassId());
-            classVO.setClassName(deviceClass.getDeviceClassName());
-            classVO.setClassDescribe(deviceClass.getDeviceClassDescribe());
-            classVO.setCreateTime(deviceClass.getDeviceClassInsqlTime());
+            ClassEntity classEntity = new ClassEntity();
+            classEntity.setClassId(deviceClass.getDeviceClassId());
+            classEntity.setClassName(deviceClass.getDeviceClassName());
+            classEntity.setClassDescribe(deviceClass.getDeviceClassDescribe());
+            classEntity.setCreateTime(deviceClass.getDeviceClassInsqlTime());
 
             List<DeviceStyle> deviceStyles = classDao.queryStyleByClassId(deviceClass.getDeviceClassId());
-            List<StyleVO> styles = new ArrayList<>();
+            List<StyleEntity> styles = new ArrayList<>();
             for (DeviceStyle deviceStyle : deviceStyles) {
-                StyleVO styleVO = new StyleVO();
-                styleVO.setStyleId(deviceStyle.getDeviceStyleId());
-                styleVO.setStyleName(deviceStyle.getDeviceStyleName());
-                styleVO.setStyleDescribe(deviceStyle.getDeviceStyleDescribe());
-                styleVO.setCreateTime(deviceStyle.getDeviceStyleInsqlTime());
+                StyleEntity styleEntity = new StyleEntity();
+                styleEntity.setStyleId(deviceStyle.getDeviceStyleId());
+                styleEntity.setStyleName(deviceStyle.getDeviceStyleName());
+                styleEntity.setStyleDescribe(deviceStyle.getDeviceStyleDescribe());
+                styleEntity.setCreateTime(deviceStyle.getDeviceStyleInsqlTime());
 
                 List<DeviceType> deviceTypes = classDao.queryTypeByStyleId(deviceStyle.getDeviceStyleId());
-                List<TypeVO> types = new ArrayList<>();
+                List<TypeEntity> types = new ArrayList<>();
                 for (DeviceType deviceType : deviceTypes) {
-                    TypeVO typeVO = new TypeVO();
-                    typeVO.setTypeId(deviceType.getDeviceTypeId());
-                    typeVO.setTypeName(deviceType.getDeviceTypeName());
-                    typeVO.setTypeDescribe(deviceType.getDeviceTypeDescribe());
-                    typeVO.setCreateTime(deviceType.getDeviceTypeInsqlTime());
-                    types.add(typeVO);
+                    TypeEntity typeEntity = new TypeEntity();
+                    typeEntity.setTypeId(deviceType.getDeviceTypeId());
+                    typeEntity.setTypeName(deviceType.getDeviceTypeName());
+                    typeEntity.setTypeDescribe(deviceType.getDeviceTypeDescribe());
+                    typeEntity.setCreateTime(deviceType.getDeviceTypeInsqlTime());
+                    types.add(typeEntity);
                 }
-                styleVO.setTypeList(types);
-                styles.add(styleVO);
+                styleEntity.setTypeList(types);
+                styles.add(styleEntity);
             }
-            classVO.setStyleList(styles);
-            classes.add(classVO);
+            classEntity.setStyleList(styles);
+            classes.add(classEntity);
         }
 
         redisService.setValue(ALL_LIST_KEY, classes);
@@ -122,13 +122,13 @@ public class ClassRepositoryImp implements ClassRepository {
     }
 
     @Override
-    public List<ClassVO> searchClasses(String keyword) {
+    public List<ClassEntity> searchClasses(String keyword) {
         // TODO: 如何搜索每一个级别
         throw new UnsupportedOperationException("接口未实现");
     }
 
     @Override
-    public void createClass(TypeVO classVO) {
+    public void createClass(TypeEntity classVO) {
         LocalDateTime now = LocalDateTime.now();
         redisService.remove(ALL_LIST_KEY);
         classDao.insertClass(DeviceClass.builder().
@@ -141,7 +141,7 @@ public class ClassRepositoryImp implements ClassRepository {
     }
 
     @Override
-    public void updateClass(TypeVO classVO) {
+    public void updateClass(TypeEntity classVO) {
         redisService.remove(ALL_LIST_KEY, CLASS_ID_KEY_PREFIX + classVO.getTypeId());
         classDao.updateClass(DeviceClass.builder().
                 deviceClassId(classVO.getTypeId()).
@@ -187,7 +187,7 @@ public class ClassRepositoryImp implements ClassRepository {
     }
 
     @Override
-    public void createStyle(TypeVO styleVO, Integer parentId) {
+    public void createStyle(TypeEntity styleVO, Integer parentId) {
         LocalDateTime now = LocalDateTime.now();
         redisService.remove(ALL_LIST_KEY);
         classDao.insertStyle(DeviceStyle.builder().
@@ -201,7 +201,7 @@ public class ClassRepositoryImp implements ClassRepository {
     }
 
     @Override
-    public void updateStyle(TypeVO styleVO) {
+    public void updateStyle(TypeEntity styleVO) {
         redisService.remove(ALL_LIST_KEY, STYLE_ID_KEY_PREFIX + styleVO.getTypeId());
         classDao.updateStyle(DeviceStyle.builder().
                 deviceStyleId(styleVO.getTypeId()).
@@ -234,12 +234,12 @@ public class ClassRepositoryImp implements ClassRepository {
     }
 
     @Override
-    public void createType(TypeVO typeVO, Integer parentId) {
+    public void createType(TypeEntity typeEntity, Integer parentId) {
         LocalDateTime now = LocalDateTime.now();
         redisService.remove(ALL_LIST_KEY);
         classDao.insertType(DeviceType.builder().
-                deviceTypeName(typeVO.getTypeName()).
-                deviceTypeDescribe(typeVO.getTypeDescribe()).
+                deviceTypeName(typeEntity.getTypeName()).
+                deviceTypeDescribe(typeEntity.getTypeDescribe()).
                 deviceTypeStyleId(parentId).
                 deviceTypeInsqlTime(now).
                 deviceTypeChangesqlTime(now)
@@ -248,14 +248,14 @@ public class ClassRepositoryImp implements ClassRepository {
     }
 
     @Override
-    public void updateType(TypeVO typeVO) {
-        redisService.remove(ALL_LIST_KEY, TYPE_ID_KEY_PREFIX + typeVO.getTypeId());
+    public void updateType(TypeEntity typeEntity) {
+        redisService.remove(ALL_LIST_KEY, TYPE_ID_KEY_PREFIX + typeEntity.getTypeId());
         classDao.updateType(DeviceType.builder().
-                deviceTypeId(typeVO.getTypeId()).
-                deviceTypeName(typeVO.getTypeName()).
-                deviceTypeDescribe(typeVO.getTypeDescribe())
+                deviceTypeId(typeEntity.getTypeId()).
+                deviceTypeName(typeEntity.getTypeName()).
+                deviceTypeDescribe(typeEntity.getTypeDescribe())
                 .build());
-        redisService.delayedRemove(ALL_LIST_KEY, TYPE_ID_KEY_PREFIX + typeVO.getTypeId());
+        redisService.delayedRemove(ALL_LIST_KEY, TYPE_ID_KEY_PREFIX + typeEntity.getTypeId());
     }
 
     @Override

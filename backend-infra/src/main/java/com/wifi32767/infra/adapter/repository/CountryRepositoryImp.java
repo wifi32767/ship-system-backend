@@ -1,7 +1,7 @@
 package com.wifi32767.infra.adapter.repository;
 
 import com.wifi32767.domain.system.adapter.repository.CountryRepository;
-import com.wifi32767.domain.system.model.CountryVO;
+import com.wifi32767.domain.system.model.CountryEntity;
 import com.wifi32767.infra.dao.CountryDao;
 import com.wifi32767.infra.dao.po.Country;
 import com.wifi32767.infra.redis.RedisService;
@@ -39,18 +39,18 @@ public class CountryRepositoryImp implements CountryRepository {
     }
 
     @Override
-    public List<CountryVO> getAllCountries() {
+    public List<CountryEntity> getAllCountries() {
 
-        List<CountryVO> cachedCountries = redisService.getValue(ALL_LIST_KEY);
+        List<CountryEntity> cachedCountries = redisService.getValue(ALL_LIST_KEY);
         if (cachedCountries != null) {
             return cachedCountries;
         }
 
         List<Country> countries = countryDao.queryAllCountries();
 
-        List<CountryVO> countryVOs = new ArrayList<>();
+        List<CountryEntity> countryEntities = new ArrayList<>();
         for (Country country : countries) {
-            countryVOs.add(CountryVO.builder().
+            countryEntities.add(CountryEntity.builder().
                     countryId(country.getCountryId()).
                     countryName(country.getCountryName()).
                     englishName(country.getEnglishName()).
@@ -60,15 +60,15 @@ public class CountryRepositoryImp implements CountryRepository {
 
         redisService.setValue(ALL_LIST_KEY, countries);
 
-        return countryVOs;
+        return countryEntities;
     }
 
     @Override
-    public void insertCountry(CountryVO countryVO) {
+    public void insertCountry(CountryEntity countryEntity) {
         Country country = Country.builder().
-                countryId(countryVO.getCountryId()).
-                countryName(countryVO.getCountryName()).
-                englishName(countryVO.getEnglishName()).
+                countryId(countryEntity.getCountryId()).
+                countryName(countryEntity.getCountryName()).
+                englishName(countryEntity.getEnglishName()).
                 build();
 
         redisService.remove(ALL_LIST_KEY);
@@ -77,17 +77,17 @@ public class CountryRepositoryImp implements CountryRepository {
     }
 
     @Override
-    public void updateCountry(CountryVO countryVO) {
+    public void updateCountry(CountryEntity countryEntity) {
         Country country = Country.builder().
-                countryId(countryVO.getCountryId()).
-                countryName(countryVO.getCountryName()).
-                englishName(countryVO.getEnglishName()).
+                countryId(countryEntity.getCountryId()).
+                countryName(countryEntity.getCountryName()).
+                englishName(countryEntity.getEnglishName()).
                 build();
 
-        String oldName = getCountryNameById(countryVO.getCountryId());
-        redisService.remove(COUNTRY_ID_KEY_PREFIX + countryVO.getCountryId(), COUNTRY_NAME_KEY_PREFIX + oldName, ALL_LIST_KEY);
+        String oldName = getCountryNameById(countryEntity.getCountryId());
+        redisService.remove(COUNTRY_ID_KEY_PREFIX + countryEntity.getCountryId(), COUNTRY_NAME_KEY_PREFIX + oldName, ALL_LIST_KEY);
         countryDao.updateCountry(country);
-        redisService.delayedRemove(COUNTRY_ID_KEY_PREFIX + countryVO.getCountryId(), COUNTRY_NAME_KEY_PREFIX + oldName, ALL_LIST_KEY);
+        redisService.delayedRemove(COUNTRY_ID_KEY_PREFIX + countryEntity.getCountryId(), COUNTRY_NAME_KEY_PREFIX + oldName, ALL_LIST_KEY);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.wifi32767.domain.user.adapter.repository;
 
-import com.wifi32767.domain.system.model.UserRoleVO;
+import com.wifi32767.domain.system.model.UserRoleEntity;
 import com.wifi32767.domain.user.model.UserVO;
 
 import java.util.List;
@@ -18,9 +18,9 @@ public interface UserRepository {
 
     void updateUserInfo(UserVO user);
 
-    List<UserRoleVO> getAllUsersRole();
+    List<UserRoleEntity> getAllUsersRole();
 
-    void addUserRole(UserRoleVO userRole);
+    void addUserRole(UserRoleEntity userRole);
 
     void removeUserRole(int userRoleId);
 

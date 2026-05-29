@@ -1,7 +1,7 @@
 package com.wifi32767.interfaces.http.admin;
 
 import com.wifi32767.common.Response;
-import com.wifi32767.domain.system.model.CountryVO;
+import com.wifi32767.domain.system.model.CountryEntity;
 import com.wifi32767.infra.dao.po.Country;
 
 import java.util.List;
@@ -13,7 +13,7 @@ public interface CountryController {
      *
      * @return 国家信息列表 {@code List<CountryVO>}
      */
-    Response<List<CountryVO>> countryGet();
+    Response<List<CountryEntity>> countryGet();
 
     /**
      * 添加国家接口：创建新的国家记录。

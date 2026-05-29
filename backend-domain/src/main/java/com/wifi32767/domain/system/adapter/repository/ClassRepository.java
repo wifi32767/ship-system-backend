@@ -1,7 +1,7 @@
 package com.wifi32767.domain.system.adapter.repository;
 
-import com.wifi32767.domain.system.model.ClassVO;
-import com.wifi32767.domain.system.model.TypeVO;
+import com.wifi32767.domain.system.model.ClassEntity;
+import com.wifi32767.domain.system.model.TypeEntity;
 
 import java.util.List;
 
@@ -12,25 +12,25 @@ public interface ClassRepository {
 
     String getTypeNameById(int typeId);
 
-    List<ClassVO> getAllClasses();
+    List<ClassEntity> getAllClasses();
 
-    List<ClassVO> searchClasses(String keyword);
+    List<ClassEntity> searchClasses(String keyword);
 
-    void createClass(TypeVO classVO);
+    void createClass(TypeEntity classVO);
 
-    void updateClass(TypeVO classVO);
+    void updateClass(TypeEntity classVO);
 
     void deleteClass(Integer classId);
 
-    void createStyle(TypeVO styleVO, Integer parentId);
+    void createStyle(TypeEntity styleVO, Integer parentId);
 
-    void updateStyle(TypeVO styleVO);
+    void updateStyle(TypeEntity styleVO);
 
     void deleteStyle(Integer styleId);
 
-    void createType(TypeVO typeVO, Integer parentId);
+    void createType(TypeEntity typeEntity, Integer parentId);
 
-    void updateType(TypeVO typeVO);
+    void updateType(TypeEntity typeEntity);
 
     void deleteType(Integer typeId);
 

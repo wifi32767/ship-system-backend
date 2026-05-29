@@ -3,7 +3,7 @@ package com.wifi32767.interfaces.http.admin;
 import com.wifi32767.common.Permission;
 import com.wifi32767.common.Response;
 import com.wifi32767.common.enums.Module;
-import com.wifi32767.domain.system.model.UserRoleVO;
+import com.wifi32767.domain.system.model.UserRoleEntity;
 import com.wifi32767.domain.user.model.UserVO;
 import com.wifi32767.domain.user.service.UserService;
 import com.wifi32767.infra.redis.RedisService;
@@ -115,7 +115,7 @@ public class UserControllerImp implements UserController {
     @RequestMapping(value = "/allUsersRole", method = RequestMethod.GET)
 //    @Permission(Module.USER)
     @Operation(summary = "获取用户角色", description = "返回用户角色列表（表示所有用户角色）")
-    public Response<List<UserRoleVO>> getAllUsersRole() {
+    public Response<List<UserRoleEntity>> getAllUsersRole() {
         try {
             return new Response<>(userService.getAllUsersRole());
         } catch (Exception e) {
@@ -128,9 +128,9 @@ public class UserControllerImp implements UserController {
     @RequestMapping(value = "/addUserRole", method = RequestMethod.POST)
     @Permission(Module.USER)
     @Operation(summary = "添加用户角色", description = "添加用户角色")
-    public Response<String> addUserRole(@RequestBody UserRoleVO userRoleVO) {
+    public Response<String> addUserRole(@RequestBody UserRoleEntity userRoleEntity) {
         try {
-            userService.addUserRole(userRoleVO);
+            userService.addUserRole(userRoleEntity);
             return new Response<>("User role added successfully");
         } catch (Exception e) {
             log.error("Error during user role addition: ", e);

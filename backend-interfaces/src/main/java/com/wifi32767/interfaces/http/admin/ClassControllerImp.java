@@ -3,8 +3,8 @@ package com.wifi32767.interfaces.http.admin;
 import com.wifi32767.common.Permission;
 import com.wifi32767.common.Response;
 import com.wifi32767.common.enums.Module;
-import com.wifi32767.domain.system.model.ClassVO;
-import com.wifi32767.domain.system.model.TypeVO;
+import com.wifi32767.domain.system.model.ClassEntity;
+import com.wifi32767.domain.system.model.TypeEntity;
 import com.wifi32767.domain.system.service.ClassService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,7 +27,7 @@ public class ClassControllerImp implements ClassController {
     @Override
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @Operation(summary = "获取所有一级分类列表", description = "获取所有一级分类列表")
-    public Response<List<ClassVO>> getClasses() {
+    public Response<List<ClassEntity>> getClasses() {
         try {
             return new Response<>(classService.getClasses());
         } catch (Exception e) {
@@ -39,7 +39,7 @@ public class ClassControllerImp implements ClassController {
     @Override
     @RequestMapping(value = "/list/search", method = RequestMethod.GET)
     @Operation(summary = "搜索分类", description = "根据关键词模糊匹配分类名称")
-    public Response<List<ClassVO>> searchClasses(@RequestParam String keyword) {
+    public Response<List<ClassEntity>> searchClasses(@RequestParam String keyword) {
         try {
             return new Response<>(classService.searchClasses(keyword));
         } catch (Exception e) {
@@ -52,7 +52,7 @@ public class ClassControllerImp implements ClassController {
     @RequestMapping(value = "/class", method = RequestMethod.POST)
     @Permission(Module.CATEGORY)
     @Operation(summary = "创建一级分类", description = "创建一级分类")
-    public Response<String> createClass(@RequestBody TypeVO classVO) {
+    public Response<String> createClass(@RequestBody TypeEntity classVO) {
         try {
             classService.createClass(classVO);
             return new Response<>(null);
@@ -66,7 +66,7 @@ public class ClassControllerImp implements ClassController {
     @RequestMapping(value = "/class", method = RequestMethod.PUT)
     @Permission(Module.CATEGORY)
     @Operation(summary = "更新一级分类信息", description = "更新一级分类信息")
-    public Response<String> updateClass(@RequestBody TypeVO classVO) {
+    public Response<String> updateClass(@RequestBody TypeEntity classVO) {
         try {
             classService.updateClass(classVO);
             return new Response<>(null);
@@ -94,7 +94,7 @@ public class ClassControllerImp implements ClassController {
     @RequestMapping(value = "/style", method = RequestMethod.POST)
     @Permission(Module.CATEGORY)
     @Operation(summary = "创建二级分类（样式）", description = "在指定父级分类下创建二级分类")
-    public Response<String> createStyle(@RequestBody TypeVO styleVO, @RequestParam Integer parentId) {
+    public Response<String> createStyle(@RequestBody TypeEntity styleVO, @RequestParam Integer parentId) {
         try {
             classService.createStyle(styleVO, parentId);
             return new Response<>(null);
@@ -108,7 +108,7 @@ public class ClassControllerImp implements ClassController {
     @RequestMapping(value = "/style", method = RequestMethod.PUT)
     @Permission(Module.CATEGORY)
     @Operation(summary = "更新二级分类（样式）信息", description = "更新二级分类信息")
-    public Response<String> updateStyle(@RequestBody TypeVO styleVO) {
+    public Response<String> updateStyle(@RequestBody TypeEntity styleVO) {
         try {
             classService.updateStyle(styleVO);
             return new Response<>(null);
@@ -136,9 +136,9 @@ public class ClassControllerImp implements ClassController {
     @RequestMapping(value = "/type", method = RequestMethod.POST)
     @Permission(Module.CATEGORY)
     @Operation(summary = "创建三级分类（类型）", description = "在指定父级分类下创建三级分类")
-    public Response<String> createType(@RequestBody TypeVO typeVO, @RequestParam Integer parentId) {
+    public Response<String> createType(@RequestBody TypeEntity typeEntity, @RequestParam Integer parentId) {
         try {
-            classService.createType(typeVO, parentId);
+            classService.createType(typeEntity, parentId);
             return new Response<>(null);
         } catch (Exception e) {
             log.error("Error creating type", e);
@@ -150,9 +150,9 @@ public class ClassControllerImp implements ClassController {
     @RequestMapping(value = "/type", method = RequestMethod.PUT)
     @Permission(Module.CATEGORY)
     @Operation(summary = "更新三级分类（类型）信息", description = "更新三级分类信息")
-    public Response<String> updateType(@RequestBody TypeVO typeVO) {
+    public Response<String> updateType(@RequestBody TypeEntity typeEntity) {
         try {
-            classService.updateType(typeVO);
+            classService.updateType(typeEntity);
             return new Response<>(null);
         } catch (Exception e) {
             log.error("Error updating type", e);

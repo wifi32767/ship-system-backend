@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CountryVO {
+public class CountryEntity {
     private Integer countryId; // 国家ID
     private String countryName; // 国家名
     private String englishName; // 英文名

@@ -20,7 +20,7 @@ VALUES ('管理员');
 DROP TABLE IF EXISTS role_permission;
 CREATE TABLE role_permission
 (
-    role_id         INT COMMENT '角色ID',
+    role_id       INT COMMENT '角色ID',
     permission_id INT NOT NULL COMMENT '权限ID',
     PRIMARY KEY (role_id, permission_id),
     FOREIGN KEY (role_id) REFERENCES user_role (role_id) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -210,7 +210,7 @@ CREATE TABLE keyword
     keyword_change_time     DATETIME     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '关键词修改时间',
     deleted                 INT(11)      DEFAULT 0 COMMENT '关键词逻辑删除字段',
     INDEX idx_model_id (model_id),
-    FOREIGN KEY (model_id) REFERENCES m_reptile_model (m_reptile_model_id) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (model_id) REFERENCES reptile_model (m_reptile_model_id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='关键词表';
 

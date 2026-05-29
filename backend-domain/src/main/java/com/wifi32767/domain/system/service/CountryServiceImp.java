@@ -1,7 +1,7 @@
 package com.wifi32767.domain.system.service;
 
 import com.wifi32767.domain.system.adapter.repository.CountryRepository;
-import com.wifi32767.domain.system.model.CountryVO;
+import com.wifi32767.domain.system.model.CountryEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -14,12 +14,12 @@ public class CountryServiceImp implements CountryService {
     private CountryRepository countryRepository;
 
     @Override
-    public List<CountryVO> getCountries() {
+    public List<CountryEntity> getCountries() {
         return countryRepository.getAllCountries();
     }
 
     @Override
-    public void insertCountry(CountryVO country) {
+    public void insertCountry(CountryEntity country) {
         countryRepository.insertCountry(country);
     }
 
@@ -38,7 +38,7 @@ public class CountryServiceImp implements CountryService {
 
 
     @Override
-    public void updateCountry(CountryVO country) {
+    public void updateCountry(CountryEntity country) {
         countryRepository.updateCountry(country);
     }
 }

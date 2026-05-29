@@ -164,4 +164,16 @@ public class SearchControllerImp implements SearchController {
             return new Response<>(Response.ERROR, e.getMessage());
         }
     }
+
+    @Override
+    @RequestMapping(value = "map-search", method = RequestMethod.GET)
+    @Operation(summary = "地图查询接口", description = "支持全文检索、标题联想检索、类别检索、所属国家检索。检索内容为空时为全库查询，返回所有新闻信息。")
+    public Response<List<DeviceVO>> mapSearch(SearchParamsVO req) {
+        try {
+            return new Response<>(searchService.searchDevice(req));
+        } catch (Exception e) {
+            log.error("Fail to map search devices", e);
+            return new Response<>(Response.ERROR, e.getMessage());
+        }
+    }
 }

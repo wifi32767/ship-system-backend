@@ -3,7 +3,7 @@ package com.wifi32767.interfaces.http.admin;
 import com.wifi32767.common.Permission;
 import com.wifi32767.common.Response;
 import com.wifi32767.common.enums.Module;
-import com.wifi32767.domain.system.model.CountryVO;
+import com.wifi32767.domain.system.model.CountryEntity;
 import com.wifi32767.domain.system.service.CountryService;
 import com.wifi32767.infra.dao.po.Country;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,7 +27,7 @@ public class CountryControllerImp implements CountryController {
     @Override
     @RequestMapping(method = RequestMethod.GET)
     @Operation(summary = "获取国家列表", description = "返回所有国家信息")
-    public Response<List<CountryVO>> countryGet() {
+    public Response<List<CountryEntity>> countryGet() {
         try {
             return new Response<>(countryService.getCountries());
         } catch (Exception e) {
@@ -42,7 +42,7 @@ public class CountryControllerImp implements CountryController {
     @Operation(summary = "添加国家", description = "创建新的国家记录")
     public Response<String> countryInsert(@RequestBody Country country) {
         try {
-            countryService.insertCountry(CountryVO.builder()
+            countryService.insertCountry(CountryEntity.builder()
                     .countryId(country.getCountryId())
                     .countryName(country.getCountryName())
                     .englishName(country.getEnglishName())
@@ -88,7 +88,7 @@ public class CountryControllerImp implements CountryController {
     @Operation(summary = "修改国家", description = "更新指定国家的信息")
     public Response<String> countryEdit(@RequestBody Country country) {
         try {
-            countryService.updateCountry(CountryVO.builder()
+            countryService.updateCountry(CountryEntity.builder()
                     .countryId(country.getCountryId())
                     .countryName(country.getCountryName())
                     .englishName(country.getEnglishName())

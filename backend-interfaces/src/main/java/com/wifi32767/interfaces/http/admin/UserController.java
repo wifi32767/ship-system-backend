@@ -1,7 +1,7 @@
 package com.wifi32767.interfaces.http.admin;
 
 import com.wifi32767.common.Response;
-import com.wifi32767.domain.system.model.UserRoleVO;
+import com.wifi32767.domain.system.model.UserRoleEntity;
 import com.wifi32767.domain.user.model.UserVO;
 
 import java.util.List;
@@ -70,16 +70,16 @@ public interface UserController {
      *
      * @return 用户角色列表 {@code List<UserRoleVO>}
      */
-    Response<List<UserRoleVO>> getAllUsersRole();
+    Response<List<UserRoleEntity>> getAllUsersRole();
 
     /**
      * 添加用户角色接口：添加用户角色。
      * 数据格式：JSON
      *
-     * @param userRoleVO 添加用户角色 DTO {@link UserRoleVO}
+     * @param userRoleEntity 添加用户角色 DTO {@link UserRoleEntity}
      * @return 添加操作结果消息 {@code String}
      */
-    Response<String> addUserRole(UserRoleVO userRoleVO);
+    Response<String> addUserRole(UserRoleEntity userRoleEntity);
 
     /**
      * 删除用户角色接口：删除用户角色。

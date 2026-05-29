@@ -12,10 +12,10 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClassVO {
+public class ClassEntity {
     private Integer classId; // 一级分类id
     private String className; // 一级分类名称
     private String classDescribe; // 一级分类描述
     private LocalDateTime createTime; // 创建时间
-    private List<StyleVO> styleList; // 二级分类列表
+    private List<StyleEntity> styleList; // 二级分类列表
 }

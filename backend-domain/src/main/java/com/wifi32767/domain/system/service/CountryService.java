@@ -1,17 +1,17 @@
 package com.wifi32767.domain.system.service;
 
-import com.wifi32767.domain.system.model.CountryVO;
+import com.wifi32767.domain.system.model.CountryEntity;
 
 import java.util.List;
 
 public interface CountryService {
-    List<CountryVO> getCountries();
+    List<CountryEntity> getCountries();
 
-    void insertCountry(CountryVO country);
+    void insertCountry(CountryEntity country);
 
     void deleteCountry(Integer id);
 
     void deleteCountries(List<Integer> ids);
 
-    void updateCountry(CountryVO country);
+    void updateCountry(CountryEntity country);
 }

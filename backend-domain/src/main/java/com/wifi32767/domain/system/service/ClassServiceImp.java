@@ -1,8 +1,8 @@
 package com.wifi32767.domain.system.service;
 
 import com.wifi32767.domain.system.adapter.repository.ClassRepository;
-import com.wifi32767.domain.system.model.ClassVO;
-import com.wifi32767.domain.system.model.TypeVO;
+import com.wifi32767.domain.system.model.ClassEntity;
+import com.wifi32767.domain.system.model.TypeEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,22 +15,22 @@ public class ClassServiceImp implements ClassService {
     private ClassRepository classRepository;
 
     @Override
-    public List<ClassVO> getClasses() {
+    public List<ClassEntity> getClasses() {
         return classRepository.getAllClasses();
     }
 
     @Override
-    public List<ClassVO> searchClasses(String keyword) {
+    public List<ClassEntity> searchClasses(String keyword) {
         return classRepository.searchClasses(keyword);
     }
 
     @Override
-    public void createClass(TypeVO classVO) {
+    public void createClass(TypeEntity classVO) {
         classRepository.createClass(classVO);
     }
 
     @Override
-    public void updateClass(TypeVO classVO) {
+    public void updateClass(TypeEntity classVO) {
         classRepository.updateClass(classVO);
     }
 
@@ -40,12 +40,12 @@ public class ClassServiceImp implements ClassService {
     }
 
     @Override
-    public void createStyle(TypeVO styleVO, Integer parentId) {
+    public void createStyle(TypeEntity styleVO, Integer parentId) {
         classRepository.createStyle(styleVO, parentId);
     }
 
     @Override
-    public void updateStyle(TypeVO styleVO) {
+    public void updateStyle(TypeEntity styleVO) {
         classRepository.updateStyle(styleVO);
     }
 
@@ -55,13 +55,13 @@ public class ClassServiceImp implements ClassService {
     }
 
     @Override
-    public void createType(TypeVO typeVO, Integer parentId) {
-        classRepository.createType(typeVO, parentId);
+    public void createType(TypeEntity typeEntity, Integer parentId) {
+        classRepository.createType(typeEntity, parentId);
     }
 
     @Override
-    public void updateType(TypeVO typeVO) {
-        classRepository.updateType(typeVO);
+    public void updateType(TypeEntity typeEntity) {
+        classRepository.updateType(typeEntity);
     }
 
     @Override
