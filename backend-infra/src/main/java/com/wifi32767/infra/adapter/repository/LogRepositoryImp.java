@@ -28,7 +28,6 @@ public class LogRepositoryImp implements LogRepository {
                         .csvEnterSuccessNumber(entryLogVO.getCsvEnterSuccessNumber())
                         .csvEnterLogsTime(entryLogVO.getCsvEnterLogsTime())
                         .csvEnterUserId(Integer.valueOf(entryLogVO.getCsvEnterUserName()))
-                        .modelLogId(entryLogVO.getModelLogId())
                         .build()
         );
     }
@@ -62,6 +61,9 @@ public class LogRepositoryImp implements LogRepository {
                 .csvEnterSuccessNumber(log.getCsvEnterSuccessNumber())
                 .csvEnterLogsTime(log.getCsvEnterLogsTime())
                 .csvEnterUserName(userDao.queryUserNameByUserId(log.getCsvEnterUserId()))
+                .csvEnterState(log.getCsvEnterState())
+                .csvAddress(log.getCsvAddress())
+                .runState(log.getRunState())
                 .build();
     }
 

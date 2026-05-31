@@ -49,6 +49,21 @@ public class CsvEnterLog {
     private Integer csvEnterUserId;
 
     /**
+     *
+     */
+    private String csvEnterState;
+
+    /**
+     *
+     */
+    private String csvAddress;
+
+    /**
+     *
+     */
+    private String runState;
+
+    /**
      * 逻辑删除
      */
     private Integer deleted;

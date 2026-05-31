@@ -49,7 +49,6 @@ public class EntryRepositoryImp implements EntryRepository {
         }
         DeviceCache.removeAllList(redisService);
         return EntryLogVO.builder()
-                .modelLogId(1)
                 .csvEnterLogs(log.toString())
                 .csvEnterNumber(devices.size())
                 .csvEnterSuccessNumber(count)

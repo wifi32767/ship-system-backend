@@ -15,9 +15,9 @@
     <insert id="insertLog" parameterType="com.wifi32767.infra.dao.po.CsvEnterLog">
         <![CDATA[
         INSERT INTO csv_enter_logs (model_log_id, csv_enter_logs, csv_enter_number, csv_enter_success_number,
-                                    csv_enter_logs_time, csv_enter_user_id)
+                                    csv_enter_logs_time, csv_enter_user_id, csv_enter_state, csv_address, run_state)
         VALUES (#{modelLogId}, #{csvEnterLogs}, #{csvEnterNumber}, #{csvEnterSuccessNumber}, #{csvEnterLogsTime},
-                #{csvEnterUserId})
+                #{csvEnterUserId},)
         ]]>
     </insert>
 

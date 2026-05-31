@@ -35,7 +35,6 @@ public class EntryServiceImp implements EntryService {
             entryRepository.single(device);
         } catch (Exception e) {
             logRepository.insertLog(EntryLogVO.builder()
-                    .modelLogId(1) // TODO
                     .csvEnterLogs(String.format("device: %s, error: %s", device.toString(), e.getMessage()))
                     .csvEnterNumber(1)
                     .csvEnterSuccessNumber(0)
@@ -45,7 +44,6 @@ public class EntryServiceImp implements EntryService {
             throw e;
         } finally {
             logRepository.insertLog(EntryLogVO.builder()
-                    .modelLogId(1)
                     .csvEnterLogs("success")
                     .csvEnterNumber(1)
                     .csvEnterSuccessNumber(1)

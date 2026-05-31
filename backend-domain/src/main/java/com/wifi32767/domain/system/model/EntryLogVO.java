@@ -46,4 +46,19 @@ public class EntryLogVO {
      * 导入人员名
      */
     private String csvEnterUserName;
+
+    /**
+     *
+     */
+    private String csvEnterState;
+
+    /**
+     *
+     */
+    private String csvAddress;
+
+    /**
+     *
+     */
+    private String runState;
 }
