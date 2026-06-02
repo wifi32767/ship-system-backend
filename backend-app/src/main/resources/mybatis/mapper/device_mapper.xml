@@ -150,6 +150,7 @@
             <if test="deviceNewsTime != null">
                 device_news_time = #{deviceNewsTime},
             </if>
+            audit_flag = 0
         </set>
         WHERE device_id = #{deviceId}
     </update>

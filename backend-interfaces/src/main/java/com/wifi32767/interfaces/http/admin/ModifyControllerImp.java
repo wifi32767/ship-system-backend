@@ -47,7 +47,7 @@ public class ModifyControllerImp implements ModifyController {
 
     @Override
     @RequestMapping(path = "/audit-count", method = RequestMethod.GET)
-    @Operation(summary = "获取审计信息数量", description = "返回所有审计信息数量")
+    @Operation(summary = "获取审计信息数量", description = "根据信息状态返回审计信息数量")
     public Response<Integer> getAuditDeviceCount(@RequestParam int type) {
         try {
             return new Response<>(deviceService.auditDeviceCount(type));

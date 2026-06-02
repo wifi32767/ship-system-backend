@@ -2,6 +2,7 @@ package com.wifi32767.test.infra.dao;
 
 import com.wifi32767.domain.system.model.AuditSearchParamsVO;
 import com.wifi32767.infra.dao.DeviceDao;
+import com.wifi32767.infra.dao.po.Device;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,14 @@ public class DeviceDaoTest {
                 .status(0)
                 .build());
         res.forEach(device -> log.info("测试结果:{}", device));
+    }
+
+    @Test
+    public void updateTest() {
+        deviceDao.update(Device.builder()
+                        .deviceId(3L)
+                        .deviceName("33test")
+                .build());
     }
 
 }
