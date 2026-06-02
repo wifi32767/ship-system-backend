@@ -21,6 +21,8 @@ public interface DeviceDao {
 
     Integer queryAllCount();
 
+    Integer queryCountByAuditFlag(Integer auditFlag);
+
     Integer queryCountByDate(LocalDate localdate);
 
     Integer queryCorrectionCountByDate(LocalDate localdate);

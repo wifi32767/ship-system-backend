@@ -23,6 +23,11 @@ public class DeviceServiceImp implements DeviceService {
     }
 
     @Override
+    public int auditDeviceCount(int auditFlag) {
+        return portalRepository.queryDeviceCountByAuditFlag(auditFlag);
+    }
+
+    @Override
     public List<DeviceVO> getDeviceList() {
         return deviceRepository.getDeviceList();
     }

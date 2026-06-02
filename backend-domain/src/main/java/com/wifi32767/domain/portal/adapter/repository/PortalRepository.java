@@ -9,6 +9,8 @@ import java.util.List;
 public interface PortalRepository {
     int queryDeviceCount();
 
+    int queryDeviceCountByAuditFlag(int auditFlag);
+
     int queryDeviceCountByDate(LocalDate date);
 
     int queryDeviceCorrectionCountByDate(LocalDate date);

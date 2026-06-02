@@ -35,6 +35,17 @@ public class PortalRepositoryImp implements PortalRepository {
     }
 
     @Override
+    public int queryDeviceCountByAuditFlag(int auditFlag) {
+        Integer cnt = redisService.getValue(DeviceCache.DEVICE_COUNT_BY_AUDIT + auditFlag);
+        if (cnt != null) {
+            return cnt;
+        }
+        cnt = deviceDao.queryCountByAuditFlag(auditFlag);
+        redisService.setValue(DeviceCache.DEVICE_COUNT_BY_AUDIT + auditFlag, cnt);
+        return cnt;
+    }
+
+    @Override
     public int queryDeviceCountByDate(LocalDate date) {
         Integer cnt = redisService.getValue(DeviceCache.DEVICE_COUNT_BY_DATE + date);
         if (cnt != null) {

@@ -8,6 +8,8 @@ public interface DeviceService {
 
     int deviceCount();
 
+    int auditDeviceCount(int type);
+
     List<DeviceVO> getDeviceList();
 
     List<DeviceVO> getDeviceList(int page, int size);

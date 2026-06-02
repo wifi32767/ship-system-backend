@@ -170,6 +170,15 @@
         ]]>
     </select>
 
+    <select id="queryCountByAuditFlag" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*)
+        FROM device
+        WHERE (deleted IS NULL OR deleted = 0)
+          AND audit_flag = #{auditFlag}
+        ]]>
+    </select>
+
     <select id="queryCountByDate" parameterType="java.time.LocalDate" resultType="java.lang.Integer">
         <![CDATA[
         SELECT COUNT(*)

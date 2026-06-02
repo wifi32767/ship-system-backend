@@ -46,6 +46,18 @@ public class ModifyControllerImp implements ModifyController {
     }
 
     @Override
+    @RequestMapping(path = "/audit-count", method = RequestMethod.GET)
+    @Operation(summary = "获取审计信息数量", description = "返回所有审计信息数量")
+    public Response<Integer> getAuditDeviceCount(@RequestParam int type) {
+        try {
+            return new Response<>(deviceService.auditDeviceCount(type));
+        } catch (Exception e) {
+            log.error("Error fetching audit device count");
+            return new Response<>(Response.ERROR, "Failed to fetch audit device count: " + e.getMessage());
+        }
+    }
+
+    @Override
     @RequestMapping(method = RequestMethod.GET)
     @Operation(summary = "获取信息列表", description = "返回所有信息数据")
     public Response<List<DeviceDTO>> getDeviceList() {

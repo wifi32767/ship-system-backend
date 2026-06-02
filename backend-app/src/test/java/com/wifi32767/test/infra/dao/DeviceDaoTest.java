@@ -28,6 +28,15 @@ public class DeviceDaoTest {
     }
 
     @Test
+    public void queryCountByAuditFlagTest() {
+        log.info("测试开始");
+        for (int i = 0; i < 3; i++) {
+            int cnt = deviceDao.queryCountByAuditFlag(i);
+            log.info("测试结果:{},{}", i, cnt);
+        }
+    }
+
+    @Test
     public void queryCountByDateTest() {
         log.info("测试开始");
         Integer cnt = deviceDao.queryCountByDate(LocalDate.now().minusDays(7));

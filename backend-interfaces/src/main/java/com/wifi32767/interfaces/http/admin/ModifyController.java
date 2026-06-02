@@ -17,6 +17,15 @@ public interface ModifyController {
     Response<Integer> getDeviceCount();
 
     /**
+     * 获取审计信息数量接口：返回当前数据库中对应审计标记信息的数量。
+     * 数据格式：JSON
+     *
+     * @param type 审计类型
+     * @return 审计信息数量 {@code Integer}
+     */
+    Response<Integer> getAuditDeviceCount(int type);
+
+    /**
      * 获取信息列表接口：返回所有信息数据。
      * 数据格式：JSON
      *

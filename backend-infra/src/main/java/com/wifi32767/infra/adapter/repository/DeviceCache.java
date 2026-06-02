@@ -14,9 +14,11 @@ public final class DeviceCache {
     public static final String LATEST_DEVICES_LIMIT = "device:latest:devices:limit:";
     public static final String LATEST_DEVICES_LIMIT_PATTERN = "device:latest:devices:limit:*";
     public static final String DEVICE_COUNT_TOTAL = "device:count:total";
-    public static final String DEVICE_COUNT_BY_DATE = "device:count:date:%s";  // %s = yyyy-MM-dd
+    public static final String DEVICE_COUNT_BY_AUDIT = "device:count:audit:";
+    public static final String DEVICE_COUNT_BY_AUDIT_PATTERN = "device:count:audit:*";
+    public static final String DEVICE_COUNT_BY_DATE = "device:count:date:";
     public static final String DEVICE_COUNT_BY_DATE_PATTERN = "device:count:date:*";
-    public static final String DEVICE_CORRECTION_COUNT_BY_DATE = "device:correction:date:%s";
+    public static final String DEVICE_CORRECTION_COUNT_BY_DATE = "device:correction:date:";
     public static final String DEVICE_CORRECTION_COUNT_BY_DATE_PATTERN = "device:correction:date:*";
     // 随机缓存过期时间防止缓存雪崩
     private static final Random rand = new Random();
@@ -35,5 +37,6 @@ public final class DeviceCache {
         redisService.expireByPatternAsync(LATEST_DEVICES_LIMIT_PATTERN);
         redisService.expireByPatternAsync(DEVICE_COUNT_BY_DATE_PATTERN);
         redisService.expireByPatternAsync(DEVICE_CORRECTION_COUNT_BY_DATE_PATTERN);
+        redisService.expireByPatternAsync(DEVICE_COUNT_BY_AUDIT_PATTERN);
     }
 }
