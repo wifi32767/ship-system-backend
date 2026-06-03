@@ -50,8 +50,8 @@ public class CountryDaoTest {
     @Test
     public void insertCountryTest() {
         Country country = new Country();
-        country.setCountryName("圣马力诺");
-        country.setEnglishName("San Marino");
+        country.setCountryName("里森堡");
+        country.setEnglishName("Lsb");
         countryDao.insertCountry(country);
 
         queryCountryAllTest();
@@ -61,7 +61,7 @@ public class CountryDaoTest {
     public void updateCountryTest() {
         Country country = new Country();
         country.setCountryId(4);
-        country.setEnglishName("ST");
+        country.setEnglishName("Belgium");
         countryDao.updateCountry(country);
 
         queryCountryAllTest();
@@ -69,7 +69,7 @@ public class CountryDaoTest {
 
     @Test
     public void deleteCountryTest() {
-        int countryId = 3;
+        int countryId = 15;
         countryDao.deleteCountry(countryId);
         log.info("countryId: {}", countryId);
 

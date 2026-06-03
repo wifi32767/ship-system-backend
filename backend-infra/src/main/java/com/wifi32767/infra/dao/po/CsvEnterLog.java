@@ -1,5 +1,8 @@
 package com.wifi32767.infra.dao.po;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,10 +15,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+
+@TableName("csv_enter_logs")
 public class CsvEnterLog {
     /**
      * csv导入日志id
      */
+    @TableId(type = IdType.AUTO)
     private Integer csvEnterLogsId;
 
     /**

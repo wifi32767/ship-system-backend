@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wifi32767.infra.dao.LogDao">
-    <resultMap id="csvEnterLog" type="com.wifi32767.infra.dao.po.CsvEnterLog">
-        <id column="csv_enter_logs_id" property="csvEnterLogsId"/>
-        <result column="model_log_id" property="modelLogId"/>
-        <result column="csv_enter_logs" property="csvEnterLogs"/>
-        <result column="csv_enter_number" property="csvEnterNumber"/>
-        <result column="csv_enter_success_number" property="csvEnterSuccessNumber"/>
-        <result column="csv_enter_logs_time" property="csvEnterLogsTime"/>
-        <result column="csv_enter_user_id" property="csvEnterUserId"/>
-        <result column="deleted" property="deleted"/>
-    </resultMap>
 
     <insert id="insertLog" parameterType="com.wifi32767.infra.dao.po.CsvEnterLog">
         <![CDATA[
@@ -21,7 +11,7 @@
         ]]>
     </insert>
 
-    <select id="queryAllLogs" resultMap="csvEnterLog">
+    <select id="queryAllLogs" resultType="com.wifi32767.infra.dao.po.CsvEnterLog">
         <![CDATA[
         SELECT *
         FROM csv_enter_logs
@@ -31,7 +21,8 @@
         ]]>
     </select>
 
-    <select id="queryAllLogsWithPage" parameterType="java.lang.Integer" resultMap="csvEnterLog">
+    <select id="queryAllLogsWithPage" parameterType="java.lang.Integer"
+            resultType="com.wifi32767.infra.dao.po.CsvEnterLog">
         <![CDATA[
         SELECT *
         FROM csv_enter_logs

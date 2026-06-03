@@ -2,33 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wifi32767.infra.dao.DeviceDao">
 
-    <resultMap id="dataMap" type="com.wifi32767.infra.dao.po.Device">
-
-        <id column="device_id" property="deviceId"/>
-        <result column="device_name" property="deviceName"/>
-        <result column="device_class_id" property="deviceClassId"/>
-        <result column="device_style_id" property="deviceStyleId"/>
-        <result column="device_type_id" property="deviceTypeId"/>
-        <result column="device_use_year" property="deviceUseYear"/>
-        <result column="device_price" property="devicePrice"/>
-        <result column="device_using_unit" property="deviceUsingUnit"/>
-        <result column="device_country_id" property="deviceCountryId"/>
-        <result column="device_location" property="deviceLocation"/>
-        <result column="device_longitude" property="deviceLongitude"/>
-        <result column="device_latitude" property="deviceLatitude"/>
-        <result column="device_img" property="deviceImg"/>
-        <result column="device_video" property="deviceVideo"/>
-        <result column="device_introduce" property="deviceIntroduce"/>
-        <result column="device_news_link" property="deviceNewsLink"/>
-        <result column="device_news_title" property="deviceNewsTitle"/>
-        <result column="device_news_time" property="deviceNewsTime"/>
-        <result column="device_insql_time" property="deviceInsqlTime"/>
-        <result column="device_changesql_time" property="deviceChangesqlTime"/>
-        <result column="audit_flag" property="auditFlag"/>
-        <result column="deleted" property="deleted"/>
-    </resultMap>
-
-    <select id="queryAll" resultMap="dataMap">
+    <select id="queryAll" resultType="com.wifi32767.infra.dao.po.Device">
         <![CDATA[
         SELECT *
         FROM device
@@ -36,7 +10,7 @@
         ]]>
     </select>
 
-    <select id="queryAllWithPages" parameterType="java.lang.Integer" resultMap="dataMap">
+    <select id="queryAllWithPages" parameterType="java.lang.Integer" resultType="com.wifi32767.infra.dao.po.Device">
         <![CDATA[
         SELECT *
         FROM device
@@ -200,7 +174,7 @@
         ]]>
     </select>
 
-    <select id="queryLatestNews" parameterType="java.lang.Integer" resultMap="dataMap">
+    <select id="queryLatestNews" parameterType="java.lang.Integer" resultType="com.wifi32767.infra.dao.po.Device">
         <![CDATA[
         SELECT *
         FROM device
@@ -216,7 +190,7 @@
         </if>
     </select>
 
-    <select id="queryLatestDevices" parameterType="java.lang.Integer" resultMap="dataMap">
+    <select id="queryLatestDevices" parameterType="java.lang.Integer" resultType="com.wifi32767.infra.dao.po.Device">
         <![CDATA[
         SELECT *
         FROM device
@@ -231,7 +205,7 @@
         </if>
     </select>
 
-    <select id="queryRandomDevices" parameterType="java.lang.Integer" resultMap="dataMap">
+    <select id="queryRandomDevices" parameterType="java.lang.Integer" resultType="com.wifi32767.infra.dao.po.Device">
         <![CDATA[
         SELECT *
         FROM device
@@ -246,7 +220,7 @@
         </if>
     </select>
 
-    <select id="queryDevicesByText" parameterType="java.lang.String" resultMap="dataMap">
+    <select id="queryDevicesByText" parameterType="java.lang.String" resultType="com.wifi32767.infra.dao.po.Device">
         <![CDATA[
         SELECT *
         FROM device
@@ -255,7 +229,7 @@
         ]]>
     </select>
 
-    <select id="queryDevicesByTitle" parameterType="java.lang.String" resultMap="dataMap">
+    <select id="queryDevicesByTitle" parameterType="java.lang.String" resultType="com.wifi32767.infra.dao.po.Device">
         <![CDATA[
         SELECT *
         FROM device
@@ -264,7 +238,7 @@
         ]]>
     </select>
 
-    <select id="queryDevicesByType" parameterType="java.lang.Integer" resultMap="dataMap">
+    <select id="queryDevicesByType" parameterType="java.lang.Integer" resultType="com.wifi32767.infra.dao.po.Device">
         <![CDATA[
         SELECT *
         FROM device
@@ -273,7 +247,7 @@
         ]]>
     </select>
 
-    <select id="queryDevicesByStyle" parameterType="java.lang.Integer" resultMap="dataMap">
+    <select id="queryDevicesByStyle" parameterType="java.lang.Integer" resultType="com.wifi32767.infra.dao.po.Device">
         <![CDATA[
         SELECT *
         FROM device
@@ -282,7 +256,7 @@
         ]]>
     </select>
 
-    <select id="queryDevicesByClass" parameterType="java.lang.Integer" resultMap="dataMap">
+    <select id="queryDevicesByClass" parameterType="java.lang.Integer" resultType="com.wifi32767.infra.dao.po.Device">
         <![CDATA[
         SELECT *
         FROM device
@@ -291,7 +265,7 @@
         ]]>
     </select>
 
-    <select id="queryDevicesByCountry" parameterType="java.lang.Integer" resultMap="dataMap">
+    <select id="queryDevicesByCountry" parameterType="java.lang.Integer" resultType="com.wifi32767.infra.dao.po.Device">
         <![CDATA[
         SELECT *
         FROM device
@@ -301,7 +275,7 @@
     </select>
 
     <select id="queryDevicesByTitleAndStatus" parameterType="com.wifi32767.domain.system.model.AuditSearchParamsVO"
-            resultMap="dataMap">
+            resultType="com.wifi32767.infra.dao.po.Device">
         <![CDATA[
         SELECT *
         FROM device
@@ -311,7 +285,7 @@
         ]]>
     </select>
 
-    <select id="queryDevicesByTitleAndStatusWithPages" resultMap="dataMap">
+    <select id="queryDevicesByTitleAndStatusWithPages" resultType="com.wifi32767.infra.dao.po.Device">
         <![CDATA[
         SELECT *
         FROM device

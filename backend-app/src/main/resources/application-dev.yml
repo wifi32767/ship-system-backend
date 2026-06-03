@@ -20,10 +20,16 @@ spring:
       connection-timeout: 30000 #数据库连接超时时间,默认30秒，即30000
       connection-test-query: SELECT 1
 
-# MyBatis 配置
-mybatis:
+# MyBatis-Plus 配置
+mybatis-plus:
   mapper-locations: classpath:/mybatis/mapper/*.xml
-  config-location: classpath:/mybatis/mybatis-config.xml
+  # 实体类包路径（用于别名，可选）
+  type-aliases-package: com.wifi32767.infra.dao.po
+  configuration:
+    # 开启驼峰映射：数据库列 country_id -> 实体属性 countryId
+    map-underscore-to-camel-case: true
+    # 开发阶段打印 SQL（方便调试）
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 springdoc:
   api-docs:
