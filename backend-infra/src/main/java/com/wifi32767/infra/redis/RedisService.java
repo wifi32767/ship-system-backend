@@ -133,6 +133,21 @@ public interface RedisService {
     void removeByPattern(String pattern);
 
     /**
+     * 异步移除指定通配符的值
+     *
+     * @param pattern 通配符
+     */
+    void removeByPatternAsync(String pattern);
+
+    /**
+     * 延迟移除指定通配符的值
+     *
+     * @param delay   延迟时间(ms)
+     * @param pattern 通配符
+     */
+    void delayedRemoveByPattern(long delay, String pattern);
+
+    /**
      * 延迟移除指定通配符的值
      *
      * @param pattern 通配符

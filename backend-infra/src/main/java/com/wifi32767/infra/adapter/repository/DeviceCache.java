@@ -32,11 +32,11 @@ public final class DeviceCache {
 
     public static void removeAllList(RedisService redisService) {
         redisService.remove(ALL_LIST, DEVICE_COUNT_TOTAL);
-        redisService.expireByPatternAsync(ALL_LIST_PAGE_PATTERN);
-        redisService.expireByPatternAsync(LATEST_NEWS_LIMIT_PATTERN);
-        redisService.expireByPatternAsync(LATEST_DEVICES_LIMIT_PATTERN);
-        redisService.expireByPatternAsync(DEVICE_COUNT_BY_DATE_PATTERN);
-        redisService.expireByPatternAsync(DEVICE_CORRECTION_COUNT_BY_DATE_PATTERN);
-        redisService.expireByPatternAsync(DEVICE_COUNT_BY_AUDIT_PATTERN);
+        redisService.removeByPatternAsync(ALL_LIST_PAGE_PATTERN);
+        redisService.removeByPatternAsync(LATEST_NEWS_LIMIT_PATTERN);
+        redisService.removeByPatternAsync(LATEST_DEVICES_LIMIT_PATTERN);
+        redisService.removeByPatternAsync(DEVICE_COUNT_BY_DATE_PATTERN);
+        redisService.removeByPatternAsync(DEVICE_CORRECTION_COUNT_BY_DATE_PATTERN);
+        redisService.removeByPatternAsync(DEVICE_COUNT_BY_AUDIT_PATTERN);
     }
 }

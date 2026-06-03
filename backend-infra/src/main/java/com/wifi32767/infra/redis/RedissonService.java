@@ -6,7 +6,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.time.Duration;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -95,6 +94,24 @@ public class RedissonService implements RedisService {
         redissonClient.getKeys().deleteByPattern(pattern);
     }
 
+    @Async
+    @Override
+    public void removeByPatternAsync(String pattern) {
+        removeByPattern(pattern);
+    }
+
+    @Async
+    @Override
+    public void delayedRemoveByPattern(long delay, String pattern) {
+        try {
+            Thread.sleep(delay);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException("Sleep interrupted", e);
+        }
+        redissonClient.getKeys().deleteByPattern(pattern);
+    }
+
     @Override
     public void expireByPattern(String pattern) {
         Iterable<String> keysIterable = redissonClient.getKeys().getKeysByPattern(pattern);
@@ -125,27 +142,40 @@ public class RedissonService implements RedisService {
         log.info("async expire finished: {}", pattern);
     }
 
+    @Async
+    @Override
     public void delayedRemove(long delay, String key) {
-        redissonClient.getBucket(key).expire(Duration.ofMillis(delay));
+        try {
+            Thread.sleep(delay);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException("Sleep interrupted", e);
+        }
+        redissonClient.getBucket(key).delete();
     }
 
+    @Async
     @Override
     public void delayedRemove(long delay, String... keys) {
+        try {
+            Thread.sleep(delay);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException("Sleep interrupted", e);
+        }
         for (String key : keys) {
-            redissonClient.getBucket(key).expire(Duration.ofMillis(delay));
+            redissonClient.getBucket(key).delete();
         }
     }
 
     @Override
     public void delayedRemove(String key) {
-        redissonClient.getBucket(key).expire(Duration.ofMillis(DELAY));
+        delayedRemove(DELAY, key);
     }
 
     @Override
     public void delayedRemove(String... keys) {
-        for (String key : keys) {
-            redissonClient.getBucket(key).expire(Duration.ofMillis(DELAY));
-        }
+        delayedRemove(DELAY, keys);
     }
 
     @Override

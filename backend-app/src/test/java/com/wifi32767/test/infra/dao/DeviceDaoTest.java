@@ -57,8 +57,8 @@ public class DeviceDaoTest {
     @Test
     public void updateTest() {
         deviceDao.update(Device.builder()
-                        .deviceId(3L)
-                        .deviceName("33test")
+                .deviceId(3L)
+                .deviceName("33test")
                 .build());
     }
 
