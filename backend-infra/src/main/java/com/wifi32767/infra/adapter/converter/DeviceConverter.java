@@ -39,6 +39,7 @@ public class DeviceConverter {
                 .deviceIntroduce(device.getDeviceIntroduce())
                 .deviceInsqlTime(device.getDeviceInsqlTime())
                 .deviceChangesqlTime(device.getDeviceChangesqlTime())
+                .deviceNewsTime(device.getDeviceNewsTime())
                 .auditFlag(device.getAuditFlag())
                 .build();
     }

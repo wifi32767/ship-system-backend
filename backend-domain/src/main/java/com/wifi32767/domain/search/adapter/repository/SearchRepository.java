@@ -1,32 +1,12 @@
 package com.wifi32767.domain.search.adapter.repository;
 
+import com.wifi32767.common.PageData;
 import com.wifi32767.domain.portal.model.DeviceVO;
 import com.wifi32767.domain.portal.model.NewsVO;
-
-import java.util.List;
+import com.wifi32767.domain.search.model.SearchParamsVO;
 
 public interface SearchRepository {
-    List<DeviceVO> searchDeviceByText(String param);
+    PageData<DeviceVO> searchDevices(SearchParamsVO params);
 
-    List<DeviceVO> searchDeviceByTitle(String param);
-
-    List<DeviceVO> searchDeviceByType(int param);
-
-    List<DeviceVO> searchDeviceByStyle(int param);
-
-    List<DeviceVO> searchDeviceByClass(int param);
-
-    List<DeviceVO> searchDeviceByCountry(String param);
-
-    List<NewsVO> searchNewsByText(String param);
-
-    List<NewsVO> searchNewsByTitle(String param);
-
-    List<NewsVO> searchNewsByType(int param);
-
-    List<NewsVO> searchNewsByStyle(int param);
-
-    List<NewsVO> searchNewsByClass(int param);
-
-    List<NewsVO> searchNewsByCountry(String param);
+    PageData<NewsVO> searchNews(SearchParamsVO params);
 }

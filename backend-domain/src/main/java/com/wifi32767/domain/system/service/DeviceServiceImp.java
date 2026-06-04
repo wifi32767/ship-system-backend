@@ -1,5 +1,6 @@
 package com.wifi32767.domain.system.service;
 
+import com.wifi32767.common.PageData;
 import com.wifi32767.domain.portal.adapter.repository.PortalRepository;
 import com.wifi32767.domain.portal.model.DeviceVO;
 import com.wifi32767.domain.system.adapter.repository.DeviceRepository;
@@ -33,8 +34,8 @@ public class DeviceServiceImp implements DeviceService {
     }
 
     @Override
-    public List<DeviceVO> getDeviceList(int page, int size) {
-        return deviceRepository.getDeviceList(page, size);
+    public PageData<DeviceVO> getDeviceList(int pageNum, int pageSize) {
+        return deviceRepository.getDeviceList(pageNum, pageSize);
     }
 
     @Override

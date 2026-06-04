@@ -1,5 +1,6 @@
 package com.wifi32767.infra.adapter.repository;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wifi32767.domain.system.model.UserRoleEntity;
 import com.wifi32767.domain.user.adapter.repository.UserRepository;
 import com.wifi32767.domain.user.model.UserVO;
@@ -63,7 +64,7 @@ public class UserRepositoryImp implements UserRepository {
 
     @Override
     public List<UserVO> getAllUsersInfo(int pageNum, int pageSize) {
-        List<User> users = userDao.queryAllUsers((pageNum - 1) * pageSize, pageSize);
+        List<User> users = userDao.queryAllUsers(new Page<>(pageNum, pageSize)).getRecords();
         return users.stream().map(user -> user2UserVO(user)).toList();
     }
 

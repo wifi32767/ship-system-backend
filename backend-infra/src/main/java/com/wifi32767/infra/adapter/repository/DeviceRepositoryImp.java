@@ -1,5 +1,7 @@
 package com.wifi32767.infra.adapter.repository;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.wifi32767.common.PageData;
 import com.wifi32767.domain.portal.model.DeviceVO;
 import com.wifi32767.domain.system.adapter.repository.DeviceRepository;
 import com.wifi32767.infra.adapter.converter.DeviceConverter;
@@ -36,13 +38,19 @@ public class DeviceRepositoryImp implements DeviceRepository {
     }
 
     @Override
-    public List<DeviceVO> getDeviceList(int page, int size) {
-        String key = String.format(DeviceCache.ALL_LIST_PAGE, page, size);
-        List<DeviceVO> deviceVOList = redisService.getValue(key);
+    public PageData<DeviceVO> getDeviceList(int pageNum, int pageSize) {
+        String key = String.format(DeviceCache.ALL_LIST_PAGE, pageNum, pageSize);
+        PageData<DeviceVO> deviceVOList = redisService.getValue(key);
         if (deviceVOList != null) {
             return deviceVOList;
         }
-        deviceVOList = deviceConverter.LDevice2LDeviceVO(deviceDao.queryAllWithPages((page - 1) * size, size));
+        Page<Device> page = deviceDao.queryAll(Page.of(pageNum, pageSize));
+        deviceVOList = PageData.<DeviceVO>builder()
+                .records(deviceConverter.LDevice2LDeviceVO(page.getRecords()))
+                .total(page.getTotal())
+                .current(pageNum)
+                .size(pageSize)
+                .build();
         redisService.setValue(key, deviceVOList, DeviceCache.getExpireTime());
         return deviceVOList;
     }

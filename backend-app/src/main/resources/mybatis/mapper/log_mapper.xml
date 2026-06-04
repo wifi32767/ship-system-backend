@@ -21,7 +21,7 @@
         ]]>
     </select>
 
-    <select id="queryAllLogsWithPage" parameterType="java.lang.Integer"
+    <select id="queryAllLogsPage" parameterType="java.lang.Integer"
             resultType="com.wifi32767.infra.dao.po.CsvEnterLog">
         <![CDATA[
         SELECT *
@@ -29,8 +29,6 @@
         WHERE deleted IS NULL
            OR deleted = 0
         ORDER BY csv_enter_logs_time DESC
-            LIMIT #{pageSize}
-        OFFSET #{offset}
         ]]>
     </select>
 

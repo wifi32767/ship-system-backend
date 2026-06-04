@@ -19,10 +19,10 @@
         ]]>
     </select>
 
-    <select id="queryAllUsers" parameterType="java.lang.Integer" resultType="com.wifi32767.infra.dao.po.User">
+    <select id="queryAllUsers" resultType="com.wifi32767.infra.dao.po.User">
         <![CDATA[
         SELECT *
-        FROM user LIMIT #{offset}, #{pageSize}
+        FROM user
         ]]>
     </select>
 

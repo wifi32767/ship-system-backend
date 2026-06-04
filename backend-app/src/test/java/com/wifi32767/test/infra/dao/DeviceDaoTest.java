@@ -1,5 +1,7 @@
 package com.wifi32767.test.infra.dao;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.wifi32767.domain.search.model.SearchParams;
 import com.wifi32767.domain.system.model.AuditSearchParamsVO;
 import com.wifi32767.infra.dao.DeviceDao;
 import com.wifi32767.infra.dao.po.Device;
@@ -26,6 +28,18 @@ public class DeviceDaoTest {
         log.info("测试开始");
         int cnt = deviceDao.queryAllCount();
         log.info("测试结果:{}", cnt);
+    }
+
+    @Test
+    public void searchDevicesTest() {
+        log.info("测试开始");
+        SearchParams params = SearchParams.builder()
+                .keyword("船")
+                .build();
+        var res = deviceDao.searchDevices(Page.of(1, 10), params);
+        log.info("size: {}", res.getSize());
+        log.info("records: {}", res.getRecords());
+        log.info("res: {}", res);
     }
 
     @Test

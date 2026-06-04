@@ -11,14 +11,12 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SearchParamsVO {
+public class SearchParams {
     String keyword; // 检索关键词
     Integer classId;      // 一级分类ID
     Integer styleId;      // 二级分类ID
     Integer typeId;       // 三级分类ID
-    String country; // 国家检索
-    Integer pageNum; // 页码
-    Integer pageSize; // 每页数量
+    Integer countryId; // 国家检索
     LocalDateTime startDate; // 开始时间
     LocalDateTime endDate; // 结束时间
 }

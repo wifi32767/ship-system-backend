@@ -1,5 +1,6 @@
 package com.wifi32767.interfaces.http;
 
+import com.wifi32767.common.PageData;
 import com.wifi32767.common.Response;
 import com.wifi32767.domain.portal.model.DeviceVO;
 import com.wifi32767.domain.search.model.SearchParamsVO;
@@ -16,9 +17,9 @@ public interface SearchController {
      * 数据格式：JSON
      *
      * @param req 查询请求 DTO {@link SearchParamsVO}
-     * @return 查询结果列表 {@code List<com.wifi32767.domain.portal.model.DeviceVO>}
+     * @return 查询结果列表 {@code com.wifi32767.common.PageData<com.wifi32767.domain.portal.model.DeviceVO>}
      */
-    Response<List<DeviceVO>> search(SearchParamsVO req);
+    Response<PageData<DeviceVO>> search(SearchParamsVO req);
 
     /**
      * 类别统计：对检索结果进行类别统计，返回 Map<className, number>。
@@ -79,7 +80,7 @@ public interface SearchController {
      * 数据格式：JSON
      *
      * @param req 查询请求 DTO {@link SearchParamsVO}
-     * @return 地图标注设备列表 {@code List<com.wifi32767.domain.portal.model.DeviceVO>}
+     * @return 地图标注设备列表 {@code com.wifi32767.common.PageData<com.wifi32767.domain.portal.model.DeviceVO>}
      */
-    Response<List<DeviceVO>> mapSearch(SearchParamsVO req);
+    Response<PageData<DeviceVO>> mapSearch(SearchParamsVO req);
 }

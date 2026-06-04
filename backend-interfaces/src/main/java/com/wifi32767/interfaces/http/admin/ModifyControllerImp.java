@@ -1,5 +1,6 @@
 package com.wifi32767.interfaces.http.admin;
 
+import com.wifi32767.common.PageData;
 import com.wifi32767.common.Permission;
 import com.wifi32767.common.Response;
 import com.wifi32767.common.enums.Module;
@@ -72,9 +73,15 @@ public class ModifyControllerImp implements ModifyController {
     @Override
     @RequestMapping(path = "/page", method = RequestMethod.GET)
     @Operation(summary = "获取信息列表（分页）", description = "返回指定页码和每页大小的信息数据")
-    public Response<List<DeviceDTO>> getDeviceList(@RequestParam int page, @RequestParam int size) {
+    public Response<PageData<DeviceDTO>> getDeviceList(@RequestParam int page, @RequestParam int size) {
         try {
-            return new Response<>(LDeviceVO2LDeviceDTO(deviceService.getDeviceList(page, size)));
+            PageData<DeviceVO> deviceVOPageData = deviceService.getDeviceList(page, size);
+            return new Response<>(PageData.<DeviceDTO>builder()
+                    .records(LDeviceVO2LDeviceDTO(deviceVOPageData.getRecords()))
+                    .total(deviceVOPageData.getTotal())
+                    .current(deviceVOPageData.getCurrent())
+                    .size(deviceVOPageData.getSize())
+                    .build());
         } catch (Exception e) {
             log.error("Error fetching device page list", e);
             return new Response<>(Response.ERROR, "Failed to fetch device page list: " + e.getMessage());

@@ -1,5 +1,6 @@
 package com.wifi32767.interfaces.http;
 
+import com.wifi32767.common.PageData;
 import com.wifi32767.common.Response;
 import com.wifi32767.domain.portal.model.DeviceVO;
 import com.wifi32767.domain.search.model.SearchParamsVO;
@@ -33,7 +34,7 @@ public class SearchControllerImp implements SearchController {
     @Override
     @RequestMapping(value = "search", method = RequestMethod.GET)
     @Operation(summary = "查询接口", description = "支持全文检索、标题联想检索、类别检索、所属国家检索。检索内容为空时为全库查询，返回所有新闻信息。")
-    public Response<List<DeviceVO>> search(SearchParamsVO req) {
+    public Response<PageData<DeviceVO>> search(SearchParamsVO req) {
         try {
             return new Response<>(searchService.searchDevice(req));
         } catch (Exception e) {
@@ -168,7 +169,7 @@ public class SearchControllerImp implements SearchController {
     @Override
     @RequestMapping(value = "map-search", method = RequestMethod.GET)
     @Operation(summary = "地图查询接口", description = "支持全文检索、标题联想检索、类别检索、所属国家检索。检索内容为空时为全库查询，返回所有新闻信息。")
-    public Response<List<DeviceVO>> mapSearch(SearchParamsVO req) {
+    public Response<PageData<DeviceVO>> mapSearch(SearchParamsVO req) {
         try {
             return new Response<>(searchService.searchDevice(req));
         } catch (Exception e) {

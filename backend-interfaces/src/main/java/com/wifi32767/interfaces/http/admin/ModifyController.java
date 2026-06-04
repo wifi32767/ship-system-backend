@@ -1,5 +1,6 @@
 package com.wifi32767.interfaces.http.admin;
 
+import com.wifi32767.common.PageData;
 import com.wifi32767.common.Response;
 import com.wifi32767.domain.portal.model.DeviceVO;
 import com.wifi32767.interfaces.dto.DeviceDTO;
@@ -39,9 +40,9 @@ public interface ModifyController {
      *
      * @param page 页码，从1开始
      * @param size 每页大小
-     * @return 信息列表 {@code List<DeviceDTO>}
+     * @return 信息列表 {@code PageData<DeviceDTO>}
      */
-    Response<List<DeviceDTO>> getDeviceList(int page, int size);
+    Response<PageData<DeviceDTO>> getDeviceList(int page, int size);
 
     /**
      * 修改信息接口：更新指定的信息。

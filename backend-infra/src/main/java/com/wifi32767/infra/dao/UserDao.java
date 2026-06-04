@@ -1,5 +1,6 @@
 package com.wifi32767.infra.dao;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wifi32767.infra.dao.po.User;
 import com.wifi32767.infra.dao.po.UserRole;
 import org.apache.ibatis.annotations.Mapper;
@@ -12,7 +13,9 @@ public interface UserDao {
 
     User queryUserByUsername(String username);
 
-    List<User> queryAllUsers(int offset, int pageSize);
+    List<User> queryAllUsers();
+
+    Page<User> queryAllUsers(Page<User> page);
 
     void deleteUserByUsername(String username);
 

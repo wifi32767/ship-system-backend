@@ -1,5 +1,6 @@
 package com.wifi32767.infra.dao;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wifi32767.infra.dao.po.CsvEnterLog;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,5 +15,5 @@ public interface LogDao {
 
     List<CsvEnterLog> queryAllLogs();
 
-    List<CsvEnterLog> queryAllLogsWithPage(int offset, int pageSize);
+    Page<CsvEnterLog> queryAllLogsPage(Page<CsvEnterLog> page);
 }

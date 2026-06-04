@@ -10,16 +10,6 @@
         ]]>
     </select>
 
-    <select id="queryAllWithPages" parameterType="java.lang.Integer" resultType="com.wifi32767.infra.dao.po.Device">
-        <![CDATA[
-        SELECT *
-        FROM device
-        WHERE (deleted IS NULL OR deleted = 0)
-            LIMIT #{offset}
-            , #{size}
-        ]]>
-    </select>
-
     <insert id="insert" parameterType="com.wifi32767.infra.dao.po.Device">
         <![CDATA[
         INSERT INTO device (device_name,
@@ -220,58 +210,32 @@
         </if>
     </select>
 
-    <select id="queryDevicesByText" parameterType="java.lang.String" resultType="com.wifi32767.infra.dao.po.Device">
-        <![CDATA[
+    <select id="searchDevices" resultType="com.wifi32767.infra.dao.po.Device">
         SELECT *
         FROM device
-        WHERE (deleted IS NULL OR deleted = 0)
-          AND device_introduce LIKE CONCAT('%', #{keyword}, '%')
-        ]]>
-    </select>
-
-    <select id="queryDevicesByTitle" parameterType="java.lang.String" resultType="com.wifi32767.infra.dao.po.Device">
-        <![CDATA[
-        SELECT *
-        FROM device
-        WHERE (deleted IS NULL OR deleted = 0)
-          AND device_name LIKE CONCAT('%', #{keyword}, '%')
-        ]]>
-    </select>
-
-    <select id="queryDevicesByType" parameterType="java.lang.Integer" resultType="com.wifi32767.infra.dao.po.Device">
-        <![CDATA[
-        SELECT *
-        FROM device
-        WHERE (deleted IS NULL OR deleted = 0)
-          AND device_type_id = #{id}
-        ]]>
-    </select>
-
-    <select id="queryDevicesByStyle" parameterType="java.lang.Integer" resultType="com.wifi32767.infra.dao.po.Device">
-        <![CDATA[
-        SELECT *
-        FROM device
-        WHERE (deleted IS NULL OR deleted = 0)
-          AND device_style_id = #{id}
-        ]]>
-    </select>
-
-    <select id="queryDevicesByClass" parameterType="java.lang.Integer" resultType="com.wifi32767.infra.dao.po.Device">
-        <![CDATA[
-        SELECT *
-        FROM device
-        WHERE (deleted IS NULL OR deleted = 0)
-          AND device_class_id = #{id}
-        ]]>
-    </select>
-
-    <select id="queryDevicesByCountry" parameterType="java.lang.Integer" resultType="com.wifi32767.infra.dao.po.Device">
-        <![CDATA[
-        SELECT *
-        FROM device
-        WHERE (deleted IS NULL OR deleted = 0)
-          AND device_country_id = #{id}
-        ]]>
+        <where>
+            <if test="params.keyword != null">
+                AND device_name LIKE CONCAT('%', #{params.keyword}, '%')
+            </if>
+            <if test="params.classId != null">
+                AND class_id = #{params.classId}
+            </if>
+            <if test="params.styleId != null">
+                AND style_id = #{params.styleId}
+            </if>
+            <if test="params.typeId != null">
+                AND type_id = #{params.typeId}
+            </if>
+            <if test="params.countryId != null">
+                AND country_id = #{params.countryId}
+            </if>
+            <if test="params.startDate != null">
+                AND device_news_time <![CDATA[ >= ]]> #{params.startDate}
+            </if>
+            <if test="params.endDate != null">
+                AND device_news_time <![CDATA[ <= ]]> #{params.endDate}
+            </if>
+        </where>
     </select>
 
     <select id="queryDevicesByTitleAndStatus" parameterType="com.wifi32767.domain.system.model.AuditSearchParamsVO"

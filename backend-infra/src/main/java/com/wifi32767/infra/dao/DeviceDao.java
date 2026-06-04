@@ -1,8 +1,11 @@
 package com.wifi32767.infra.dao;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.wifi32767.domain.search.model.SearchParams;
 import com.wifi32767.domain.system.model.AuditSearchParamsVO;
 import com.wifi32767.infra.dao.po.Device;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -11,7 +14,7 @@ import java.util.List;
 public interface DeviceDao {
     List<Device> queryAll();
 
-    List<Device> queryAllWithPages(int offset, int size);
+    Page<Device> queryAll(Page<Device> page);
 
     void insert(Device device);
 
@@ -33,17 +36,7 @@ public interface DeviceDao {
 
     List<Device> queryRandomDevices(Integer limit);
 
-    List<Device> queryDevicesByText(String keyword);
-
-    List<Device> queryDevicesByTitle(String keyword);
-
-    List<Device> queryDevicesByType(Integer id);
-
-    List<Device> queryDevicesByStyle(Integer id);
-
-    List<Device> queryDevicesByClass(Integer id);
-
-    List<Device> queryDevicesByCountry(Integer id);
+    Page<Device> searchDevices(Page<Device> page, @Param("params") SearchParams params);
 
     List<Device> queryDevicesByTitleAndStatus(AuditSearchParamsVO params);
 

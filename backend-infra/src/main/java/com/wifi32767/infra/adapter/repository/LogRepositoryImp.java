@@ -1,5 +1,6 @@
 package com.wifi32767.infra.adapter.repository;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wifi32767.domain.system.adapter.repository.LogRepository;
 import com.wifi32767.domain.system.model.EntryLogVO;
 import com.wifi32767.infra.dao.LogDao;
@@ -37,7 +38,7 @@ public class LogRepositoryImp implements LogRepository {
 //        return logDao.queryAllLogs().stream().map(
 //                    log -> log2logVO(log)
 //                ).toList();
-        return logDao.queryAllLogsWithPage((pageNum - 1) * pageSize, pageSize).stream().map(
+        return logDao.queryAllLogsPage(new Page<>(pageNum, pageSize)).getRecords().stream().map(
                 log -> log2logVO(log)
         ).toList();
     }

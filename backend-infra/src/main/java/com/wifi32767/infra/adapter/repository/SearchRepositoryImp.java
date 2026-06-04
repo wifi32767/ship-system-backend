@@ -1,16 +1,19 @@
 package com.wifi32767.infra.adapter.repository;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.wifi32767.common.PageData;
 import com.wifi32767.domain.portal.model.DeviceVO;
 import com.wifi32767.domain.portal.model.NewsVO;
 import com.wifi32767.domain.search.adapter.repository.SearchRepository;
+import com.wifi32767.domain.search.model.SearchParams;
+import com.wifi32767.domain.search.model.SearchParamsVO;
 import com.wifi32767.infra.adapter.converter.DeviceConverter;
 import com.wifi32767.infra.dao.CountryDao;
 import com.wifi32767.infra.dao.DeviceDao;
+import com.wifi32767.infra.dao.po.Device;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
 
 @Repository
 public class SearchRepositoryImp implements SearchRepository {
@@ -24,70 +27,42 @@ public class SearchRepositoryImp implements SearchRepository {
     private DeviceConverter deviceConverter;
 
     @Override
-    public List<DeviceVO> searchDeviceByText(String param) {
-        return deviceConverter.LDevice2LDeviceVO(deviceDao.queryDevicesByText(param));
+    public PageData<DeviceVO> searchDevices(SearchParamsVO params) {
+        SearchParams param1 = SearchParams.builder()
+                .keyword(params.getKeyword())
+                .typeId(params.getTypeId())
+                .styleId(params.getStyleId())
+                .classId(params.getClassId())
+                .countryId(countryDao.queryCountryIdByName(params.getCountry()))
+                .startDate(params.getStartDate())
+                .endDate(params.getEndDate())
+                .build();
+        Page<Device> page = new Page<>(params.getPageNum(), params.getPageSize());
+        return new PageData<>(
+                deviceConverter.LDevice2LDeviceVO(deviceDao.searchDevices(page, param1).getRecords()),
+                page.getTotal(),
+                page.getSize(),
+                page.getCurrent()
+        );
     }
 
     @Override
-    public List<DeviceVO> searchDeviceByTitle(String param) {
-        return deviceConverter.LDevice2LDeviceVO(deviceDao.queryDevicesByTitle(param));
-    }
-
-    @Override
-    public List<DeviceVO> searchDeviceByType(int param) {
-        return deviceConverter.LDevice2LDeviceVO(deviceDao.queryDevicesByType(param));
-    }
-
-    @Override
-    public List<DeviceVO> searchDeviceByStyle(int param) {
-        return deviceConverter.LDevice2LDeviceVO(deviceDao.queryDevicesByStyle(param));
-    }
-
-    @Override
-    public List<DeviceVO> searchDeviceByClass(int param) {
-        return deviceConverter.LDevice2LDeviceVO(deviceDao.queryDevicesByClass(param));
-    }
-
-    @Override
-    public List<DeviceVO> searchDeviceByCountry(String param) {
-        int countryId = countryDao.queryCountryIdByName(param);
-        if (countryId == -1) {
-            return new ArrayList<>();
-        }
-        return deviceConverter.LDevice2LDeviceVO(deviceDao.queryDevicesByCountry(countryId));
-    }
-
-    @Override
-    public List<NewsVO> searchNewsByText(String param) {
-        return deviceConverter.LDevice2LNewsVO(deviceDao.queryDevicesByText(param));
-    }
-
-    @Override
-    public List<NewsVO> searchNewsByTitle(String param) {
-        return deviceConverter.LDevice2LNewsVO(deviceDao.queryDevicesByTitle(param));
-    }
-
-    @Override
-    public List<NewsVO> searchNewsByType(int param) {
-        return deviceConverter.LDevice2LNewsVO(deviceDao.queryDevicesByType(param));
-    }
-
-    @Override
-    public List<NewsVO> searchNewsByStyle(int param) {
-        return deviceConverter.LDevice2LNewsVO(deviceDao.queryDevicesByStyle(param));
-    }
-
-    @Override
-    public List<NewsVO> searchNewsByClass(int param) {
-        return deviceConverter.LDevice2LNewsVO(deviceDao.queryDevicesByClass(param));
-    }
-
-    @Override
-    public List<NewsVO> searchNewsByCountry(String param) {
-        int countryId = countryDao.queryCountryIdByName(param);
-        if (countryId == -1) {
-            return new ArrayList<>();
-        }
-        return deviceConverter.LDevice2LNewsVO(deviceDao.queryDevicesByCountry(countryId));
+    public PageData<NewsVO> searchNews(SearchParamsVO params) {
+        SearchParams param1 = SearchParams.builder()
+                .keyword(params.getKeyword())
+                .typeId(params.getTypeId())
+                .styleId(params.getStyleId())
+                .classId(params.getClassId())
+                .countryId(countryDao.queryCountryIdByName(params.getCountry()))
+                .startDate(params.getStartDate())
+                .endDate(params.getEndDate())
+                .build();
+        Page<Device> page = new Page<>(params.getPageNum(), params.getPageSize());
+        return new PageData<>(
+                deviceConverter.LDevice2LNewsVO(deviceDao.searchDevices(page, param1).getRecords()),
+                page.getTotal(),
+                page.getSize(),
+                page.getCurrent()
+        );
     }
 }

@@ -99,6 +99,11 @@ public class DeviceVO {
     private LocalDateTime deviceChangesqlTime;
 
     /**
+     *
+     */
+    private LocalDateTime deviceNewsTime;
+
+    /**
      * 审核状态 0待审核 1审核通过 2审核未通过
      */
     private Integer auditFlag;
