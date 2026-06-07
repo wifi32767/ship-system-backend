@@ -16,16 +16,25 @@ public class AuditServiceImp implements AuditService {
 
     @Override
     public List<FullDeviceVO> searchAuditDevices(AuditSearchParamsVO params) {
+        if (params == null) {
+            return null;
+        }
         return auditRepository.searchAuditDevices(params);
     }
 
     @Override
     public List<FullDeviceVO> searchAuditDevices(AuditSearchParamsVO params, int page, int size) {
+        if (params == null || page <= 0 || size <= 0) {
+            return null;
+        }
         return auditRepository.searchAuditDevicesPages(params, page, size);
     }
 
     @Override
     public void audit(AuditSearchParamsVO params) {
+        if (params == null) {
+            return;
+        }
         auditRepository.audit(params);
     }
 }

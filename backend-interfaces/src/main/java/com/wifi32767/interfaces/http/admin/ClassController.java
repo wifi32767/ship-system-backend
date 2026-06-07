@@ -1,8 +1,8 @@
 package com.wifi32767.interfaces.http.admin;
 
 import com.wifi32767.common.Response;
+import com.wifi32767.domain.system.model.ClassDTO;
 import com.wifi32767.domain.system.model.ClassEntity;
-import com.wifi32767.domain.system.model.TypeEntity;
 
 import java.util.List;
 
@@ -29,19 +29,19 @@ public interface ClassController {
      * 创建一级分类。
      * 数据格式：JSON
      *
-     * @param classVO 一级分类信息 {@link TypeEntity}
+     * @param classVO 一级分类信息 {@link ClassDTO}
      * @return 创建结果消息 {@code String}
      */
-    Response<String> createClass(TypeEntity classVO);
+    Response<String> createClass(ClassDTO classVO);
 
     /**
      * 更新一级分类信息。
      * 数据格式：JSON
      *
-     * @param classVO 包含更新内容的一级分类信息 {@link TypeEntity}
+     * @param classVO 包含更新内容的一级分类信息 {@link ClassDTO}
      * @return 更新结果消息 {@code String}
      */
-    Response<String> updateClass(TypeEntity classVO);
+    Response<String> updateClass(ClassDTO classVO);
 
     /**
      * 删除一级分类：根据ID删除指定的一级分类。
@@ -56,20 +56,20 @@ public interface ClassController {
      * 创建二级分类（样式）：在指定父级分类下创建。
      * 数据格式：JSON
      *
-     * @param styleVO  二级分类信息 {@link TypeEntity}
+     * @param styleVO  二级分类信息 {@link ClassDTO}
      * @param parentId 父级分类（一级分类）ID
      * @return 创建结果消息 {@code String}
      */
-    Response<String> createStyle(TypeEntity styleVO, Integer parentId);
+    Response<String> createStyle(ClassDTO styleVO, Integer parentId);
 
     /**
      * 更新二级分类（样式）信息。
      * 数据格式：JSON
      *
-     * @param styleVO 包含更新内容的二级分类信息 {@link TypeEntity}
+     * @param styleVO 包含更新内容的二级分类信息 {@link ClassDTO}
      * @return 更新结果消息 {@code String}
      */
-    Response<String> updateStyle(TypeEntity styleVO);
+    Response<String> updateStyle(ClassDTO styleVO);
 
     /**
      * 删除二级分类（样式）：根据ID删除指定的二级分类。
@@ -84,20 +84,20 @@ public interface ClassController {
      * 创建三级分类（类型）：在指定父级分类下创建。
      * 数据格式：JSON
      *
-     * @param typeEntity 三级分类信息 {@link TypeEntity}
-     * @param parentId   父级分类（二级分类）ID
+     * @param typeVO   三级分类信息 {@link ClassDTO}
+     * @param parentId 父级分类（二级分类）ID
      * @return 创建结果消息 {@code String}
      */
-    Response<String> createType(TypeEntity typeEntity, Integer parentId);
+    Response<String> createType(ClassDTO typeVO, Integer parentId);
 
     /**
      * 更新三级分类（类型）信息。
      * 数据格式：JSON
      *
-     * @param typeEntity 包含更新内容的三级分类信息 {@link TypeEntity}
+     * @param typeVO 包含更新内容的三级分类信息 {@link ClassDTO}
      * @return 更新结果消息 {@code String}
      */
-    Response<String> updateType(TypeEntity typeEntity);
+    Response<String> updateType(ClassDTO typeVO);
 
     /**
      * 删除三级分类（类型）：根据ID删除指定的三级分类。

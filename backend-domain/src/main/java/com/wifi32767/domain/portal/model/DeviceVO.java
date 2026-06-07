@@ -99,7 +99,7 @@ public class DeviceVO {
     private LocalDateTime deviceChangesqlTime;
 
     /**
-     *
+     * 新闻时间
      */
     private LocalDateTime deviceNewsTime;
 

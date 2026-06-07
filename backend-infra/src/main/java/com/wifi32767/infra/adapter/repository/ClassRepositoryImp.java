@@ -1,6 +1,7 @@
 package com.wifi32767.infra.adapter.repository;
 
 import com.wifi32767.domain.system.adapter.repository.ClassRepository;
+import com.wifi32767.domain.system.model.ClassDTO;
 import com.wifi32767.domain.system.model.ClassEntity;
 import com.wifi32767.domain.system.model.StyleEntity;
 import com.wifi32767.domain.system.model.TypeEntity;
@@ -128,12 +129,12 @@ public class ClassRepositoryImp implements ClassRepository {
     }
 
     @Override
-    public void createClass(TypeEntity classVO) {
+    public void createClass(ClassDTO classVO) {
         LocalDateTime now = LocalDateTime.now();
         redisService.remove(ALL_LIST_KEY);
         classDao.insertClass(DeviceClass.builder().
-                deviceClassName(classVO.getTypeName()).
-                deviceClassDescribe(classVO.getTypeDescribe()).
+                deviceClassName(classVO.getClassName()).
+                deviceClassDescribe(classVO.getClassDescribe()).
                 deviceClassInsqlTime(now).
                 deviceClassChangesqlTime(now)
                 .build());
@@ -141,14 +142,14 @@ public class ClassRepositoryImp implements ClassRepository {
     }
 
     @Override
-    public void updateClass(TypeEntity classVO) {
-        redisService.remove(ALL_LIST_KEY, CLASS_ID_KEY_PREFIX + classVO.getTypeId());
+    public void updateClass(ClassDTO classVO) {
+        redisService.remove(ALL_LIST_KEY, CLASS_ID_KEY_PREFIX + classVO.getClassId());
         classDao.updateClass(DeviceClass.builder().
-                deviceClassId(classVO.getTypeId()).
-                deviceClassName(classVO.getTypeName()).
-                deviceClassDescribe(classVO.getTypeDescribe())
+                deviceClassId(classVO.getClassId()).
+                deviceClassName(classVO.getClassName()).
+                deviceClassDescribe(classVO.getClassDescribe())
                 .build());
-        redisService.delayedRemove(ALL_LIST_KEY, CLASS_ID_KEY_PREFIX + classVO.getTypeId());
+        redisService.delayedRemove(ALL_LIST_KEY, CLASS_ID_KEY_PREFIX + classVO.getClassId());
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -187,12 +188,12 @@ public class ClassRepositoryImp implements ClassRepository {
     }
 
     @Override
-    public void createStyle(TypeEntity styleVO, Integer parentId) {
+    public void createStyle(ClassDTO styleVO, Integer parentId) {
         LocalDateTime now = LocalDateTime.now();
         redisService.remove(ALL_LIST_KEY);
         classDao.insertStyle(DeviceStyle.builder().
-                deviceStyleName(styleVO.getTypeName()).
-                deviceStyleDescribe(styleVO.getTypeDescribe()).
+                deviceStyleName(styleVO.getClassName()).
+                deviceStyleDescribe(styleVO.getClassDescribe()).
                 deviceStyleClassId(parentId).
                 deviceStyleInsqlTime(now).
                 deviceStyleChangesqlTime(now)
@@ -201,14 +202,14 @@ public class ClassRepositoryImp implements ClassRepository {
     }
 
     @Override
-    public void updateStyle(TypeEntity styleVO) {
-        redisService.remove(ALL_LIST_KEY, STYLE_ID_KEY_PREFIX + styleVO.getTypeId());
+    public void updateStyle(ClassDTO styleVO) {
+        redisService.remove(ALL_LIST_KEY, STYLE_ID_KEY_PREFIX + styleVO.getClassId());
         classDao.updateStyle(DeviceStyle.builder().
-                deviceStyleId(styleVO.getTypeId()).
-                deviceStyleName(styleVO.getTypeName()).
-                deviceStyleDescribe(styleVO.getTypeDescribe())
+                deviceStyleId(styleVO.getClassId()).
+                deviceStyleName(styleVO.getClassName()).
+                deviceStyleDescribe(styleVO.getClassDescribe())
                 .build());
-        redisService.delayedRemove(ALL_LIST_KEY, STYLE_ID_KEY_PREFIX + styleVO.getTypeId());
+        redisService.delayedRemove(ALL_LIST_KEY, STYLE_ID_KEY_PREFIX + styleVO.getClassId());
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -234,12 +235,12 @@ public class ClassRepositoryImp implements ClassRepository {
     }
 
     @Override
-    public void createType(TypeEntity typeEntity, Integer parentId) {
+    public void createType(ClassDTO typeVO, Integer parentId) {
         LocalDateTime now = LocalDateTime.now();
         redisService.remove(ALL_LIST_KEY);
         classDao.insertType(DeviceType.builder().
-                deviceTypeName(typeEntity.getTypeName()).
-                deviceTypeDescribe(typeEntity.getTypeDescribe()).
+                deviceTypeName(typeVO.getClassName()).
+                deviceTypeDescribe(typeVO.getClassDescribe()).
                 deviceTypeStyleId(parentId).
                 deviceTypeInsqlTime(now).
                 deviceTypeChangesqlTime(now)
@@ -248,15 +249,16 @@ public class ClassRepositoryImp implements ClassRepository {
     }
 
     @Override
-    public void updateType(TypeEntity typeEntity) {
-        redisService.remove(ALL_LIST_KEY, TYPE_ID_KEY_PREFIX + typeEntity.getTypeId());
+    public void updateType(ClassDTO typeVO) {
+        redisService.remove(ALL_LIST_KEY, TYPE_ID_KEY_PREFIX + typeVO.getClassId());
         classDao.updateType(DeviceType.builder().
-                deviceTypeId(typeEntity.getTypeId()).
-                deviceTypeName(typeEntity.getTypeName()).
-                deviceTypeDescribe(typeEntity.getTypeDescribe())
+                deviceTypeId(typeVO.getClassId()).
+                deviceTypeName(typeVO.getClassName()).
+                deviceTypeDescribe(typeVO.getClassDescribe())
                 .build());
-        redisService.delayedRemove(ALL_LIST_KEY, TYPE_ID_KEY_PREFIX + typeEntity.getTypeId());
+        redisService.delayedRemove(ALL_LIST_KEY, TYPE_ID_KEY_PREFIX + typeVO.getClassId());
     }
+
 
     @Override
     public void deleteType(Integer typeId) {

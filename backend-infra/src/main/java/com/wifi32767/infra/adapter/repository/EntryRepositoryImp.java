@@ -35,14 +35,15 @@ public class EntryRepositoryImp implements EntryRepository {
     @Override
     public EntryLogVO batch(List<DeviceVO> devices) {
         StringBuilder log = new StringBuilder();
-        int count = 0;
+        int count = 0, num = 0;
         for (DeviceVO deviceVO : devices) {
             deviceVO.setDeviceInsqlTime(LocalDateTime.now());
             deviceVO.setDeviceChangesqlTime(LocalDateTime.now());
+            num++;
             try {
                 deviceDao.insert(deviceConverter.DeviceVO2Device(deviceVO));
             } catch (Exception e) {
-                log.append(String.format("device: %s, error: %s\n", deviceVO.toString(), e.getMessage()));
+                log.append(String.format("device %d failed insert, device: %s, error: %s\n", num, deviceVO.toString(), e.getMessage()));
             } finally {
                 count++;
             }

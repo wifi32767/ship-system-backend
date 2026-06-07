@@ -20,17 +20,26 @@ public class CountryServiceImp implements CountryService {
 
     @Override
     public void insertCountry(CountryEntity country) {
+        if (country == null || country.getCountryName() == null) {
+            return;
+        }
         countryRepository.insertCountry(country);
     }
 
 
     @Override
     public void deleteCountry(Integer id) {
+        if (id == null) {
+            return;
+        }
         countryRepository.deleteCountry(id);
     }
 
     @Override
     public void deleteCountries(List<Integer> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return;
+        }
         for (Integer id : ids) {
             countryRepository.deleteCountry(id);
         }
@@ -39,6 +48,9 @@ public class CountryServiceImp implements CountryService {
 
     @Override
     public void updateCountry(CountryEntity country) {
+        if (country == null || country.getCountryId() == null) {
+            return;
+        }
         countryRepository.updateCountry(country);
     }
 }

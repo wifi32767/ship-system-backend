@@ -25,6 +25,9 @@ public class DeviceServiceImp implements DeviceService {
 
     @Override
     public int auditDeviceCount(int auditFlag) {
+        if (auditFlag < 0 || auditFlag > 2) {
+            return 0;
+        }
         return portalRepository.queryDeviceCountByAuditFlag(auditFlag);
     }
 
@@ -35,16 +38,25 @@ public class DeviceServiceImp implements DeviceService {
 
     @Override
     public PageData<DeviceVO> getDeviceList(int pageNum, int pageSize) {
+        if (pageNum <= 0 || pageSize <= 0) {
+            return null;
+        }
         return deviceRepository.getDeviceList(pageNum, pageSize);
     }
 
     @Override
     public void modifyDevice(DeviceVO deviceVO) {
+        if (deviceVO == null || deviceVO.getId() == null) {
+            return;
+        }
         deviceRepository.modifyDevice(deviceVO);
     }
 
     @Override
     public void deleteDevice(Integer deviceId) {
+        if (deviceId == null) {
+            return;
+        }
         deviceRepository.deleteDevice(deviceId);
     }
 }

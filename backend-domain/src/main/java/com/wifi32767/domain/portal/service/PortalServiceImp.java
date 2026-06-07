@@ -33,16 +33,25 @@ public class PortalServiceImp implements PortalService {
 
     @Override
     public List<NewsVO> getLatestNews(int count) {
+        if (count <= 0) {
+            return List.of();
+        }
         return repository.queryLatestNews(count);
     }
 
     @Override
     public List<DeviceVO> getLatestDevices(int count) {
+        if (count <= 0) {
+            return List.of();
+        }
         return repository.queryLatestDevices(count);
     }
 
     @Override
     public List<DeviceVO> getRandomDevices(int count) {
+        if (count <= 0) {
+            return List.of();
+        }
         return repository.queryRandomDevices(count);
     }
 }

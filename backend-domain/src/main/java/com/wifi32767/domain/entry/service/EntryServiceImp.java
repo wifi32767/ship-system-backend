@@ -31,6 +31,10 @@ public class EntryServiceImp implements EntryService {
 
     @Override
     public void single(DeviceVO device) {
+        if (device == null) {
+            return;
+        }
+        device.setAuditFlag(0);
         try {
             entryRepository.single(device);
         } catch (Exception e) {
@@ -56,10 +60,12 @@ public class EntryServiceImp implements EntryService {
     // TODO: 这个接口可以设计返回插入情况报告，哪些数据匹配失败
     @Override
     public void batch(List<DeviceJsonVO> deviceList) {
+        if (deviceList == null || deviceList.isEmpty()) {
+            return;
+        }
         List<DeviceVO> deviceVOList = deviceList.stream().map(
                 deviceJsonVO -> {
                     DeviceVO deviceVO = DeviceVO.builder()
-                            .id(deviceJsonVO.getId())
                             .deviceName(deviceJsonVO.getDeviceName())
                             .deviceUseYear(deviceJsonVO.getDeviceUseYear())
                             .devicePrice(deviceJsonVO.getDevicePrice())

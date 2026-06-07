@@ -28,16 +28,25 @@ public class SearchServiceImp implements SearchService {
 
     @Override
     public PageData<DeviceVO> searchDevice(SearchParamsVO params) {
+        if (params == null) {
+            return null;
+        }
         return searchRepository.searchDevices(params);
     }
 
     @Override
     public PageData<NewsVO> searchNews(SearchParamsVO params) {
+        if (params == null) {
+            return null;
+        }
         return searchRepository.searchNews(params);
     }
 
     @Override
     public Map<String, Integer> getClassStats(SearchParamsVO params) {
+        if (params == null) {
+            return null;
+        }
         PageData<DeviceVO> devices = searchDevice(params);
         Map<String, Integer> stats = new HashMap<>();
         for (DeviceVO device : devices.getRecords()) {
@@ -56,6 +65,9 @@ public class SearchServiceImp implements SearchService {
 
     @Override
     public Map<String, Integer> getCountryStats(SearchParamsVO params) {
+        if (params == null) {
+            return null;
+        }
         PageData<DeviceVO> devices = searchDevice(params);
         Map<String, Integer> stats = new HashMap<>();
         for (DeviceVO device : devices.getRecords()) {
@@ -74,6 +86,9 @@ public class SearchServiceImp implements SearchService {
 
     @Override
     public Map<Integer, Integer> getYearStats(SearchParamsVO params) {
+        if (params == null) {
+            return null;
+        }
         PageData<DeviceVO> devices = searchDevice(params);
         Map<Integer, Integer> stats = new HashMap<>();
         for (DeviceVO device : devices.getRecords()) {
@@ -88,6 +103,9 @@ public class SearchServiceImp implements SearchService {
 
     @Override
     public Map<String, Integer> getCompanyRelationStats(SearchParamsVO params) {
+        if (params == null) {
+            return null;
+        }
         PageData<DeviceVO> devices = searchDevice(params);
         Map<String, Integer> stats = new HashMap<>();
         for (DeviceVO device : devices.getRecords()) {
