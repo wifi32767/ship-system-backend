@@ -217,6 +217,9 @@
             <if test="params.keyword != null">
                 AND device_name LIKE CONCAT('%', #{params.keyword}, '%')
             </if>
+            <if test="params.introduce != null">
+                AND device_introduce LIKE CONCAT('%', #{params.introduce}, '%')
+            </if>
             <if test="params.classId != null">
                 AND device_class_id = #{params.classId}
             </if>

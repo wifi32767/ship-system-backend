@@ -12,7 +12,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SearchParams {
-    String keyword; // 检索关键词
+    String keyword; // 检索标题
+    String introduce; // 检索介绍
     Integer classId;      // 一级分类ID
     Integer styleId;      // 二级分类ID
     Integer typeId;       // 三级分类ID

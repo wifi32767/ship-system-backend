@@ -30,6 +30,7 @@ public class SearchRepositoryImp implements SearchRepository {
     public PageData<DeviceVO> searchDevices(SearchParamsVO params) {
         SearchParams param1 = SearchParams.builder()
                 .keyword(params.getKeyword())
+                .introduce(params.getIntroduce())
                 .typeId(params.getTypeId())
                 .styleId(params.getStyleId())
                 .classId(params.getClassId())
@@ -50,6 +51,7 @@ public class SearchRepositoryImp implements SearchRepository {
     public PageData<NewsVO> searchNews(SearchParamsVO params) {
         SearchParams param1 = SearchParams.builder()
                 .keyword(params.getKeyword())
+                .introduce(params.getIntroduce())
                 .typeId(params.getTypeId())
                 .styleId(params.getStyleId())
                 .classId(params.getClassId())
