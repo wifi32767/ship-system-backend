@@ -47,6 +47,8 @@ public class SearchServiceImp implements SearchService {
         if (params == null) {
             return null;
         }
+        params.setPageNum(1);
+        params.setPageSize(Integer.MAX_VALUE);
         PageData<DeviceVO> devices = searchDevice(params);
         Map<String, Integer> stats = new HashMap<>();
         for (DeviceVO device : devices.getRecords()) {
@@ -68,6 +70,8 @@ public class SearchServiceImp implements SearchService {
         if (params == null) {
             return null;
         }
+        params.setPageNum(1);
+        params.setPageSize(Integer.MAX_VALUE);
         PageData<DeviceVO> devices = searchDevice(params);
         Map<String, Integer> stats = new HashMap<>();
         for (DeviceVO device : devices.getRecords()) {
@@ -89,6 +93,8 @@ public class SearchServiceImp implements SearchService {
         if (params == null) {
             return null;
         }
+        params.setPageNum(1);
+        params.setPageSize(Integer.MAX_VALUE);
         PageData<DeviceVO> devices = searchDevice(params);
         Map<Integer, Integer> stats = new HashMap<>();
         for (DeviceVO device : devices.getRecords()) {
@@ -106,6 +112,8 @@ public class SearchServiceImp implements SearchService {
         if (params == null) {
             return null;
         }
+        params.setPageNum(1);
+        params.setPageSize(Integer.MAX_VALUE);
         PageData<DeviceVO> devices = searchDevice(params);
         Map<String, Integer> stats = new HashMap<>();
         for (DeviceVO device : devices.getRecords()) {
