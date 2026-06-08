@@ -218,16 +218,16 @@
                 AND device_name LIKE CONCAT('%', #{params.keyword}, '%')
             </if>
             <if test="params.classId != null">
-                AND class_id = #{params.classId}
+                AND device_class_id = #{params.classId}
             </if>
             <if test="params.styleId != null">
-                AND style_id = #{params.styleId}
+                AND device_style_id = #{params.styleId}
             </if>
             <if test="params.typeId != null">
-                AND type_id = #{params.typeId}
+                AND device_type_id = #{params.typeId}
             </if>
             <if test="params.countryId != null">
-                AND country_id = #{params.countryId}
+                AND device_country_id = #{params.countryId}
             </if>
             <if test="params.startDate != null">
                 AND device_news_time <![CDATA[ >= ]]> #{params.startDate}

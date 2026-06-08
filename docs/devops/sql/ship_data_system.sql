@@ -50,14 +50,14 @@ CREATE TABLE user
     avatar_address VARCHAR(100) DEFAULT NULL COMMENT '头像地址',
     password       VARCHAR(100) DEFAULT NULL COMMENT '密码',
     remark         VARCHAR(500) NOT NULL COMMENT '备注',
-    phonenumber    VARCHAR(11)  NOT NULL COMMENT '手机号码',
+    phone_number   VARCHAR(11)  NOT NULL COMMENT '手机号码',
     UNIQUE KEY uk_user_name (user_name),
     FOREIGN KEY (user_role) REFERENCES user_role (role_id) ON DELETE RESTRICT ON UPDATE CASCADE,
-    INDEX idx_phonenumber (phonenumber)
+    INDEX idx_phonenumber (phone_number)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='用户表';
 
-INSERT INTO user (user_role, user_name, nick_name, password, remark, phonenumber)
+INSERT INTO user (user_role, user_name, nick_name, password, remark, phone_number)
 VALUES (1, 'root', '超级管理员', '$2a$10$ZP/82AU5iXA89W7MeQ/Vwu2WqujGJ0qnbTXn4xRsay1ahCs39Stha', '超级管理员',
         '12345678901');
 

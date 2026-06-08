@@ -5,7 +5,7 @@
     <insert id="insertUser" parameterType="com.wifi32767.infra.dao.po.User">
         <![CDATA[
         INSERT INTO user (user_role, user_name, nick_name, email, sex, avatar_address, password, remark,
-                          phonenumber)
+                          phone_number)
         VALUES (#{userRole}, #{userName}, #{nickName}, #{email}, #{sex}, #{avatarAddress}, #{password},
                 #{remark}, #{phoneNumber})
         ]]>
@@ -62,7 +62,7 @@
                 remark = #{remark},
             </if>
             <if test="phoneNumber != null">
-                phonenumber = #{phoneNumber}
+                phone_number = #{phoneNumber}
             </if>
         </set>
         WHERE user_id = #{userId}

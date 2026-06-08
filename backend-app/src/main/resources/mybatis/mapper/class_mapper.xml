@@ -6,7 +6,7 @@
         <![CDATA[
         SELECT device_class_name
         FROM device_class
-        WHERE (deleted = NULL OR deleted = 0)
+        WHERE (deleted IS NULL OR deleted = 0)
           AND device_class_id = #{deviceClassId}
         ]]>
     </select>
@@ -15,7 +15,7 @@
         <![CDATA[
         SELECT device_style_name
         FROM device_style
-        WHERE (deleted = NULL OR deleted = 0)
+        WHERE (deleted IS NULL OR deleted = 0)
           AND device_style_id = #{deviceStyleId}
         ]]>
     </select>
@@ -24,7 +24,7 @@
         <![CDATA[
         SELECT device_type_name
         FROM device_type
-        WHERE (deleted = NULL OR deleted = 0)
+        WHERE (deleted IS NULL OR deleted = 0)
           AND device_type_id = #{deviceTypeId}
         ]]>
     </select>
@@ -33,7 +33,7 @@
         <![CDATA[
         SELECT *
         FROM device_class
-        WHERE (deleted = NULL OR deleted = 0)
+        WHERE (deleted IS NULL OR deleted = 0)
         ]]>
     </select>
 
@@ -42,7 +42,7 @@
         <![CDATA[
         SELECT *
         FROM device_style
-        WHERE (deleted = NULL OR deleted = 0)
+        WHERE (deleted IS NULL OR deleted = 0)
           AND device_style_class_id = #{deviceStyleClassId}
         ]]>
     </select>
@@ -52,7 +52,7 @@
         <![CDATA[
         SELECT *
         FROM device_type
-        WHERE (deleted = NULL OR deleted = 0)
+        WHERE (deleted IS NULL OR deleted = 0)
           AND device_type_style_id = #{deviceTypeStyleId}
         ]]>
     </select>
@@ -149,7 +149,7 @@
         <![CDATA[
         SELECT device_style_id
         FROM device_style
-        WHERE (deleted = NULL OR deleted = 0)
+        WHERE (deleted IS NULL OR deleted = 0)
           AND device_style_class_id = #{deviceStyleClassId}
         ]]>
     </select>
@@ -158,7 +158,7 @@
         <![CDATA[
         SELECT device_type_id
         FROM device_type
-        WHERE (deleted = NULL OR deleted = 0)
+        WHERE (deleted IS NULL OR deleted = 0)
           AND device_type_style_id = #{deviceTypeStyleId}
         ]]>
     </select>
@@ -167,7 +167,7 @@
         <![CDATA[
         DELETE
         FROM device_style
-        WHERE (deleted = NULL OR deleted = 0)
+        WHERE (deleted IS NULL OR deleted = 0)
           AND device_style_class_id = #{deviceStyleClassId}
         ]]>
     </delete>
@@ -176,7 +176,7 @@
         <![CDATA[
         DELETE
         FROM device_type
-        WHERE (deleted = NULL OR deleted = 0)
+        WHERE (deleted IS NULL OR deleted = 0)
           AND device_type_style_id = #{deviceTypeStyleId}
         ]]>
     </delete>
@@ -185,7 +185,7 @@
         <![CDATA[
         SELECT device_class_id
         FROM device_class
-        WHERE (deleted = NULL OR deleted = 0)
+        WHERE (deleted IS NULL OR deleted = 0)
           AND device_class_name = #{className}
         ]]>
     </select>
@@ -194,7 +194,7 @@
         <![CDATA[
         SELECT device_style_id
         FROM device_style
-        WHERE (deleted = NULL OR deleted = 0)
+        WHERE (deleted IS NULL OR deleted = 0)
           AND device_style_class_id = #{parentId}
           AND device_style_name = #{styleName}
         ]]>
@@ -204,7 +204,7 @@
         <![CDATA[
         SELECT device_type_id
         FROM device_type
-        WHERE (deleted = NULL OR deleted = 0)
+        WHERE (deleted IS NULL OR deleted = 0)
           AND device_type_style_id = #{parentId}
           AND device_type_name = #{typeName}
         ]]>
